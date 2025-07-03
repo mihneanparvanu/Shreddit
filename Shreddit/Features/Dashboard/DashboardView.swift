@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct DashboardView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
+	let healthManager = HealthManager()
+	@State private var steps = 0
+	@State private var activeEnergy = 0
+	
+	var body: some View {
+		VStack {
+			Image(systemName: "shoe")
+				.imageScale(.large)
+				.foregroundStyle(.tint)
+			Text("Steps today")
+			Text("\(steps)")
+				.font(.title)
+		}
+		.padding()
+	}
 }
 
 #Preview {
-    DashboardView()
+	DashboardView()
 }
