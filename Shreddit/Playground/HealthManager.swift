@@ -57,6 +57,7 @@ struct HealthManager {
 					let intSum = Int(sum.doubleValue(for: unit))
 					continuation.resume(returning: intSum)
 				}
+			healthStore.execute(query)
 		}
 	}
 	
