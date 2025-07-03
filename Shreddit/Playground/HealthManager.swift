@@ -59,6 +59,36 @@ struct HealthManager {
 				}
 		}
 	}
+	
+	func fetchSteps (startDate: Date) async throws -> Int {
+		let stepCountType = HKQuantityType(.stepCount)
+		
+		
+		return try await fetchCumulativeSum(
+			for: stepCountType,
+			unit: .count(),
+			startDate: startDate
+		)
+	}
+	
+	func fetchEnergyBurned (startDate: Date) async throws -> (basal: Int, active: Int) {
+		let basalEnergyType = HKQuantityType(.basalEnergyBurned)
+		let activeEnergyType = HKQuantityType(.activeEnergyBurned)
+		
+		async let basal = fetchCumulativeSum(
+			for: basalEnergyType,
+			unit: .kilocalorie(),
+			startDate: startDate
+		)
+		async let active = fetchCumulativeSum(
+			for: activeEnergyType,
+			unit: .kilocalorie(),
+			startDate: startDate
+		)
+		
+		return try await (basal, active)
+	}
+	
 }
 
 
