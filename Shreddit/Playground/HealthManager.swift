@@ -32,7 +32,6 @@ struct HealthManager {
 		}
 	}
 	
-	
 	func fetchCumulativeSum(for type: HKQuantityType, unit: HKUnit, startDate: Date) async throws -> Int {
 		let endDate = Date()
 		
@@ -89,7 +88,6 @@ struct HealthManager {
 		
 		return try await (basal, active)
 	}
-	
 }
 
 

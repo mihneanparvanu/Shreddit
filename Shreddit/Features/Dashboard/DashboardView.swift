@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-	let healthManager = HealthManager()
-	@State private var steps = 0
-	@State private var activeEnergy = 0
+	@State private var vm = DashboardViewViewModel()
 	
 	var body: some View {
 		VStack {
@@ -18,15 +16,18 @@ struct DashboardView: View {
 				.imageScale(.large)
 				.foregroundStyle(.tint)
 			Text("Steps today")
-			Text("\(steps)")
+			Text("\(vm.steps)")
+				.font(.title)
+		}
+		VStack {
+			Image(systemName: "fire")
+				.imageScale(.large)
+				.foregroundStyle(.tint)
+			Text("Active energy today")
+			Text("\(vm.totalEnergyBurnded) kcalories")
 				.font(.title)
 		}
 		.padding()
-		.onAppear {
-			Task {
-				steps = try await healthManager.fetchSteps(startDate: Date().startOfDay)
-			}
-		}
 	}
 }
 
