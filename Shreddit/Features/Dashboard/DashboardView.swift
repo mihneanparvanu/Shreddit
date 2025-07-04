@@ -22,6 +22,17 @@ struct DashboardView: View {
 				.font(.title)
 		}
 		.padding()
+		.onAppear {
+			Task {
+				steps = try await healthManager.fetchSteps(startDate: Date().startOfDay)
+			}
+		}
+	}
+}
+
+extension Date {
+	var startOfDay: Date {
+		Calendar.current.startOfDay(for: self)
 	}
 }
 
