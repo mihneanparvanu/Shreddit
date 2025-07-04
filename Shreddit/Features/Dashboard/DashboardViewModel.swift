@@ -10,12 +10,16 @@ import SwiftUI
 
 @MainActor
 @Observable
-final class DashboardViewViewModel {
-	let healthManager = HealthManager()
+final class DashboardViewModel {
+	let healthManager: HealthManager
 	let startDate = Date().startOfDay
 	
+	init (healthManager: HealthManager){
+		self.healthManager = healthManager
+	}
+	
 	var steps = 0
-	var totalEnergyBurnded = 0
+	var totalEnergyBurned = 0
 	
 	
 	func fetchSteps () async throws {
@@ -24,6 +28,6 @@ final class DashboardViewViewModel {
 	
 	func fetchTotalEnergyBurned() async throws {
 		let (basal, active) = try await healthManager.fetchEnergyBurned(startDate: startDate)
-		totalEnergyBurnded = basal + active
+		totalEnergyBurned = basal + active
 	}
 }

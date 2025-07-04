@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@State private var vm = DashboardViewViewModel()
+	@State private var vm = DashboardViewModel(healthManager: HealthManager())
 	
 	var body: some View {
 		VStack {
@@ -20,11 +20,11 @@ struct DashboardView: View {
 				.font(.title)
 		}
 		VStack {
-			Image(systemName: "fire")
+			Image(systemName: "flame")
 				.imageScale(.large)
 				.foregroundStyle(.tint)
 			Text("Active energy today")
-			Text("\(vm.totalEnergyBurnded) kcalories")
+			Text("\(vm.totalEnergyBurned) kcalories")
 				.font(.title)
 		}
 		.padding()
