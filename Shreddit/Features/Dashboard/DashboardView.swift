@@ -28,6 +28,10 @@ struct DashboardView: View {
 				.font(.title)
 		}
 		.padding()
+		.task {
+			await vm.requestAuthorization()
+			await vm.fetchData()
+		}
 	}
 }
 

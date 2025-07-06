@@ -11,7 +11,13 @@ struct HealthManager {
 	
 	let healthStore = HKHealthStore()
 	
+	//1. Check for HealthKit availability on device
 	func requestAuthorization() async throws {
+		guard HKHealthStore.isHealthDataAvailable() else {
+			return
+		}
+		
+		//2. Define types
 		let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)!
 		let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
 		let basalEnergy = HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!
@@ -21,15 +27,7 @@ struct HealthManager {
 			activeEnergy,
 			basalEnergy
 		]
-		
-		do {
-			if HKHealthStore.isHealthDataAvailable() {
-				try await healthStore.requestAuthorization(toShare: allTypes, read: allTypes)
-			}
-		}
-		catch {
-			fatalError(error.localizedDescription)
-		}
+		try await healthStore.requestAuthorization(toShare: allTypes, read: allTypes)
 	}
 	
 	func fetchCumulativeSum(for type: HKQuantityType, unit: HKUnit, startDate: Date) async throws -> Int {
