@@ -14,19 +14,20 @@ struct HealthManager {
 	//1. Check for HealthKit availability on device
 	func requestAuthorization() async throws {
 		guard HKHealthStore.isHealthDataAvailable() else {
-			return
+			throw HealthKitError.notAvailableOnDevice
 		}
 		
 		//2. Define types
-		let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-		let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
-		let basalEnergy = HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!
-		
+		let stepCount = HKQuantityType(.stepCount)
+		let basalEnergy = HKQuantityType(.basalEnergyBurned)
+		let activeEnergy = HKQuantityType(.activeEnergyBurned)
+
 		let allTypes: Set<HKSampleType> = [
 			stepCount,
-			activeEnergy,
-			basalEnergy
+			basalEnergy,
+			activeEnergy
 		]
+		//3. Request authorization
 		try await healthStore.requestAuthorization(toShare: allTypes, read: allTypes)
 	}
 	
@@ -46,12 +47,13 @@ struct HealthManager {
 						return
 					}
 					
-					guard let results = results, let sum = results.sumQuantity() else {
-						continuation.resume(returning: 0)
+					guard let results = results else {
+						continuation.resume(throwing: HealthKitError.dataUnavailable)
 						return
 					}
 					
-					let intSum = Int(sum.doubleValue(for: unit))
+					let sum = results.sumQuantity()
+					let intSum = Int(sum?.doubleValue(for: unit) ?? 0)
 					continuation.resume(returning: intSum)
 				}
 			healthStore.execute(query)
