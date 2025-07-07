@@ -18,14 +18,20 @@ struct HealthManager {
 		}
 		
 		//2. Define types
+		
+		//Activity
 		let stepCount = HKQuantityType(.stepCount)
-		let basalEnergy = HKQuantityType(.basalEnergyBurned)
 		let activeEnergy = HKQuantityType(.activeEnergyBurned)
-
+		
+		//Body stats
+		let basalEnergy = HKQuantityType(.basalEnergyBurned)
+		let currentWeight = HKQuantityType(.bodyMass)
+		
 		let allTypes: Set<HKSampleType> = [
 			stepCount,
 			basalEnergy,
-			activeEnergy
+			activeEnergy,
+			currentWeight
 		]
 		//3. Request authorization
 		try await healthStore.requestAuthorization(toShare: allTypes, read: allTypes)
@@ -42,7 +48,7 @@ struct HealthManager {
 				quantitySamplePredicate: predicate,
 				options: .cumulativeSum) {_, results, error in
 					
-					if let error = error {
+					if let error = error  {
 						continuation.resume(throwing: error)
 						return
 					}

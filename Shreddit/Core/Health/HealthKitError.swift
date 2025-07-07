@@ -7,13 +7,11 @@
 
 
 enum HealthKitError: Error {
-	case notAvailableOnDevice, authorizationDenied, dataUnavailable
+	case notAvailableOnDevice, dataUnavailable
 	var localizedDescription: String {
 		switch self {
 				case .notAvailableOnDevice:
 				return "HealthKit is not available on this device."
-			case .authorizationDenied:
-				return "HealthKit authorization is denied."
 			case .dataUnavailable:
 				return "HealthKit data is unavailable."
 		}

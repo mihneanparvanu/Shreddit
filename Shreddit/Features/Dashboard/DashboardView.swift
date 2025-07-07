@@ -8,9 +8,20 @@
 import SwiftUI
 
 struct DashboardView: View {
+	@AppStorage("hasOnboarded") var hasOnboarded: Bool = false
+	
 	@State private var vm = DashboardViewModel(healthManager: HealthManager())
 	
 	var body: some View {
+		if !hasOnboarded {
+			OnboardingView()
+		} else {
+			activitySummary
+		}
+	}
+	
+	
+	@ViewBuilder var activitySummary: some View {
 		VStack {
 			Image(systemName: "shoe")
 				.imageScale(.large)
@@ -40,6 +51,7 @@ struct DashboardView: View {
 		}
 	}
 }
+
 
 
 #Preview {

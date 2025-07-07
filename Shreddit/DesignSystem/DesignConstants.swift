@@ -10,6 +10,13 @@ import SwiftUI
 
 enum Constants {
 	
+	enum Sizing {
+		static let xSmall: CGFloat = 8
+		static let small: CGFloat = 16
+		static let medium: CGFloat = 32
+		static let large: CGFloat = 64
+	}
+	
 	enum Spacing {
 		static let base: CGFloat = 4
 	}
@@ -19,6 +26,7 @@ enum Constants {
 		static let secondary: Color = .gray
 		static let tertiary: Color = .gray
 	}
+	
 }
 
 

@@ -5,6 +5,7 @@
 //  Created by Mihnea Nicolae Pârvanu on 04.07.2025.
 //
 
+import HealthKit
 import Observation
 import SwiftUI
 
@@ -31,9 +32,27 @@ final class DashboardViewModel {
 			try await healthManager.requestAuthorization()
 			
 			//2. Fetch the data
-			async let fetchSteps: () = fetchSteps()
-			async let fetchEnergyBurned: () = fetchTotalEnergyBurned()
-			_ = try await (fetchSteps, fetchEnergyBurned)
+			 try await withThrowingTaskGroup{ group in
+				group.addTask {
+					try await self.fetchSteps()
+				}
+				group.addTask {
+					try await self.fetchTotalEnergyBurned()
+				}
+				 for try await _ in group {}
+			}
+		}
+		
+		catch let error as HKError  {
+			switch error.code {
+				case .errorRequiredAuthorizationDenied, .errorAuthorizationDenied, .errorNoData:
+					alert = AlertItem(title: "Error", message: "Authorization denied to access data.")
+				default:
+					alert = AlertItem(
+						title: "Error",
+						message: error.localizedDescription
+					)
+			}
 		}
 		
 		catch let error as HealthKitError {
@@ -41,10 +60,6 @@ final class DashboardViewModel {
 				case .notAvailableOnDevice:
 					alert = AlertItem(title: "Error",
 									  message: "HealthKit is not available on this device."
-					)
-				case .authorizationDenied:
-					alert = AlertItem(title: "Error",
-									  message: "HealthKit authorization is denied."
 					)
 				case .dataUnavailable:
 					alert = AlertItem(title: "Error",
@@ -78,3 +93,4 @@ struct AlertItem: Identifiable {
 	let message: String
 	let dismiss: Alert.Button = .default(Text("OK"))
 }
+
