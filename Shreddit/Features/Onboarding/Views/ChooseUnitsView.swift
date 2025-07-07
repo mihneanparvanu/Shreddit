@@ -13,17 +13,10 @@ struct ChooseUnitsView: View {
 			Text("Choose your units")
 				.font(.title)
 			
-			Section ("Weight"){
-				Picker("Weight", selection: $units.weightUnit){
-					ForEach ("kg lbs".split(separator: " "), id: \.self){unit in
-						Text(unit)
-					}
+			
 				}
 			}
 		}
-    }
-}
-
 #Preview {
     ChooseUnitsView()
 }
