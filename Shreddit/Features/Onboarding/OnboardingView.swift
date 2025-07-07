@@ -8,28 +8,17 @@
 import SwiftUI
 
 struct OnboardingView: View {
+	@State var vm: OnboardingViewModel = .init()
 	@State var goalWeight: Double = 0
-	@State var currentStep: OnboardingStep = .welcome
-    var body: some View {
+	var body: some View {
 		Spacer()
 		
 		stepView(currentStep)
 		
-		stepIndicator
-		
-		HStack{
-			ForEach (OnboardingStep.allCases) { step in
-				Button {
-					currentStep = step
-				} label:
-				{
-					Circle()
-						.fill(	step == currentStep ? Color.accentColor : Color.gray)
-						.frame(size: Constants.Sizing.xSmall)
-				}
-			}
-		}
-    }
+		BottomView(currentStep: currentStep,
+				   backButtonAction: vm.previousStep,
+				   nextButtonAction: vm.nextStep)
+	}
 	
 	@ViewBuilder func stepView(_ currentStep: OnboardingStep) -> some View {
 		switch currentStep {
@@ -43,15 +32,14 @@ struct OnboardingView: View {
 				EditGoalView(goalWeight: $goalWeight)
 		}
 	}
-	
-	@ViewBuilder var stepIndicator: some View {
-		Button {
-		} label : {
-			Text ("Continue")
-		}
+}
+
+extension OnboardingView {
+	var currentStep: OnboardingStep {
+		vm.step
 	}
 }
 
 #Preview {
-    OnboardingView()
+	OnboardingView()
 }
