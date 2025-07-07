@@ -9,7 +9,7 @@ import Observation
 import SwiftUI
 
 @MainActor
-@Observable 	
+@Observable
 final class DashboardViewModel {
 	let healthManager: HealthManager
 	let startDate = Date().startOfDay
@@ -18,11 +18,12 @@ final class DashboardViewModel {
 		self.healthManager = healthManager
 	}
 	
+	//Data to fetch 
 	var steps = 0
 	var totalEnergyBurned = 0
 	
+	//Error alert
 	var alert: AlertItem?
-	
 	
 	func setupAndFetch () async {
 		do {
@@ -34,44 +35,40 @@ final class DashboardViewModel {
 			async let fetchEnergyBurned: () = fetchTotalEnergyBurned()
 			_ = try await (fetchSteps, fetchEnergyBurned)
 		}
-
+		
 		catch let error as HealthKitError {
 			switch error {
 				case .notAvailableOnDevice:
-					alert = .init(title: "Error", message: "HealthKit is not available on this device.")
+					alert = AlertItem(title: "Error",
+									  message: "HealthKit is not available on this device."
+					)
 				case .authorizationDenied:
-					alert = .init(title: "Error", message: "HealthKit authorization is denied.")
+					alert = AlertItem(title: "Error",
+									  message: "HealthKit authorization is denied."
+					)
 				case .dataUnavailable:
-					alert = .init(title: "Error", message: "No data available for the specified date range.")
+					alert = AlertItem(title: "Error",
+									  message: "No data available for the specified date range."
+					)
 			}
 		}
 		catch {
-			alert = .init(title: "Error", message: error.localizedDescription)
+			alert = AlertItem(
+				title: "Error",
+				message: error.localizedDescription
+			)
 		}
 		
 	}
 	
 	private func fetchTotalEnergyBurned() async throws {
-		do {
 			let (basal, active) = try await healthManager.fetchEnergyBurned(startDate: startDate)
 			totalEnergyBurned = basal + active
-		}
-		catch {
-			totalEnergyBurned = 0
-		}
 	}
 	
 	private func fetchSteps () async throws {
-		do {
 			steps = try await healthManager.fetchSteps(startDate: startDate)
-		}
-		catch {
-			steps = 0
-		}
-		
 	}
-	
-	
 }
 
 

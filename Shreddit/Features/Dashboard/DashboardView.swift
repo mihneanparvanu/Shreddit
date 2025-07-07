@@ -29,8 +29,14 @@ struct DashboardView: View {
 		}
 		.padding()
 		.task {
-			await vm.requestAuthorization()
-			await vm.fetchData()
+			await vm.setupAndFetch()
+		}
+		.alert(item: $vm.alert) { error in
+			Alert(
+				title: Text(error.title),
+				message: Text(error.message),
+				dismissButton: error.dismiss
+			)
 		}
 	}
 }
