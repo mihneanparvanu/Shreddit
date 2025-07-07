@@ -13,9 +13,9 @@ struct OnboardingView: View {
     var body: some View {
 		Spacer()
 		
-		step(currentStep)
+		stepView(currentStep)
 		
-		Spacer()
+		stepIndicator
 		
 		HStack{
 			ForEach (OnboardingStep.allCases) { step in
@@ -31,7 +31,7 @@ struct OnboardingView: View {
 		}
     }
 	
-	@ViewBuilder func step(_ currentStep: OnboardingStep) -> some View {
+	@ViewBuilder func stepView(_ currentStep: OnboardingStep) -> some View {
 		switch currentStep {
 			case .welcome:
 				WelcomeView()
@@ -41,6 +41,13 @@ struct OnboardingView: View {
 				EmptyView()
 			case .goalLook:
 				EditGoalView(goalWeight: $goalWeight)
+		}
+	}
+	
+	@ViewBuilder var stepIndicator: some View {
+		Button {
+		} label : {
+			Text ("Continue")
 		}
 	}
 }
