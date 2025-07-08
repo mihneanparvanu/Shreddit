@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+typealias Units = Settings.Units
+typealias MassUnit = Units.MassUnit
+typealias EnergyUnit = Units.EnergyUnit
 
 struct Settings: Codable {
 	var units: Units

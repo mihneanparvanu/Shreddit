@@ -14,13 +14,13 @@ struct ChooseUnitsView: View {
 		Form {
 			Section ("Choose your units") {
 				Picker("Weight", selection: $selectedUnits.massUnit) {
-					ForEach (Units.MassUnit.allCases) {unit in
+					ForEach (MassUnit.allCases) {unit in
 						Text(unit.title)
 					}
 				}
 				
 				Picker("Energy", selection: $selectedUnits.energyUnit) {
-					ForEach(Units.EnergyUnit.allCases){unit in
+					ForEach(EnergyUnit.allCases){unit in
 						Text(unit.title)
 					}
 				}

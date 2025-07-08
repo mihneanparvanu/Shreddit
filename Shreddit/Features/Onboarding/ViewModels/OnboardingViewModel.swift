@@ -7,7 +7,6 @@
 
 import Observation
 import SwiftUI
-typealias Units = Settings.Units
 
 @MainActor
 @Observable
