@@ -21,14 +21,11 @@ final class DefaultSettingsManager: SettingsManager {
 	var settings = Settings(units: Settings.Units(),
 							hasOnboarded: false) {
 		didSet {
-			print ("Settings updated")
 			save()
 		}
 	}
 	
 	init () {
-		print ("Settings initialized")
-		print (settings)
 		getSettings()
 	}
 	
