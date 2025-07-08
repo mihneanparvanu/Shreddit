@@ -25,7 +25,6 @@ struct SettingsView: View {
 		.onChange(of: selectedAppearance){
 			settingsManager.settings.appearance = selectedAppearance
 		}
-		.colorScheme(selectedAppearance.colorScheme ?? scheme)
 	}
 }
 
