@@ -8,17 +8,29 @@
 import SwiftUI
 
 struct ChooseUnitsView: View {
-    var body: some View {
+	@Binding var selectedUnits: Units
+	
+	var body: some View {
 		Form {
-			Text("Choose your units")
-				.font(.title)
-			
-			
+			Section ("Choose your units") {
+				Picker("Weight", selection: $selectedUnits.massUnit) {
+					ForEach (Units.MassUnit.allCases) {unit in
+						Text(unit.title)
+					}
+				}
+				
+				Picker("Energy", selection: $selectedUnits.energyUnit) {
+					ForEach(Units.EnergyUnit.allCases){unit in
+						Text(unit.title)
+					}
 				}
 			}
 		}
+	}
+}
 #Preview {
-    ChooseUnitsView()
+	@Previewable @State var selectedUnits: Units = Units()
+	ChooseUnitsView(selectedUnits: $selectedUnits)
 }
 
 

@@ -8,19 +8,17 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@AppStorage("hasOnboarded") var hasOnboarded: Bool = false
-	
+	@Environment(DefaultSettingsManager.self) var settingsManager
 	@State private var vm = DashboardViewModel(healthManager: HealthManager())
 	
 	var body: some View {
-		if !hasOnboarded {
-			OnboardingView()
+		if !settingsManager.settings.hasOnboarded {
+			OnboardingView(settingsManager: settingsManager)
 		} else {
 			activitySummary
 		}
 	}
-	
-	
+
 	@ViewBuilder var activitySummary: some View {
 		VStack {
 			Image(systemName: "shoe")

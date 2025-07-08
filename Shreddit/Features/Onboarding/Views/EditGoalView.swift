@@ -11,11 +11,7 @@ struct EditGoalView: View {
 	@Binding var goalWeight: Double
 	var body: some View {
 		VStack {
-			Text("Enter your goal weight")
-			TextField(
-				"Goal weight",
-				value: $goalWeight, format: .number
-			)
+			Text("Choose your goal look")
 		}
 		.padding()
 	}

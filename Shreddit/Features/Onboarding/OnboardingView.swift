@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct OnboardingView: View {
-	@State var vm: OnboardingViewModel = .init()
+	@State var vm: OnboardingViewModel
 	@State var goalWeight: Double = 0
+	
+	init(settingsManager: SettingsManager){
+		self.vm = OnboardingViewModel(settingsManager: settingsManager)
+	}
+	
 	var body: some View {
 		Spacer()
 		
@@ -27,7 +32,7 @@ struct OnboardingView: View {
 			case .intro:
 				IntroView()
 			case .units:
-				EmptyView()
+				ChooseUnitsView(selectedUnits: $vm.units)
 			case .setGoal:
 				EditGoalView(goalWeight: $goalWeight)
 			case .start:
@@ -37,7 +42,6 @@ struct OnboardingView: View {
 }
 
 
-
 #Preview {
-	OnboardingView()
+	OnboardingView(settingsManager: DefaultSettingsManager())
 }

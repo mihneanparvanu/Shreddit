@@ -19,6 +19,7 @@ extension OnboardingView {
 				stepIndicator
 			}
 		}
+		
 		var buttons: some View {
 			HStack (spacing: Constants.Spacing.base * 10){
 				if shouldShowBackButton {
@@ -34,7 +35,6 @@ extension OnboardingView {
 					.buttonStyle(.plain)
 				}
 
-				
 				Button {
 					nextButtonAction()
 				} label : {
