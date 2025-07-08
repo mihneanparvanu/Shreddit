@@ -8,15 +8,10 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@Environment(DefaultSettingsManager.self) var settingsManager
 	@State private var vm = DashboardViewModel(healthManager: HealthManager())
 	
 	var body: some View {
-		if !settingsManager.settings.hasOnboarded {
-			OnboardingView(settingsManager: settingsManager)
-		} else {
-			activitySummary
-		}
+		activitySummary
 	}
 
 	@ViewBuilder var activitySummary: some View {
@@ -54,5 +49,4 @@ struct DashboardView: View {
 
 #Preview {
 	DashboardView()
-		.environment(DefaultSettingsManager())
 }

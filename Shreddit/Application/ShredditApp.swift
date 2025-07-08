@@ -12,7 +12,7 @@ struct ShredditApp: App {
 	@State private var settingsManager = DefaultSettingsManager()
     var body: some Scene {
         WindowGroup {
-            DashboardView()
+			AppEntryView()
 				.environment(settingsManager)
         }
     }

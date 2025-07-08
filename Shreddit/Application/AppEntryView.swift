@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct AppEntryView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+	@Environment(DefaultSettingsManager.self) var settingsManager
+	var body: some View {
+		if settingsManager.settings.hasOnboarded  {
+			DashboardView()
+		} else {
+			OnboardingView(settingsManager: settingsManager)
+		}
+	}
 }
 
 #Preview {
-    AppEntryView()
+	AppEntryView()
+		.environment(DefaultSettingsManager())
 }
