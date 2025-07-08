@@ -11,22 +11,13 @@ import SwiftUI
 @MainActor
 @Observable
 final class OnboardingViewModel {
-	var stepIndex = 0
-	let stepsArray = OnboardingStep.allCases
+	var currentStep: OnboardingStep = .welcome
 	
-	var step: OnboardingStep {
-		stepsArray[stepIndex]
+	func goToNextStep () {
+		currentStep = currentStep.next
 	}
 	
-	func nextStep() {
-		if stepIndex < stepsArray.count - 1  {
-			stepIndex += 1
-		}
-	}
-	
-	func previousStep() {
-		if stepIndex > 0  {
-			stepIndex -= 1
-		}
+	func goToPreviousStep () {
+		currentStep = currentStep.previous
 	}
 }

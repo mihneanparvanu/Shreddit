@@ -13,11 +13,11 @@ struct OnboardingView: View {
 	var body: some View {
 		Spacer()
 		
-		stepView(currentStep)
+		stepView(vm.currentStep)
 		
-		BottomView(currentStep: currentStep,
-				   backButtonAction: vm.previousStep,
-				   nextButtonAction: vm.nextStep)
+		BottomView(currentStep: vm.currentStep,
+				   backButtonAction: {vm.goToPreviousStep()},
+				   nextButtonAction: {vm.goToNextStep()})
 	}
 	
 	@ViewBuilder func stepView(_ currentStep: OnboardingStep) -> some View {
@@ -28,17 +28,15 @@ struct OnboardingView: View {
 				IntroView()
 			case .units:
 				EmptyView()
-			case .goalLook:
+			case .setGoal:
 				EditGoalView(goalWeight: $goalWeight)
+			case .start:
+				EmptyView()
 		}
 	}
 }
 
-extension OnboardingView {
-	var currentStep: OnboardingStep {
-		vm.step
-	}
-}
+
 
 #Preview {
 	OnboardingView()

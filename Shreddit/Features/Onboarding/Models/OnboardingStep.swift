@@ -7,6 +7,37 @@
 
 
 enum OnboardingStep: String, CaseIterable, Identifiable {
+	case welcome, intro, units, setGoal, start
+	
 	var id: String { rawValue }
-	case welcome, intro, units, goalLook
 }
+
+//MARK: Iteration logic
+extension OnboardingStep {
+	var next: OnboardingStep {
+		let allCases = Self.allCases
+		guard let index = allCases.firstIndex(of: self) else {
+			return self
+		}
+		
+		if index < allCases.count - 1 {
+			return allCases[index + 1]
+		}
+		
+		return self
+	}
+	
+	var previous: OnboardingStep {
+		let allCases = Self.allCases
+		guard let index = allCases.firstIndex(of: self) else {
+			return self
+		}
+		
+		if index > 0 {
+			return allCases[index - 1]
+		}
+		
+		return self
+	}
+}
+
