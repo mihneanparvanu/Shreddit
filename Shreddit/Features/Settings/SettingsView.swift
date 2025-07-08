@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-//	@Environment(DefaultSettingsManager.self) var settingsManager
+	@Environment(DefaultSettingsManager.self) var settingsManager
 	@Environment(\.colorScheme) var scheme
 	@State private var selectedAppearance: Appearance = .system
 	var body: some View {
@@ -22,13 +22,14 @@ struct SettingsView: View {
 				}
 			}
 		}
-//		.onChange(of: selectedAppearance){
-//			settingsManager.settings.appearance = selectedAppearance
-//		}
+		.onChange(of: selectedAppearance){
+			settingsManager.settings.appearance = selectedAppearance
+		}
 		.colorScheme(selectedAppearance.colorScheme ?? scheme)
 	}
 }
 
 #Preview {
 	SettingsView()
+		.environment(DefaultSettingsManager())
 }
