@@ -54,4 +54,5 @@ struct DashboardView: View {
 
 #Preview {
 	DashboardView()
+		.environment(DefaultSettingsManager())
 }

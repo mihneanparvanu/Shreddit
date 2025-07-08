@@ -6,13 +6,46 @@
 //
 
 import SwiftUI
+typealias Appearance = Settings.Appearance
 typealias Units = Settings.Units
 typealias MassUnit = Units.MassUnit
 typealias EnergyUnit = Units.EnergyUnit
 
+
 struct Settings: Codable {
+	var appearance: Appearance = .system
 	var units: Units
 	var hasOnboarded: Bool
+
+	enum Appearance: CaseIterable, Identifiable, Codable {
+		case light
+		case dark
+		case system
+		
+		var id: Self { self }
+		
+		var title: String {
+			switch self {
+					case .light:
+					return "Light"
+				case .dark:
+					return "Dark"
+				case .system:
+					return "System"
+			}
+		}
+		
+		var colorScheme: ColorScheme? {
+			switch self {
+					case .light:
+					return .light
+				case .dark:
+					return .dark
+				case .system:
+					return nil
+			}
+		}
+	}
 	
 	struct Units: Codable {
 		var massUnit: MassUnit = .kg
