@@ -8,35 +8,36 @@
 import Observation
 import SwiftUI
 
-protocol SettingsManager {
-	var settings: Settings { get set }
-	var settingsKey: String { get }
-	
-	func getSettings()
-}
-
 @Observable
-final class DefaultSettingsManager: SettingsManager {
-	let settingsKey: String = "settings"
-	var settings = Settings(units: Settings.Units(),
+final class SettingsManager: PersistanceManager {
+	var preferences: Settings {
+		get {
+			settings
+		}
+		set {
+			settings = newValue
+		}
+	}
+	let preferencesKey: String = "settings"
+	var settings: Settings = Settings(units: Settings.Units(),
 							hasOnboarded: false) {
 		didSet {
-			save()
+			set()
 		}
 	}
 	
 	init () {
-		getSettings()
+		get()
 	}
 	
-	private func save() {
+	private func set() {
 		if let encodedSettings = try? JSONEncoder().encode(settings){
-			UserDefaults.standard.set(encodedSettings, forKey: settingsKey)
+			UserDefaults.standard.set(encodedSettings, forKey: preferencesKey)
 		}
 	}
 	
-	func getSettings()  {
-		guard let settingsData = UserDefaults.standard.data(forKey: settingsKey),
+	func get()  {
+		guard let settingsData = UserDefaults.standard.data(forKey: preferencesKey),
 			  let decodedSettings = try? JSONDecoder().decode(Settings.self, from: settingsData) else {
 			return
 		}

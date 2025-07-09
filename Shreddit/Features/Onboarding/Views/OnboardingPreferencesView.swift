@@ -7,11 +7,19 @@
 
 import SwiftUI
 
-struct ChooseUnitsView: View {
+struct OnboardingPreferencesView: View {
+	@Binding var appearance: Appearance
 	@Binding var selectedUnits: Units
 	
 	var body: some View {
 		Form {
+			Section ("Choose your appearance") {
+				Picker ("Appearance", selection: $appearance) {
+					ForEach (Appearance.allCases) {scheme in
+						Text (scheme.title)
+					}
+				}
+			}
 			Section ("Choose your units") {
 				Picker("Weight", selection: $selectedUnits.massUnit) {
 					ForEach (MassUnit.allCases) {unit in
@@ -26,11 +34,14 @@ struct ChooseUnitsView: View {
 				}
 			}
 		}
+		.scrollContentBackground(.hidden)
 	}
 }
 #Preview {
 	@Previewable @State var selectedUnits: Units = Units()
-	ChooseUnitsView(selectedUnits: $selectedUnits)
+	@Previewable @State var appearance: Appearance = .system
+	OnboardingPreferencesView(appearance: $appearance,
+							  selectedUnits: $selectedUnits)
 }
 
 

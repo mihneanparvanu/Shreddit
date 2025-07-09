@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@Environment(DefaultSettingsManager.self) var settingsManager
+	@Environment(SettingsManager.self) var settingsManager
 	@State private var vm = DashboardViewModel(healthManager: HealthManager())
 	
 	var body: some View {
@@ -16,7 +16,10 @@ struct DashboardView: View {
 			topToolbar
 			
 			activitySummary
+			
+			Spacer()
 		}
+		.frame(maxWidth: .infinity, maxHeight: .infinity)
 		.background()
 		.sheet(item: $vm.sheetContent){content in
 			switch content {
@@ -78,5 +81,5 @@ struct DashboardView: View {
 
 #Preview {
 	DashboardView()
-		.environment(DefaultSettingsManager())
+		.environment(SettingsManager())
 }

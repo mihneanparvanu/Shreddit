@@ -32,6 +32,15 @@ final class OnboardingViewModel {
 	}
 	
 	//Settings
+	var appearance: Appearance {
+		get {
+			settingsManager.settings.appearance
+		}
+		set {
+			settingsManager.settings.appearance = newValue
+		}
+	}
+	
 	var units: Units {
 		get {
 			settingsManager.settings.units

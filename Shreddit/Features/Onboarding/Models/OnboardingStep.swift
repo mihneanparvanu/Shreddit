@@ -6,7 +6,7 @@
 //
 
 
-enum OnboardingStep: String, CaseIterable, Identifiable {
+enum OnboardingStep: String, CaseIterable, Identifiable, Codable {
 	case welcome, intro, units, setGoal, start
 	
 	var id: String { rawValue }

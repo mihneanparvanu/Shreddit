@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct ShredditApp: App {
-	@State private var settingsManager = DefaultSettingsManager()
+	@State private var settingsManager = SettingsManager()
 	@Environment(\.colorScheme) var systemScheme
     var body: some Scene {
         WindowGroup {

@@ -16,13 +16,17 @@ struct OnboardingView: View {
 	}
 	
 	var body: some View {
-		Spacer()
-		
-		stepView(vm.currentStep)
-		
-		BottomView(currentStep: vm.currentStep,
-				   backButtonAction: {vm.goToPreviousStep()},
-				   nextButtonAction: {vm.goToNextStep()})
+		VStack {
+			Spacer()
+			
+			stepView(vm.currentStep)
+			
+			BottomView(currentStep: vm.currentStep,
+					   backButtonAction: {vm.goToPreviousStep()},
+					   nextButtonAction: {vm.goToNextStep()})
+		}
+		.frame(maxWidth: .infinity, maxHeight: .infinity)
+		.background()
 	}
 	
 	@ViewBuilder func stepView(_ currentStep: OnboardingStep) -> some View {
@@ -32,7 +36,8 @@ struct OnboardingView: View {
 			case .intro:
 				IntroView()
 			case .units:
-				ChooseUnitsView(selectedUnits: $vm.units)
+				OnboardingPreferencesView(appearance: $vm.appearance,
+										  selectedUnits: $vm.units)
 			case .setGoal:
 				EditGoalView(goalWeight: $goalWeight)
 			case .start:
@@ -43,5 +48,5 @@ struct OnboardingView: View {
 
 
 #Preview {
-	OnboardingView(settingsManager: DefaultSettingsManager())
+	OnboardingView(settingsManager: SettingsManager())
 }
