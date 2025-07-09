@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EditGoalView: View {
-	@Binding var goalWeight: Double
 	var body: some View {
 		VStack {
 			Text("Choose your goal look")
@@ -18,5 +17,5 @@ struct EditGoalView: View {
 }
 
 #Preview {
-	EditGoalView(goalWeight: .constant(0))
+	EditGoalView()
 }

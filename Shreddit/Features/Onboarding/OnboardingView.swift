@@ -9,7 +9,6 @@ import SwiftUI
 
 struct OnboardingView: View {
 	@State var vm: OnboardingViewModel
-	@State var goalWeight: Double = 0
 	
 	init(onboardingManager: OnboardingManager,
 		settingsManager: SettingsManager){
@@ -43,7 +42,7 @@ struct OnboardingView: View {
 				OnboardingPreferencesView(appearance: $vm.appearance,
 										  selectedUnits: $vm.units)
 			case .setGoal:
-				EditGoalView(goalWeight: $goalWeight)
+				EditGoalView()
 			case .start:
 				EmptyView()
 		}
