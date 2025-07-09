@@ -12,12 +12,23 @@ import SwiftUI
 @Observable
 final class OnboardingViewModel {
 	var settingsManager: SettingsManager
+	var onboarding: OnboardingManager
 	
-	init(settingsManager: SettingsManager){
+	init(onboarding: OnboardingManager,
+		settingsManager: SettingsManager
+	){
+		self.onboarding = onboarding
 		self.settingsManager = settingsManager
 	}
 	
-	var currentStep: OnboardingStep = .welcome
+	var currentStep: OnboardingStep {
+		get {
+			onboarding.state.currentStep
+		}
+		set {
+			onboarding.state.currentStep = newValue
+		}
+	}
 	
 	func goToNextStep () {
 		if currentStep.next == currentStep {
@@ -51,6 +62,6 @@ final class OnboardingViewModel {
 	}
 	
 	func finishOnboarding () {
-		settingsManager.settings.hasOnboarded = true
+		onboarding.state.hasOnboarded = true
 	}
 }

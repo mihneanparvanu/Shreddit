@@ -9,10 +9,27 @@ import Observation
 import SwiftUI
 
 @Observable
-final class OnboardingStateManager: PreferencesManager {
-	var preferences: OnboardingState = .init()
-
+final class OnboardingManager: PreferencesManager {
+	
+	init () {
+		get()
+	}
+	
+	var preferences: OnboardingState {
+		get {
+			state
+		}
+		set {
+			state = newValue
+		}
+	}
 	var preferencesKey: String = "onboardingState"
+	
+	var state: OnboardingState = .init() {
+		didSet {
+			set()
+		}
+	}
 
 	func get() {
 		guard let savedData = UserDefaults.standard.data(forKey: preferencesKey),

@@ -14,8 +14,7 @@ typealias EnergyUnit = Units.EnergyUnit
 
 struct Settings: Codable {
 	var appearance: Appearance = .system
-	var units: Units
-	var hasOnboarded: Bool
+	var units: Units = Units()
 
 	enum Appearance: CaseIterable, Identifiable, Codable {
 		case light

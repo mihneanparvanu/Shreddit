@@ -11,8 +11,12 @@ struct OnboardingView: View {
 	@State var vm: OnboardingViewModel
 	@State var goalWeight: Double = 0
 	
-	init(settingsManager: SettingsManager){
-		self.vm = OnboardingViewModel(settingsManager: settingsManager)
+	init(onboardingManager: OnboardingManager,
+		settingsManager: SettingsManager){
+		self.vm = OnboardingViewModel(
+			onboarding: onboardingManager,
+			settingsManager: settingsManager
+		)
 	}
 	
 	var body: some View {
@@ -48,5 +52,8 @@ struct OnboardingView: View {
 
 
 #Preview {
-	OnboardingView(settingsManager: SettingsManager())
+	OnboardingView(
+		onboardingManager: OnboardingManager(),
+		settingsManager: SettingsManager()
+	)
 }

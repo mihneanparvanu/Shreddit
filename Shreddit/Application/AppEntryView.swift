@@ -9,12 +9,13 @@ import SwiftUI
 
 struct AppEntryView: View {
 	@Environment(SettingsManager.self) var settingsManager
+	@Environment(OnboardingManager.self) var onboardingManager
 	@Environment(\.colorScheme) var systemScheme
 	var body: some View {
-		if settingsManager.preferences.hasOnboarded  {
+		if onboardingManager.state.hasOnboarded  {
 				DashboardView()
 			} else {
-				OnboardingView(settingsManager: settingsManager)
+				OnboardingView(onboardingManager: onboardingManager, settingsManager: settingsManager)
 			}
 	}
 }

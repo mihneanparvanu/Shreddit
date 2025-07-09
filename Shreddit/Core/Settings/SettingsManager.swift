@@ -19,8 +19,7 @@ final class SettingsManager: PreferencesManager {
 		}
 	}
 	let preferencesKey: String = "settings"
-	var settings: Settings = Settings(units: Settings.Units(),
-							hasOnboarded: false) {
+	var settings: Settings = Settings(units: Settings.Units()) {
 		didSet {
 			set()
 		}
