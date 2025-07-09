@@ -30,6 +30,9 @@ struct OnboardingView: View {
 		}
 		.infinityFrame()
 		.background()
+		.onAppear{
+			vm.resetOnboardingIfNeeded(after: .days(0.5))
+		}
 	}
 	
 	@ViewBuilder func stepView(_ currentStep: OnboardingStep) -> some View {

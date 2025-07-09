@@ -24,6 +24,7 @@ final class OnboardingViewModel {
 		}
 		set {
 			onboardingManager.state.currentStep = newValue
+			onboardingManager.state.lastSetTime = Date()
 		}
 	}
 	
@@ -49,7 +50,7 @@ final class OnboardingViewModel {
 	//MARK: Initializer
 	
 	init(onboardingManager: OnboardingManager,
-		settingsManager: SettingsManager
+		 settingsManager: SettingsManager
 	){
 		self.onboardingManager = onboardingManager
 		self.settingsManager = settingsManager
@@ -72,4 +73,29 @@ final class OnboardingViewModel {
 	func finishOnboarding () {
 		onboardingManager.state.hasOnboarded = true
 	}
+	
+	func resetOnboardingIfNeeded (after interval: TimeUnit = .days(0.5)) {
+		let lastSetTime = onboardingManager.state.lastSetTime
+		
+		var computedInterval: Double {
+			let secondsInHour: Double = 60 * 60
+			let secondsInDay: Double = secondsInHour * 24
+			
+			switch interval {
+				case .hours(count: let hours):
+					return hours * secondsInHour
+				case .days(count: let days):
+					return days * secondsInDay
+			}
+		}
+	
+		if lastSetTime.timeIntervalSinceNow < computedInterval {
+			onboardingManager.state.currentStep = .welcome
+		}
+	}
+}
+
+enum TimeUnit {
+	case hours(_: Double)
+	case days(_: Double)
 }
