@@ -9,7 +9,7 @@ import Observation
 import SwiftUI
 
 @Observable
-final class OnboardingStateManager: PersistanceManager {
+final class OnboardingStateManager: PreferencesManager {
 	var preferences: OnboardingState = .init()
 
 	var preferencesKey: String = "onboardingState"

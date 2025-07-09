@@ -9,7 +9,7 @@ import Observation
 import SwiftUI
 
 @Observable
-final class SettingsManager: PersistanceManager {
+final class SettingsManager: PreferencesManager {
 	var preferences: Settings {
 		get {
 			settings
