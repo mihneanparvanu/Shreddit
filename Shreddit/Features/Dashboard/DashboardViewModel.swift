@@ -12,13 +12,12 @@ import SwiftUI
 @MainActor
 @Observable
 final class DashboardViewModel {
+	//MARK: Properties
+	
+	// Dependencies
+	let healthManager: HealthManager
 
-	
-	init (healthManager: HealthManager){
-		self.healthManager = healthManager
-	}
-	
-	//MARK: Content
+	// Content
 	var presentedContent: DashboardView.ContentType?
 	
 	var sheetContent: DashboardView.ContentType? {
@@ -49,16 +48,25 @@ final class DashboardViewModel {
 		}
 	}
 	
-	//MARK: Health
-	let healthManager: HealthManager
+	// Health data
+	
 	let startDate = Date().startOfDay
 	
-	//Data to fetch
 	var steps = 0
+	
 	var totalEnergyBurned = 0
 	
 	//Error alert
+	
 	var alert: AlertItem?
+	
+	//MARK: Initializer
+	
+	init (healthManager: HealthManager){
+		self.healthManager = healthManager
+	}
+	
+	//MARK: Methods
 	
 	func setupAndFetch () async {
 		do {
@@ -118,13 +126,5 @@ final class DashboardViewModel {
 	private func fetchSteps () async throws {
 			steps = try await healthManager.fetchSteps(startDate: startDate)
 	}
-}
-
-
-struct AlertItem: Identifiable {
-	let id = UUID()
-	let title: String
-	let message: String
-	let dismiss: Alert.Button = .default(Text("OK"))
 }
 

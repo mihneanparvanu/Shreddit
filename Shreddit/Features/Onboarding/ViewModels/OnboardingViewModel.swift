@@ -11,38 +11,23 @@ import SwiftUI
 @MainActor
 @Observable
 final class OnboardingViewModel {
+	//MARK: Properties
+	
+	// Dependencies
 	var settingsManager: SettingsManager
-	var onboarding: OnboardingManager
+	var onboardingManager: OnboardingManager
 	
-	init(onboarding: OnboardingManager,
-		settingsManager: SettingsManager
-	){
-		self.onboarding = onboarding
-		self.settingsManager = settingsManager
-	}
-	
+	// Onboarding State
 	var currentStep: OnboardingStep {
 		get {
-			onboarding.state.currentStep
+			onboardingManager.state.currentStep
 		}
 		set {
-			onboarding.state.currentStep = newValue
+			onboardingManager.state.currentStep = newValue
 		}
 	}
 	
-	func goToNextStep () {
-		if currentStep.next == currentStep {
-			finishOnboarding()
-		} else {
-			currentStep = currentStep.next
-		}
-	}
-	
-	func goToPreviousStep () {
-		currentStep = currentStep.previous
-	}
-	
-	//Settings
+	// Settings
 	var appearance: Appearance {
 		get {
 			settingsManager.settings.appearance
@@ -61,7 +46,30 @@ final class OnboardingViewModel {
 		}
 	}
 	
+	//MARK: Initializer
+	
+	init(onboardingManager: OnboardingManager,
+		settingsManager: SettingsManager
+	){
+		self.onboardingManager = onboardingManager
+		self.settingsManager = settingsManager
+	}
+	
+	//MARK: Methods
+	
+	func goToNextStep () {
+		if currentStep.next == currentStep {
+			finishOnboarding()
+		} else {
+			currentStep = currentStep.next
+		}
+	}
+	
+	func goToPreviousStep () {
+		currentStep = currentStep.previous
+	}
+	
 	func finishOnboarding () {
-		onboarding.state.hasOnboarded = true
+		onboardingManager.state.hasOnboarded = true
 	}
 }

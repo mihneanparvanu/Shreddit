@@ -14,7 +14,7 @@ struct OnboardingView: View {
 	init(onboardingManager: OnboardingManager,
 		settingsManager: SettingsManager){
 		self.vm = OnboardingViewModel(
-			onboarding: onboardingManager,
+			onboardingManager: onboardingManager,
 			settingsManager: settingsManager
 		)
 	}

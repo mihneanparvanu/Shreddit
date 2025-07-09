@@ -10,9 +10,6 @@ import SwiftUI
 
 @Observable
 final class SettingsManager: PreferencesManager {
-	init () {
-		get()
-	}
 	
 	var preferences: Settings {
 		get {
@@ -28,6 +25,10 @@ final class SettingsManager: PreferencesManager {
 		didSet {
 			set()
 		}
+	}
+	
+	init () {
+		get()
 	}
 	
 	func get() {

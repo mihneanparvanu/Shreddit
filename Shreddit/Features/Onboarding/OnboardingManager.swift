@@ -11,10 +11,6 @@ import SwiftUI
 @Observable
 final class OnboardingManager: PreferencesManager {
 	
-	init () {
-		get()
-	}
-	
 	var preferences: OnboardingState {
 		get {
 			state
@@ -29,6 +25,10 @@ final class OnboardingManager: PreferencesManager {
 		didSet {
 			set()
 		}
+	}
+	
+	init () {
+		get()
 	}
 
 	func get() {

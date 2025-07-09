@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 extension View {
 	func infinityFrame(_ axis: InfinityFrameAxis = .all) -> some View {
 		frame(maxWidth: axis.width, maxHeight: axis.height)
