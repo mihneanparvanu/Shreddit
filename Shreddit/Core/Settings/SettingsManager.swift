@@ -10,6 +10,10 @@ import SwiftUI
 
 @Observable
 final class SettingsManager: PreferencesManager {
+	init () {
+		get()
+	}
+	
 	var preferences: Settings {
 		get {
 			settings
@@ -19,27 +23,24 @@ final class SettingsManager: PreferencesManager {
 		}
 	}
 	let preferencesKey: String = "settings"
+	
 	var settings: Settings = Settings(units: Settings.Units()) {
 		didSet {
 			set()
 		}
 	}
 	
-	init () {
-		get()
+	func get() {
+		guard let settingsData = UserDefaults.standard.data(forKey: preferencesKey),
+			  let decodedSettings = try? JSONDecoder().decode(Settings.self, from: settingsData) else {
+			return
+		}
+		settings = decodedSettings
 	}
 	
 	private func set() {
 		if let encodedSettings = try? JSONEncoder().encode(settings){
 			UserDefaults.standard.set(encodedSettings, forKey: preferencesKey)
 		}
-	}
-	
-	func get()  {
-		guard let settingsData = UserDefaults.standard.data(forKey: preferencesKey),
-			  let decodedSettings = try? JSONDecoder().decode(Settings.self, from: settingsData) else {
-			return
-		}
-		settings = decodedSettings
 	}
 }
