@@ -8,10 +8,40 @@
 import SwiftUI
 
 struct DashboardView: View {
+	@Environment(DefaultSettingsManager.self) var settingsManager
 	@State private var vm = DashboardViewModel(healthManager: HealthManager())
 	
 	var body: some View {
-		activitySummary
+		VStack {
+			topToolbar
+			
+			activitySummary
+		}
+		.background()
+		.sheet(item: $vm.sheetContent){content in
+			switch content {
+				case .settings:
+					SettingsView()
+				case .faq:
+					Text("FAQ")
+				case .profile:
+					Text("Profile")
+			}
+		}
+	}
+	
+	@ViewBuilder var topToolbar: some View {
+		HStack {
+			Spacer ()
+			
+			Button {
+				vm.presentedContent = .settings
+			} label : {
+				Image(systemName: "gear")
+			}
+			.padding()
+			.buttonStyle(.glass)
+		}
 	}
 
 	@ViewBuilder var activitySummary: some View {
@@ -46,7 +76,7 @@ struct DashboardView: View {
 }
 
 
-
 #Preview {
 	DashboardView()
+		.environment(DefaultSettingsManager())
 }

@@ -12,14 +12,48 @@ import SwiftUI
 @MainActor
 @Observable
 final class DashboardViewModel {
-	let healthManager: HealthManager
-	let startDate = Date().startOfDay
+
 	
 	init (healthManager: HealthManager){
 		self.healthManager = healthManager
 	}
 	
-	//Data to fetch 
+	//MARK: Content
+	var presentedContent: DashboardView.ContentType?
+	
+	var sheetContent: DashboardView.ContentType? {
+		get {
+			guard let presentedContent, presentedContent.presentation == .sheet else {
+				return nil
+			}
+			return presentedContent
+		}
+		set {
+			if newValue == nil {
+				presentedContent = nil
+			}
+		}
+	}
+	
+	var fullScreenContent: DashboardView.ContentType? {
+		get {
+			guard let presentedContent, presentedContent.presentation == .fullScreen else {
+				return nil
+			}
+			return presentedContent
+		}
+		set {
+			if newValue == nil {
+				presentedContent = nil
+			}
+		}
+	}
+	
+	//MARK: Health
+	let healthManager: HealthManager
+	let startDate = Date().startOfDay
+	
+	//Data to fetch
 	var steps = 0
 	var totalEnergyBurned = 0
 	

@@ -14,14 +14,8 @@ struct ShredditApp: App {
     var body: some Scene {
         WindowGroup {
 			AppEntryView()
-				.colorScheme(userColorScheme ?? systemScheme)
+				.colorScheme(settingsManager.settings.appearance.colorScheme ?? systemScheme)
 				.environment(settingsManager)
         }
     }
-}
-
-extension ShredditApp {
-	private var userColorScheme: ColorScheme? {
-		settingsManager.settings.appearance.colorScheme
-	}
 }
