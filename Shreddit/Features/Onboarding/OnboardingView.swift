@@ -29,7 +29,7 @@ struct OnboardingView: View {
 					   backButtonAction: {vm.goToPreviousStep()},
 					   nextButtonAction: {vm.goToNextStep()})
 		}
-		.frame(maxWidth: .infinity, maxHeight: .infinity)
+		.infinityFrame()
 		.background()
 	}
 	

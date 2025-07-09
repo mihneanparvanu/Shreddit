@@ -19,7 +19,7 @@ struct DashboardView: View {
 			
 			Spacer()
 		}
-		.frame(maxWidth: .infinity, maxHeight: .infinity)
+		.infinityFrame()
 		.background()
 		.sheet(item: $vm.sheetContent){content in
 			switch content {

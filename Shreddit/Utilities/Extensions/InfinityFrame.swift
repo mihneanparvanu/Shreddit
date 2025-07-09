@@ -7,21 +7,31 @@
 
 import SwiftUI
 extension View {
-	func infinityFrame(fill: InfinityFrameFillAxis) -> some View {
-		switch fill {
-				case .width:
-				frame(maxWidth: .infinity)
-			case .height:
-				frame(maxHeight: .infinity)
-			case .widthAndHeight:
-				frame(maxWidth: .infinity, maxHeight: .infinity)
-		}
+	func infinityFrame(_ axis: InfinityFrameAxis = .all) -> some View {
+		frame(maxWidth: axis.width, maxHeight: axis.height)
 	}
 }
 
-enum InfinityFrameFillAxis {
+enum InfinityFrameAxis {
 	case width
 	case height
-	case widthAndHeight
+	case all
+	
+	var width: CGFloat? {
+		switch self {
+			case .width, .all:
+				return .infinity
+			default:
+				return nil
+		}
+	}
+	var height: CGFloat? {
+		switch self {
+			case .height, .all:
+				return .infinity
+			default:
+				return nil
+		}
+	}
 }
 
