@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  DesignConstants.swift
 //  Shreddit
 //
 //  Created by Mihnea Nicolae Pârvanu on 02.07.2025.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-enum Constants {
+enum DesignConstants {
 	
 	enum Sizing {
 		static let xSmall: CGFloat = 8

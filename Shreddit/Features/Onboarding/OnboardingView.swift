@@ -36,7 +36,7 @@ struct OnboardingView: View {
 		.infinityFrame()
 		.background()
 		.onViewReady {
-			
+			vm.resetOnboardingIfNeeded(after: Config.Onboarding.resetInterval)
 		}
 	}
 	
