@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-	@Environment(SettingsManager.self) var settingsManager
+	@Environment(AppSettingsManager.self) var settingsManager
 	@Environment(\.colorScheme) var scheme
 	var body: some View {
 		Form {
@@ -34,5 +34,5 @@ struct SettingsView: View {
 
 #Preview {
 	SettingsView()
-		.environment(SettingsManager())
+		.environment(AppSettingsManager())
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@Environment(SettingsManager.self) var settingsManager
+	@Environment(AppSettingsManager.self) var settingsManager
 	@State private var vm = DashboardViewModel(healthManager: HealthManager())
 	
 	var body: some View {
@@ -81,5 +81,5 @@ struct DashboardView: View {
 
 #Preview {
 	DashboardView()
-		.environment(SettingsManager())
+		.environment(AppSettingsManager())
 }

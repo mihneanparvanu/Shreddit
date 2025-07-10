@@ -9,9 +9,12 @@ import SwiftUI
 
 struct OnboardingView: View {
 	@State var vm: OnboardingViewModel
+	let healthManager: HealthManager
 	
 	init(onboardingManager: any OnboardingManager,
-		settingsManager: any SettingsManager){
+		settingsManager: any SettingsManager,
+		 healthManager: HealthManager
+	){
 		self.vm = OnboardingViewModel(
 			onboardingManager: onboardingManager,
 			settingsManager: settingsManager
@@ -41,12 +44,16 @@ struct OnboardingView: View {
 				WelcomeView()
 			case .intro:
 				IntroView()
-			case .units:
+			case .preferences:
 				OnboardingPreferencesView(appearance: $vm.appearance,
 										  selectedUnits: $vm.units)
 			case .setGoal:
 				EditGoalView()
 			case .start:
+				EmptyView()
+			case .dataRequest:
+				EmptyView()
+			case .additionalData:
 				EmptyView()
 		}
 	}
