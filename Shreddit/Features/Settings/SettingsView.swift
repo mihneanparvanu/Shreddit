@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SettingsView: View {
 	@Environment(AppSettingsManager.self) var settingsManager
-	@Environment(\.colorScheme) var scheme
 	var body: some View {
 		Form {
 			Section (header: Text("Appearance"), footer:Text("Choose your app appearance"))
@@ -27,8 +26,6 @@ struct SettingsView: View {
 				}
 			}
 		}
-		.colorScheme(settingsManager.settings.appearance.colorScheme ?? scheme)
-
 	}
 }
 

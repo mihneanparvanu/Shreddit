@@ -123,7 +123,7 @@ extension DashboardView {
 	}
 	
 	var caloriesLeft: Int {
-		deficit - (vm.totalEnergyBurned - caloriesEaten)
+		(vm.totalEnergyBurned - caloriesEaten) - deficit
 	}
 }
 

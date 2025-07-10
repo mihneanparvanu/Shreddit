@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct AppEntryView: View {
+	//MARK: Dependencies
+	let healthManager: HealthManager
+	
+	//MARK: Environment
 	@Environment(AppSettingsManager.self) var settingsManager
 	@Environment(AppOnboardingManager.self) var onboardingManager
-	let healthManager: HealthManager
 	@Environment(\.colorScheme) var systemScheme
+	
 	var body: some View {
-		if onboardingManager.state.hasOnboarded  {
+		Group {
+			if onboardingManager.state.hasOnboarded  {
 				DashboardView()
 			} else {
 				OnboardingView(onboardingManager: onboardingManager,
@@ -22,6 +27,8 @@ struct AppEntryView: View {
 							   
 				)
 			}
+		}
+		.colorScheme(settingsManager.settings.appearance.colorScheme ?? systemScheme)
 	}
 }
 
