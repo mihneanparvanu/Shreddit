@@ -9,5 +9,18 @@ import SwiftUI
 
 
 struct DesignSystem {
+	struct Font {
+	}
 	
+	struct Color {
+	}
+	
+	struct Spacing {
+	}
+	
+	struct Padding {
+	}
+	
+	struct Size {
+	}
 }
