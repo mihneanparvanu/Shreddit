@@ -10,10 +10,27 @@ import SwiftUI
 struct DashboardView: View {
 	@Environment(AppSettingsManager.self) var settingsManager
 	@State private var vm = DashboardViewModel(healthManager: HealthManager())
+	@State private var caloriesEaten: Int = 0
 	
 	var body: some View {
 		VStack {
 			topToolbar
+			
+			VStack (alignment: .leading){
+				Text("Calories eaten")
+					.font(.headline)
+				
+				TextField(value: $caloriesEaten, format: .number){
+					Text("Calories eaten")
+				}
+			}
+			.padding()
+			
+			
+			if caloriesEaten > 0 {
+				caloriesLeftView
+			}
+			
 			
 			activitySummary
 			
@@ -58,6 +75,17 @@ struct DashboardView: View {
 		}
 	}
 
+	@ViewBuilder var caloriesLeftView: some View {
+		HStack {
+			Text("Have fun eating the rest")
+				.foregroundStyle(.gray)
+			Text(caloriesLeft, format: .number)
+			Text("calories today")
+				.foregroundStyle(.gray)
+		}
+		
+	}
+	
 	@ViewBuilder var activitySummary: some View {
 		VStack {
 			Image(systemName: "shoe")
@@ -86,6 +114,16 @@ struct DashboardView: View {
 				dismissButton: error.dismiss
 			)
 		}
+	}
+}
+
+extension DashboardView {
+	var deficit: Int {
+		600
+	}
+	
+	var caloriesLeft: Int {
+		deficit - (vm.totalEnergyBurned - caloriesEaten)
 	}
 }
 
