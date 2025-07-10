@@ -35,8 +35,8 @@ struct OnboardingView: View {
 		}
 		.infinityFrame()
 		.background()
-		.onActive {
-			vm.resetOnboardingIfNeeded(after: .days(0.5))
+		.onViewReady {
+			
 		}
 	}
 	

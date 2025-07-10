@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct onActiveViewModifier: ViewModifier {
+struct onViewReadyModifier: ViewModifier {
 	@Environment(\.scenePhase) var scenePhase
 	let action: () -> Void
 	
@@ -25,8 +25,10 @@ struct onActiveViewModifier: ViewModifier {
 	}
 }
 
+
 extension View {
-	func onActive (action: @escaping () -> Void) -> some View {
-		modifier(onActiveViewModifier(action: action))
+	///Performs an action when the view first appears and any time the scene becomes active.
+	func onViewReady (perform: @escaping () -> Void) -> some View {
+		modifier(onViewReadyModifier(action: perform))
 	}
 }
