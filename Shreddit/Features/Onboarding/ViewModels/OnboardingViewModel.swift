@@ -14,8 +14,8 @@ final class OnboardingViewModel {
 	//MARK: Properties
 	
 	// Dependencies
-	var settingsManager: SettingsManager
-	var onboardingManager: OnboardingManager
+	var settingsManager: any SettingsManager
+	var onboardingManager: any OnboardingManager
 	
 	// Onboarding State
 	var currentStep: OnboardingStep {
@@ -49,8 +49,8 @@ final class OnboardingViewModel {
 	
 	//MARK: Initializer
 	
-	init(onboardingManager: OnboardingManager,
-		 settingsManager: SettingsManager
+	init(onboardingManager: any OnboardingManager,
+		 settingsManager: any SettingsManager
 	){
 		self.onboardingManager = onboardingManager
 		self.settingsManager = settingsManager

@@ -10,8 +10,8 @@ import SwiftUI
 struct OnboardingView: View {
 	@State var vm: OnboardingViewModel
 	
-	init(onboardingManager: OnboardingManager,
-		settingsManager: SettingsManager){
+	init(onboardingManager: any OnboardingManager,
+		settingsManager: any SettingsManager){
 		self.vm = OnboardingViewModel(
 			onboardingManager: onboardingManager,
 			settingsManager: settingsManager
@@ -55,7 +55,7 @@ struct OnboardingView: View {
 
 #Preview {
 	OnboardingView(
-		onboardingManager: OnboardingManager(),
-		settingsManager: SettingsManager()
+		onboardingManager: AppOnboardingManager(),
+		settingsManager: AppSettingsManager()
 	)
 }

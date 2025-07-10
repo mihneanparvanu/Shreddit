@@ -8,8 +8,12 @@
 import Observation
 import SwiftUI
 
+protocol SettingsManager: PreferencesManager {
+	var settings: Settings { get set }
+}
+
 @Observable
-final class SettingsManager: PreferencesManager {
+final class AppSettingsManager: SettingsManager {
 	
 	var preferences: Settings {
 		get {

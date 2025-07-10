@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AppEntryView: View {
-	@Environment(SettingsManager.self) var settingsManager
-	@Environment(OnboardingManager.self) var onboardingManager
+	@Environment(AppSettingsManager.self) var settingsManager
+	@Environment(AppOnboardingManager.self) var onboardingManager
 	@Environment(\.colorScheme) var systemScheme
 	var body: some View {
 		if onboardingManager.state.hasOnboarded  {
@@ -22,5 +22,5 @@ struct AppEntryView: View {
 
 #Preview {
 	AppEntryView()
-		.environment(SettingsManager())
+		.environment(AppSettingsManager())
 }

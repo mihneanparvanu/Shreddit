@@ -9,8 +9,8 @@ import SwiftUI
 
 @main
 struct ShredditApp: App {
-	@State private var settingsManager = SettingsManager()
-	@State private var onboardingState = OnboardingManager()
+	@State private var settingsManager = AppSettingsManager()
+	@State private var onboardingState = AppOnboardingManager()
 	@Environment(\.colorScheme) var systemScheme
     var body: some Scene {
         WindowGroup {
