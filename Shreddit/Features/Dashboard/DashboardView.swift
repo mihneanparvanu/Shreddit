@@ -35,8 +35,6 @@ struct DashboardView: View {
 	
 	@ViewBuilder var topToolbar: some View {
 		HStack {
-			Spacer ()
-			
 			Button {
 				vm.presentedContent = .settings
 			} label : {
@@ -44,6 +42,19 @@ struct DashboardView: View {
 			}
 			.padding()
 			.buttonStyle(.glass)
+			
+			Spacer()
+			
+			HStack {
+				Text(Date().formatted(.dateTime.month(.abbreviated).day()))
+				
+				Image(.profilePicture)
+					.resizable()
+					.scaledToFit()
+					.frame(size: 24)
+					.clipShape(Circle())
+			}
+			.padding(.trailing)
 		}
 	}
 

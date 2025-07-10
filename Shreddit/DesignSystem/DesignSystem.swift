@@ -9,10 +9,10 @@ import SwiftUI
 
 
 struct DesignSystem {
-	struct Font {
+	struct Text {
 	}
 	
-	struct Color {
+	struct Colors {
 	}
 	
 	struct Spacing {

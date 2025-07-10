@@ -21,12 +21,9 @@ enum DesignConstants {
 		static let base: CGFloat = 4
 	}
 	
-	enum BrandColor {
-		static let primary: Color = .blue
-		static let secondary: Color = .gray
-		static let tertiary: Color = .gray
+	enum Colors {
+		static let brandPrimary = Color("BrandPrimary")
 	}
-	
 }
 
 
