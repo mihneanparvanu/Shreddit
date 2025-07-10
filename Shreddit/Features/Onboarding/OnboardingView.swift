@@ -19,6 +19,7 @@ struct OnboardingView: View {
 			onboardingManager: onboardingManager,
 			settingsManager: settingsManager
 		)
+		self.healthManager = healthManager
 	}
 	
 	var body: some View {
@@ -63,6 +64,6 @@ struct OnboardingView: View {
 #Preview {
 	OnboardingView(
 		onboardingManager: AppOnboardingManager(),
-		settingsManager: AppSettingsManager()
+		settingsManager: AppSettingsManager(), healthManager: HealthManager()
 	)
 }

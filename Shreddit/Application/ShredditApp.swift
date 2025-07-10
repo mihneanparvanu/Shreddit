@@ -15,7 +15,7 @@ struct ShredditApp: App {
 	@Environment(\.colorScheme) var systemScheme
     var body: some Scene {
         WindowGroup {
-			AppEntryView()
+			AppEntryView(healthManager: healthManager)
 				.colorScheme(settingsManager.settings.appearance.colorScheme ?? systemScheme)
 				.environment(settingsManager)
 				.environment(onboardingState)
