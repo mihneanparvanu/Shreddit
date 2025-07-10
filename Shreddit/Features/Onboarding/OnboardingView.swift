@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingView: View {
 	@State var vm: OnboardingViewModel
+	@Environment(\.scenePhase) var scenePhase
 	let healthManager: HealthManager
 	
 	init(onboardingManager: any OnboardingManager,
@@ -34,7 +35,7 @@ struct OnboardingView: View {
 		}
 		.infinityFrame()
 		.background()
-		.onAppear{
+		.onActive {
 			vm.resetOnboardingIfNeeded(after: .days(0.5))
 		}
 	}
@@ -53,7 +54,7 @@ struct OnboardingView: View {
 			case .start:
 				EmptyView()
 			case .dataRequest:
-				EmptyView()
+				DataRequestView(healthManager: healthManager)
 			case .additionalData:
 				EmptyView()
 		}

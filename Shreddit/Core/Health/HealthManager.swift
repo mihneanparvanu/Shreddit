@@ -8,33 +8,43 @@
 import HealthKit
 
 struct HealthManager {
+	//MARK: Properties
 	
 	let healthStore = HKHealthStore()
 	
-	//1. Check for HealthKit availability on device
-	func requestAuthorization() async throws {
-		guard HKHealthStore.isHealthDataAvailable() else {
-			throw HealthKitError.notAvailableOnDevice
-		}
-		
-		//2. Define types
-		
-		//Activity
-		let stepCount = HKQuantityType(.stepCount)
-		let activeEnergy = HKQuantityType(.activeEnergyBurned)
-		
-		//Body stats
-		let basalEnergy = HKQuantityType(.basalEnergyBurned)
-		let currentWeight = HKQuantityType(.bodyMass)
-		
-		let allTypes: Set<HKSampleType> = [
+	//Activity
+	let stepCount = HKQuantityType(.stepCount)
+	let activeEnergy = HKQuantityType(.activeEnergyBurned)
+	
+	//Body stats
+	let basalEnergy = HKQuantityType(.basalEnergyBurned)
+	let currentWeight = HKQuantityType(.bodyMass)
+	
+	var allTypes: Set<HKSampleType> {
+		[
 			stepCount,
 			basalEnergy,
 			activeEnergy,
 			currentWeight
 		]
-		//3. Request authorization
+	}
+	
+	//MARK: Methods
+	
+	func requestAuthorization() async throws {
+		//1. Check for HealthKit availability on device
+		guard HKHealthStore.isHealthDataAvailable() else {
+			throw HealthKitError.notAvailableOnDevice
+		}
+		
+		//2. Request authorization
 		try await healthStore.requestAuthorization(toShare: allTypes, read: allTypes)
+	}
+	
+	func userHasAuthorizedDataAccess() -> Bool  {
+		return allTypes.allSatisfy { type in
+			healthStore.authorizationStatus(for: type) == .sharingAuthorized
+		}
 	}
 	
 	func fetchCumulativeSum(for type: HKQuantityType, unit: HKUnit, startDate: Date) async throws -> Int {
@@ -95,7 +105,4 @@ struct HealthManager {
 		return try await (basal, active)
 	}
 }
-
-
-
 
