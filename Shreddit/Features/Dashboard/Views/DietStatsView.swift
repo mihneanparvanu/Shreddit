@@ -31,12 +31,12 @@ struct DietStatsView: View {
 									 color: .brandPrimary),
 						 title: "Steps today",
 						 value: vm.steps,
-						 unit: "kilocalories")
+						 unit: "steps")
 				
 				StatView(icon: .init(systemName: "flame",
 									 color: .red),
 						 title: "TDEE",
-						 value: vm.totalEnergyBurned,
+						 value: vm.tdee,
 						 unit: "kilocalories")
 			}
 			
@@ -78,7 +78,7 @@ extension DietStatsView {
 		}
 		private var valueUnit: AttributedString {
 			let value = AttributedString(value.formatted(.number))
-			let unit = AttributedString(unit)
+			let unit = AttributedString(" \(unit)")
 			
 			return value + unit
 		}

@@ -17,18 +17,18 @@ final class DietStatsViewModel {
 	
 	//MARK: Properties
 	
-	let startDate = Date().startOfDay
+	var startDate = Date().startOfDay
 	var deficit = 600
 	
 	// Calories in
 	var dietaryEnergyConsumed = 0
 	var caloriesLeft: Int {
-		(totalEnergyBurned - dietaryEnergyConsumed) - deficit
+		(tdee - dietaryEnergyConsumed) - deficit
 	}
 	
 	// Calories out
 	var steps = 0
-	var totalEnergyBurned = 0
+	var tdee = 0
 	
 	// Alert
 	var alert: AlertItem?
@@ -46,15 +46,7 @@ final class DietStatsViewModel {
 			try await healthManager.requestAuthorization()
 			
 			//2. Fetch the data
-			try await withThrowingTaskGroup{ group in
-				group.addTask {
-					try await self.fetchSteps()
-				}
-				group.addTask {
-					try await self.fetchTotalEnergyBurned()
-				}
-				for try await _ in group {}
-			}
+			try await fetchEverything()
 		}
 		
 		catch let error as HKError  {
@@ -91,9 +83,25 @@ final class DietStatsViewModel {
 	}
 	
 	
+	private func fetchEverything () async throws {
+		try await withThrowingTaskGroup{ group in
+			group.addTask {
+				try await self.fetchSteps()
+			}
+			group.addTask {
+				try await self.fetchTotalEnergyBurned()
+			}
+			group.addTask {
+				try await self.fetchDietaryEnergyConsumed()
+			}
+			for try await _ in group {}
+		}
+
+	}
+	
 	private func fetchTotalEnergyBurned() async throws {
 		let (basal, active) = try await healthManager.fetchEnergyBurned(startDate: startDate)
-		totalEnergyBurned = basal + active
+		tdee = basal + active
 	}
 	
 	private func fetchSteps () async throws {
