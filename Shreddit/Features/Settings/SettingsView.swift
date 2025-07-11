@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
+	//MARK: Environment
 	@Environment(AppSettingsManager.self) var settingsManager
+	
 	var body: some View {
 		Form {
 			Section (header: Text("Appearance"), footer:Text("Choose your app appearance"))

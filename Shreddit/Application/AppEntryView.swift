@@ -19,7 +19,9 @@ struct AppEntryView: View {
 	var body: some View {
 		Group {
 			if onboardingManager.state.hasOnboarded  {
-				DashboardView()
+				DashboardView(
+					healthManager: healthManager
+				)
 			} else {
 				OnboardingView(onboardingManager: onboardingManager,
 							   settingsManager: settingsManager,

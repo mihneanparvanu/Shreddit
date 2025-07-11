@@ -1,68 +1,40 @@
 //
-//  DashboardViewViewModel.swift
+//  ActivitySummaryViewModel.swift
 //  Shreddit
 //
-//  Created by Mihnea Nicolae Pârvanu on 04.07.2025.
+//  Created by Mihnea Nicolae Pârvanu on 11.07.2025.
 //
 
 import HealthKit
 import Observation
 import SwiftUI
 
-@MainActor
 @Observable
-final class DashboardViewModel {
+@MainActor
+final class DietStatsViewModel {
+	//MARK: Dependencies
+	let healthManager: HealthManager
+	
 	//MARK: Properties
 	
-	// Dependencies
-	let healthManager: HealthManager
-
-	// Content
-	var presentedContent: DashboardView.ContentType?
-	
-	var sheetContent: DashboardView.ContentType? {
-		get {
-			guard let presentedContent, presentedContent.presentation == .sheet else {
-				return nil
-			}
-			return presentedContent
-		}
-		set {
-			if newValue == nil {
-				presentedContent = nil
-			}
-		}
-	}
-	
-	var fullScreenContent: DashboardView.ContentType? {
-		get {
-			guard let presentedContent, presentedContent.presentation == .fullScreen else {
-				return nil
-			}
-			return presentedContent
-		}
-		set {
-			if newValue == nil {
-				presentedContent = nil
-			}
-		}
-	}
-	
-	// Health data
-	
 	let startDate = Date().startOfDay
+	var deficit = 600
 	
+	// Calories in
+	var dietaryEnergyConsumed = 0
+	var caloriesLeft: Int {
+		(totalEnergyBurned - dietaryEnergyConsumed) - deficit
+	}
+	
+	// Calories out
 	var steps = 0
-	
 	var totalEnergyBurned = 0
 	
-	//Error alert
-	
+	// Alert
 	var alert: AlertItem?
 	
 	//MARK: Initializer
-	
-	init (healthManager: HealthManager){
+	init (healthManager: HealthManager) {
 		self.healthManager = healthManager
 	}
 	
@@ -74,14 +46,14 @@ final class DashboardViewModel {
 			try await healthManager.requestAuthorization()
 			
 			//2. Fetch the data
-			 try await withThrowingTaskGroup{ group in
+			try await withThrowingTaskGroup{ group in
 				group.addTask {
 					try await self.fetchSteps()
 				}
 				group.addTask {
 					try await self.fetchTotalEnergyBurned()
 				}
-				 for try await _ in group {}
+				for try await _ in group {}
 			}
 		}
 		
@@ -118,13 +90,18 @@ final class DashboardViewModel {
 		
 	}
 	
+	
 	private func fetchTotalEnergyBurned() async throws {
-			let (basal, active) = try await healthManager.fetchEnergyBurned(startDate: startDate)
-			totalEnergyBurned = basal + active
+		let (basal, active) = try await healthManager.fetchEnergyBurned(startDate: startDate)
+		totalEnergyBurned = basal + active
 	}
 	
 	private func fetchSteps () async throws {
-			steps = try await healthManager.fetchSteps(startDate: startDate)
+		steps = try await healthManager.fetchSteps(startDate: startDate)
 	}
+	
+	func fetchDietaryEnergyConsumed() async throws {
+		dietaryEnergyConsumed = try await healthManager.fetchDietaryEnergyConsumed(startDate: startDate)
+	}
+	
 }
-

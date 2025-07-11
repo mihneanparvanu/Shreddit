@@ -9,6 +9,7 @@ import SwiftUI
 
 extension OnboardingView {
 	struct WelcomeView: View {
+		
 		var body: some View {
 			Spacer()
 			

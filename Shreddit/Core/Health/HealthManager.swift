@@ -28,7 +28,8 @@ struct HealthManager {
 			stepCount,
 			basalEnergy,
 			activeEnergy,
-			currentWeight
+			currentWeight,
+			dietaryEnergyConsumed
 		]
 	}
 	
@@ -77,6 +78,14 @@ struct HealthManager {
 				}
 			healthStore.execute(query)
 		}
+	}
+	
+	func fetchDietaryEnergyConsumed (startDate: Date) async throws -> Int {
+		return try await fetchCumulativeSum(
+			for: dietaryEnergyConsumed,
+			unit: .kilocalorie(),
+			startDate: startDate
+		)
 	}
 	
 	func fetchSteps (startDate: Date) async throws -> Int {

@@ -1,0 +1,43 @@
+//
+//  DashboardViewViewModel.swift
+//  Shreddit
+//
+//  Created by Mihnea Nicolae Pârvanu on 04.07.2025.
+//
+
+import Observation
+
+@MainActor
+@Observable
+final class DashboardViewModel {
+	//MARK: Properties
+	
+	var presentedContent: DashboardView.ContentType?
+	
+	var sheetContent: DashboardView.ContentType? {
+		get {
+			guard let presentedContent, presentedContent.presentation == .sheet else {
+				return nil
+			}
+			return presentedContent
+		}
+		set {
+			presentedContent = newValue
+		}
+	}
+	
+	var fullScreenContent: DashboardView.ContentType? {
+		get {
+			guard let presentedContent, presentedContent.presentation == .fullScreen else {
+				return nil
+			}
+			return presentedContent
+		}
+		set {
+			if newValue == nil {
+				presentedContent = nil
+			}
+		}
+	}
+}
+
