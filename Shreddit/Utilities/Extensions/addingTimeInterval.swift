@@ -1,5 +1,5 @@
 //
-//  timeInterval.swift
+//  addingTimeInterval.swift
 //  Shreddit
 //
 //  Created by Mihnea Nicolae Pârvanu on 12.07.2025.
