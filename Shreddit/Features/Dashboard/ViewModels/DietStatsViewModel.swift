@@ -49,8 +49,11 @@ final class DietStatsViewModel {
 	var alert: AlertItem?
 	
 	//MARK: Initializer
-	init (healthManager: HealthManager) {
+	init (healthManager: HealthManager,
+		  settingsManager: any SettingsManager
+	) {
 		self.healthManager = healthManager
+		self.settingsManager = settingsManager
 	}
 	
 	//MARK: Methods

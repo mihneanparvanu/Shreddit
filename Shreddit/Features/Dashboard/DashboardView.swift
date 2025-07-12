@@ -26,7 +26,8 @@ struct DashboardView: View {
 			)
 				
 			DietStatsView(
-				healthManager: healthManager
+				healthManager: healthManager,
+				settingsManager: settingsManager
 			)
 			
 			

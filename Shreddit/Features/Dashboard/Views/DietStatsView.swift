@@ -11,16 +11,17 @@ import SwiftUI
 struct DietStatsView: View {
 	//MARK: Dependencies
 	let healthManager: HealthManager
-	
-	//MARK: Environment
-	@Environment(AppSettingsManager.self) var settingsManager
+	let settingsManager: any SettingsManager
 	
 	//MARK: State
 	@State var vm: DietStatsViewModel
 	
 	//MARK: Initializer
-	init (healthManager: HealthManager) {
+	init (healthManager: HealthManager,
+		  settingsManager: any SettingsManager
+	) {
 		self.healthManager = healthManager
+		self.settingsManager = settingsManager
 		self.vm = .init(
 			healthManager: healthManager,
 			settingsManager: settingsManager
@@ -115,5 +116,7 @@ extension DietStatsView.StatView {
 	}
 }
 #Preview {
-	DietStatsView(healthManager: HealthManager())
+	DietStatsView(healthManager: HealthManager(),
+				  settingsManager: AppSettingsManager()
+	)
 }
