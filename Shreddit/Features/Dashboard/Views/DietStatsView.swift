@@ -12,19 +12,27 @@ struct DietStatsView: View {
 	//MARK: Dependencies
 	let healthManager: HealthManager
 	
+	//MARK: Environment
+	@Environment(AppSettingsManager.self) var settingsManager
+	
 	//MARK: State
 	@State var vm: DietStatsViewModel
 	
 	//MARK: Initializer
 	init (healthManager: HealthManager) {
 		self.healthManager = healthManager
-		self.vm = .init(healthManager: healthManager)
+		self.vm = .init(
+			healthManager: healthManager,
+			settingsManager: settingsManager
+		)
 	}
 	
 	var body: some View {
 		VStack (spacing: 32){
 			
 			CaloriesLeftView(caloriesLeft: vm.caloriesLeft)
+			
+			LeftUntilGoalView(weightToLose: vm.weightToLose)
 			
 			VStack (spacing: 16){
 				StatView(icon: .init(systemName: "shoe",
@@ -52,6 +60,12 @@ struct DietStatsView: View {
 		.task {
 			await vm.setupAndFetch()
 		}
+		.onViewReady {
+			Task {
+				try? await vm.fetchEverything()
+			}
+			
+		}
 	}
 }
 
@@ -66,9 +80,8 @@ extension DietStatsView {
 		
 		var body: some View {
 			VStack {
-				Image(systemName: icon.systemName)
-					.imageScale(.large)
-					.foregroundStyle(icon.color)
+				icon.image
+					.foregroundStyle(icon.color ?? .primary)
 				
 				Text(title)
 				
@@ -87,8 +100,18 @@ extension DietStatsView {
 
 extension DietStatsView.StatView {
 	struct Icon {
-		let systemName: String
-		let color: Color
+		let image: Image
+		let color: Color?
+		
+		init(resourceName: String, color: Color? = nil){
+			self.image = Image(resourceName)
+			self.color = color
+		}
+		
+		init(systemName: String, color: Color){
+			self.image = Image(systemName: systemName)
+			self.color = color
+		}
 	}
 }
 #Preview {

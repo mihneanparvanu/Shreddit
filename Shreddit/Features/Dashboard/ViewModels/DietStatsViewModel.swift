@@ -14,6 +14,8 @@ import SwiftUI
 final class DietStatsViewModel {
 	//MARK: Dependencies
 	let healthManager: HealthManager
+	let settingsManager: any SettingsManager
+	private let converter = UnitConverter()
 	
 	//MARK: Properties
 	
@@ -24,6 +26,19 @@ final class DietStatsViewModel {
 	var dietaryEnergyConsumed = 0
 	var caloriesLeft: Int {
 		(tdee - dietaryEnergyConsumed) - deficit
+	}
+	
+	// Body stats
+	var currentWeight: Double = 143
+	var goalWeight: Double = 138
+	
+	var weightToLose: Double {
+		currentWeight - goalWeight
+	}
+	
+	var caloriesLeftInDeficit: Int {
+		let massUnit = settingsManager.settings.units.massUnit
+		return converter.calories(forWeight: weightToLose, in: massUnit)
 	}
 	
 	// Calories out
@@ -83,7 +98,7 @@ final class DietStatsViewModel {
 	}
 	
 	
-	private func fetchEverything () async throws {
+	 func fetchEverything () async throws {
 		try await withThrowingTaskGroup{ group in
 			group.addTask {
 				try await self.fetchSteps()

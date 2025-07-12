@@ -64,6 +64,15 @@ struct Settings: Codable {
 						return "Pounds (lbs)"
 				}
 			}
+			
+			var caloriesMultiplier: Double {
+				switch self {
+					case .kg:
+						return 7700
+					case .lbs:
+						return 3500
+				}
+			}
 		}
 
 		enum EnergyUnit: CaseIterable, Identifiable, Codable{

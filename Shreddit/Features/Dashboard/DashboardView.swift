@@ -29,6 +29,7 @@ struct DashboardView: View {
 				healthManager: healthManager
 			)
 			
+			
 			Spacer()
 		}
 		.infinityFrame()
