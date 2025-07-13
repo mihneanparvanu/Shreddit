@@ -15,6 +15,7 @@ extension DashboardView {
 		//MARK: Environment
 		@Environment(\.colorScheme) var systemScheme
 		@Environment(AppSettingsManager.self) var settingsManager
+		@Environment(\.dismiss) var dismiss
 		
 		//MARK: Initializer
 		init (_ content: ContentType) {
@@ -22,8 +23,19 @@ extension DashboardView {
 		}
 		
 		var body: some View {
-			Group{
-				if content.presentation
+			VStack{
+				if content.presentation.isFullscreen {
+					HStack {
+						Spacer()
+						
+						Button(action: { dismiss() }){
+							Image(systemName: "x.circle")
+						}
+						.buttonStyle(.glass)
+					}
+					.padding()
+				}
+				
 				switch content {
 					case .settings:
 						SettingsView()
@@ -35,9 +47,15 @@ extension DashboardView {
 						DietSimulatorView()
 				}
 			}
+			.background()
 			.colorScheme(
 				settingsManager.settings.appearance.colorScheme ?? systemScheme
 			)
 		}
 	}
+}
+
+#Preview {
+	DashboardView.PresentedView(.dietSimulator)
+		.environment(AppSettingsManager())
 }
