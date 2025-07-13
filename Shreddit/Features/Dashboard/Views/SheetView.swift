@@ -30,6 +30,8 @@ extension DashboardView {
 						Text("FAQ")
 					case .profile:
 						Text("Profile")
+					case .dietSimulator:
+						DietSimulatorView()
 				}
 			}
 			.colorScheme(

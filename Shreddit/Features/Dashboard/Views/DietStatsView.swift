@@ -33,7 +33,7 @@ struct DietStatsView: View {
 			
 			CaloriesLeftView(caloriesLeft: vm.caloriesLeft)
 			
-			LeftUntilGoalView(weightToLose: vm.weightToLose)
+			CaloriesInDeficitView(weightToLose: vm.weightToLose)
 			
 			VStack (spacing: 16){
 				StatView(icon: .init(systemName: "shoe",
@@ -119,4 +119,5 @@ extension DietStatsView.StatView {
 	DietStatsView(healthManager: HealthManager(),
 				  settingsManager: AppSettingsManager()
 	)
+	.environment(AppSettingsManager())
 }

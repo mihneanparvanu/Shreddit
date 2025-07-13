@@ -34,9 +34,7 @@ final class DashboardViewModel {
 			return presentedContent
 		}
 		set {
-			if newValue == nil {
-				presentedContent = nil
-			}
+			presentedContent = newValue
 		}
 	}
 }

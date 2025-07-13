@@ -11,12 +11,13 @@ extension DashboardView {
 		case settings
 		case profile
 		case faq
+		case dietSimulator
 		
 		var presentation: Presentation {
 			switch self {
 				case .profile, .settings:
 						.sheet
-				case .faq:
+				case .faq, .dietSimulator:
 						.fullScreen
 			}
 		}

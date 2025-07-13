@@ -8,17 +8,20 @@
 import Foundation
 
 struct Diet: Identifiable, Codable {
-	var id: String { "Diet \(startDate) - \(endDate)"}
+	var id: String { "Diet \(startDate) - \(endDate)" }
 	let startDate: Date
 	let endDate: Date
-	let difficulty: DietDifficulty
+	let startWeight: Double
+	let endWeight: Double
+	let currentCalories: Int
+	let difficulty: Difficulty
 	
-	enum DietDifficulty: Codable {
-		case preset(preset: DietPreset)
+	enum Difficulty: Codable {
+		case preset(preset: Preset)
 		case customizable(lossRate: Double)
 	}
 	
-	enum DietPreset: String, CaseIterable, Codable {
+	enum Preset: String, CaseIterable, Codable {
 		case easy
 		case medium
 		case hard

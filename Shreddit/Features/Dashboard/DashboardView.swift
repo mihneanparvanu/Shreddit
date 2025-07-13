@@ -22,6 +22,9 @@ struct DashboardView: View {
 			TopToolbarView (
 				settingsButtonAction: {
 					vm.sheetContent = .settings
+				},
+				dietSimulatorButtonAction: {
+					vm.fullScreenContent = .dietSimulator
 				}
 			)
 				
@@ -35,7 +38,10 @@ struct DashboardView: View {
 		}
 		.infinityFrame()
 		.background()
-		.sheet(item: $vm.sheetContent){content in
+		.sheet(item: $vm.sheetContent){ content in
+			SheetContent(content)
+		}
+		.fullScreenCover(item: $vm.fullScreenContent) { content in
 			SheetContent(content)
 		}
 	}
