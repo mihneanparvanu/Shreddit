@@ -15,9 +15,9 @@ extension DashboardView {
 		
 		var presentation: Presentation {
 			switch self {
-				case .profile, .settings:
+				case .profile, .settings, .dietSimulator:
 						.sheet
-				case .faq, .dietSimulator:
+				case .faq:
 						.fullScreen
 			}
 		}

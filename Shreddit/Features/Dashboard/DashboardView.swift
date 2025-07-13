@@ -24,7 +24,7 @@ struct DashboardView: View {
 					vm.sheetContent = .settings
 				},
 				dietSimulatorButtonAction: {
-					vm.fullScreenContent = .dietSimulator
+					vm.sheetContent = .dietSimulator
 				}
 			)
 				
@@ -41,9 +41,7 @@ struct DashboardView: View {
 		.sheet(item: $vm.sheetContent){ content in
 			SheetContent(content)
 		}
-		.fullScreenCover(item: $vm.fullScreenContent) { content in
-			SheetContent(content)
-		}
+		
 	}
 }
 
