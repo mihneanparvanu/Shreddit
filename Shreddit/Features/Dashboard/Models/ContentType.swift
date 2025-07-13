@@ -30,3 +30,11 @@ extension DashboardView.ContentType {
 	}
 }
 
+extension DashboardView.ContentType.Presentation {
+	var isFullscreen: Bool {
+		switch self {
+			case .fullScreen: return true
+			case .sheet: return false
+		}
+	}
+}

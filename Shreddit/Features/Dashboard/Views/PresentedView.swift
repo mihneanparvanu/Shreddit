@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension DashboardView {
-	struct Presented: View  {
+	struct PresentedView: View  {
 		//MARK: Dependencies
 		let content: ContentType
 		
@@ -23,6 +23,7 @@ extension DashboardView {
 		
 		var body: some View {
 			Group{
+				if content.presentation
 				switch content {
 					case .settings:
 						SettingsView()

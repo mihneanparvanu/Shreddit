@@ -38,10 +38,10 @@ struct DashboardView: View {
 		.infinityFrame()
 		.background()
 		.sheet(item: $vm.sheetContent) { content in
-			Presented(content)
+			PresentedView(content)
 		}
 		.fullScreenCover(item: $vm.fullScreenContent ){ content in
-			Presented(content)
+			PresentedView(content)
 		}
 	}
 }
