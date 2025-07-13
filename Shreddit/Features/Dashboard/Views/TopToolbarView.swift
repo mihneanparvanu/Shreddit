@@ -15,19 +15,18 @@ struct TopToolbarView: View {
 	var body: some View {
 		HStack {
 			Menu{
-				MenuItem(title: "Settings",
-						 image: "gear",
-						 action: settingsButtonAction)
 				MenuItem(title: "Diet Simulator",
 						 image: "play.circle.fill",
 						 action: dietSimulatorButtonAction)
+				
+				MenuItem(title: "Settings",
+						 image: "gear",
+						 action: settingsButtonAction)
 			}
 			label: {
 				Image(systemName: "ellipsis")
 			}
 			.tint(.primary)
-			
-			
 			
 			
 			Spacer()

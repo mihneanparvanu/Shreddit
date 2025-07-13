@@ -23,7 +23,7 @@ struct OnboardingPreferencesView: View {
 			Section ("Choose your units") {
 				Picker("Weight", selection: $selectedUnits.massUnit) {
 					ForEach (MassUnit.allCases) {unit in
-						Text(unit.title)
+						Text(unit.description)
 					}
 				}
 				

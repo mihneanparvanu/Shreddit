@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct DietSimulatorView: View {
+	
+	@Environment(AppSettingsManager.self) var settingsManager
+	
 	@State private var weightToLose: Double = 0
     var body: some View {
 		VStack{
-		
 			Text("Diet simulator")
 				.font(.title)
 				.foregroundStyle(.gray)
@@ -21,7 +23,7 @@ struct DietSimulatorView: View {
 				TextField("Weight to lose", value: $weightToLose, format: .number)
 					.frame(width: 44)
 				
-				Text("kg")
+				Text(settingsManager.settings.units.massUnit.rawValue)
 			}
 			.padding()
 		
@@ -29,6 +31,7 @@ struct DietSimulatorView: View {
 			
 			Spacer()
 		}
+		.background()
     }
 }
 

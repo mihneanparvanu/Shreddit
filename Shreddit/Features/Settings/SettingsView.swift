@@ -36,7 +36,7 @@ struct SettingsView: View {
 					)
 				) {
 					ForEach(MassUnit.allCases) { unit in
-						Text(unit.title)
+						Text(unit.description)
 					}
 				}
 				

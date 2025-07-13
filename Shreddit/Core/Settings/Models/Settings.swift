@@ -50,13 +50,13 @@ struct Settings: Codable {
 		var massUnit: MassUnit = .kg
 		var energyUnit: EnergyUnit = .kcal
 		
-		enum MassUnit: CaseIterable, Identifiable, Codable {
+		enum MassUnit: String, CaseIterable, Identifiable, Codable {
 			case kg
 			case lbs
 			
 			var id: Self { self }
 			
-			var title: String {
+			var description: String {
 				switch self {
 					case .kg:
 						return "Kilograms (kg)"
