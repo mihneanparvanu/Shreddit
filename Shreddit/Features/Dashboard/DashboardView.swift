@@ -33,16 +33,15 @@ struct DashboardView: View {
 				settingsManager: settingsManager
 			)
 			
-			
 			Spacer()
 		}
 		.infinityFrame()
 		.background()
 		.sheet(item: $vm.sheetContent) { content in
-			SheetContent(content)
+			Presented(content)
 		}
 		.fullScreenCover(item: $vm.fullScreenContent ){ content in
-			SheetContent(content)
+			Presented(content)
 		}
 	}
 }

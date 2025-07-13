@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension DashboardView {
-	struct SheetContent: View  {
+	struct Presented: View  {
 		//MARK: Dependencies
 		let content: ContentType
 		
