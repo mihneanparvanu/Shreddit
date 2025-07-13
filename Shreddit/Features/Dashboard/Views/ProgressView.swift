@@ -27,7 +27,9 @@ struct LeftUntilGoalView: View {
 
 extension LeftUntilGoalView {
 	var caloriesLeftInDeficit: Int {
-		Int(weightToLose * settingsManager.settings.units.caloriesMultiplier)
+		Int(
+			weightToLose * settingsManager.settings.units.massUnit.caloriesMultiplier
+		)
 	}
 }
 
