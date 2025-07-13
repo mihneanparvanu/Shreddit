@@ -34,6 +34,7 @@ extension DashboardView {
 						DietSimulatorView()
 				}
 			}
+			.background()
 			.colorScheme(
 				settingsManager.settings.appearance.colorScheme ?? systemScheme
 			)
