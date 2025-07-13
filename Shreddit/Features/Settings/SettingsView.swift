@@ -53,6 +53,8 @@ struct SettingsView: View {
 				}
 			}
 		}
+		.padding(.top)
+		.scrollContentBackground(.hidden)
 	}
 }
 

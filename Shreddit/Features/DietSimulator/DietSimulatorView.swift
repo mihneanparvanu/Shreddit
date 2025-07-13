@@ -12,6 +12,7 @@ struct DietSimulatorView: View {
 	@Environment(AppSettingsManager.self) var settingsManager
 	
 	@State private var weightToLose: Double = 0
+	
     var body: some View {
 		VStack{
 			Text("Diet simulator")
@@ -21,12 +22,10 @@ struct DietSimulatorView: View {
 			Text("How much weight do you want to lose?")
 			HStack (spacing: 2){
 				TextField("Weight to lose", value: $weightToLose, format: .number)
-					.frame(width: 44)
+			
 				
 				Text(settingsManager.settings.units.massUnit.rawValue)
 			}
-			.padding()
-		
 			CaloriesInDeficitView(weightToLose: weightToLose)
 			
 			Spacer()
