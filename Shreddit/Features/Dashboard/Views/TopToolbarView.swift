@@ -34,11 +34,7 @@ struct TopToolbarView: View {
 			HStack {
 				Text(Date().formatted(.dateTime.month(.abbreviated).day()))
 				
-				Image(.profilePicture)
-					.resizable()
-					.scaledToFit()
-					.frame(size: 24)
-					.clipShape(Circle())
+				ProfilePicture(picture: "ProfilePicture", size: 24)
 			}
 			.padding(.trailing)
 		}
