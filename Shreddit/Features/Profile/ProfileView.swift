@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     var body: some View {
 		VStack {
-			ProfilePicture(picture: "ProfilePicture", size: 200)
+			ProfilePicture(picture: "ProfilePicture", size: 120)
 			
 			Spacer()
 		}
