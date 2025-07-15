@@ -37,7 +37,6 @@ struct DietStatsView: View {
 				afterHighlight: "calories today"
 			)
 			
-			CaloriesInDeficitView(weightToLose: vm.weightToLose)
 			
 			VStack (spacing: 16){
 				StatView(icon: .init(systemName: "shoe",

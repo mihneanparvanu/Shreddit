@@ -8,32 +8,40 @@
 import SwiftUI
 
 struct HighlightedTextView: View {
-	let beforeHighlight: String
+	//MARK: Dependencies
+	let beforeHighlight: String?
 	let highlightedValue: String
-	let afterHighlight: String
-    var body: some View {
+	let afterHighlight: String?
+	
+	var body: some View {
 		Text(highlightedText)
 			.font(.system(size: 24))
-    }
+	}
 	
 	///Highlight a number value
-	init(beforeHighlight: String, highlightedValue: Int, afterHighlight: String) {
+	init(
+		beforeHighlight: String? = nil,
+		highlightedValue: Int,
+		afterHighlight: String? = nil
+	) {
 		self.beforeHighlight = beforeHighlight
 		self.highlightedValue = highlightedValue.formatted(.number)
 		self.afterHighlight = afterHighlight
 	}
 	
 	///Highlight a piece of text
-	init(beforeHighlight: String, highlightedText: String, afterHighlight: String){
+	init(beforeHighlight: String? = nil,
+		 highlightedText: String,
+		 afterHighlight: String? = nil){
 		self.beforeHighlight = beforeHighlight
 		self.highlightedValue = highlightedText
 		self.afterHighlight = afterHighlight
 	}
 	
 	private var highlightedText: AttributedString {
-		var part1 = AttributedString(beforeHighlight)
+		var part1 = AttributedString(beforeHighlight ?? "")
 		let part2 = AttributedString(" \(highlightedValue) ")
-		var part3 = AttributedString(afterHighlight)
+		var part3 = AttributedString(afterHighlight ?? "")
 		
 		part1.foregroundColor = .gray
 		part3.foregroundColor = .gray

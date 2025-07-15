@@ -26,7 +26,12 @@ struct DietSimulatorView: View {
 				
 				Text(settingsManager.settings.units.massUnit.rawValue)
 			}
-			CaloriesInDeficitView(weightToLose: weightToLose)
+			HighlightedTextView(
+				highlightedValue: Int(
+					weightToLose*settingsManager.settings.units
+						.massUnit.caloriesMultiplier),
+				afterHighlight: "kilocalories left in this deficit"
+			)
 			
 			Spacer()
 		}
