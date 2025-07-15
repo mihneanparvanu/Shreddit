@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ProfileView: View {
+	//MARK: Dependencies
 	let user: User
+	
     var body: some View {
 		VStack {
 			ProfilePicture(picture: user.picture, size: 120)
@@ -18,11 +20,8 @@ struct ProfileView: View {
 				.font(.subheadline)
 				.foregroundStyle(.gray)
 			
-			
 			Spacer()
 		}
-		
-		
     }
 }
 

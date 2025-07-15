@@ -9,8 +9,10 @@ import SwiftUI
 
 struct DietSimulatorView: View {
 	
+	//MARK: Environment
 	@Environment(AppSettingsManager.self) var settingsManager
 	
+	//MARK: State
 	@State private var weightToLose: Double = 0
 	
     var body: some View {
@@ -26,17 +28,20 @@ struct DietSimulatorView: View {
 				
 				Text(settingsManager.settings.units.massUnit.rawValue)
 			}
-			HighlightedTextView(
-				highlightedValue: Int(
-					weightToLose*settingsManager.settings.units
-						.massUnit.caloriesMultiplier),
-				afterHighlight: "kilocalories left in this deficit"
-			)
+			
+			HighlightedTextView(highlight: .init(value: caloriesLeftInDeficit),
+								content: .init(afterHighlight: "kilocalories left in deficit"))
 			
 			Spacer()
 		}
 		.background()
     }
+}
+
+extension DietSimulatorView {
+	var caloriesLeftInDeficit: Int {
+		Int(weightToLose * settingsManager.settings.units.massUnit.caloriesMultiplier)
+	}
 }
 
 #Preview {

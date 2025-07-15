@@ -32,11 +32,10 @@ struct DietStatsView: View {
 		VStack (spacing: 32){
 			
 			HighlightedTextView(
-				beforeHighlight: "Have fun eating the rest",
-				highlightedValue: vm.caloriesLeft,
-				afterHighlight: "calories today"
+				highlight: .init(value: vm.caloriesLeft),
+				content: .init(beforeHighlight: "Have fun eating the rest",
+							   afterHighlight: "kilocalories today.")
 			)
-			
 			
 			VStack (spacing: 16){
 				StatView(icon: .init(systemName: "shoe",
