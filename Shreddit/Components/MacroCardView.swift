@@ -9,23 +9,29 @@ import SwiftUI
 
 struct MacroCardView: View {
 	//MARK: Dependencies
+	let goal: Int
+	let currentValue: Int
 	let text: TextDependencies
+	let graph: GraphDependencies
 	
-    var body: some View {
+	var body: some View {
 		HStack (spacing: 40){
-			TextView(title: text.title,
-					 quantity: text.quantity,
-					 unit: text.unit
+			TextView(	 currentValue: currentValue,
+						 title: text.title,
+						 unit: text.unit
 			)
 			
-			GraphView(color: .brandPrimary)
+			GraphView(goal: goal,
+					  currentValue: currentValue,
+					  color: graph.color)
+			.frame(width: 200, height: 200)
 		}
 		.padding(.leading, 40)
 		.padding(.trailing, MacroCardView.padding)
 		.padding(.vertical, MacroCardView.padding)
 		.background()
 		.clipShape(.rect(cornerRadius: MacroCardView.cornerRadius))
-    }
+	}
 }
 
 extension MacroCardView {
@@ -37,8 +43,8 @@ extension MacroCardView {
 extension MacroCardView {
 	struct TextView: View {
 		//MARK: Dependencies
+		let currentValue: Int
 		let title: String
-		let quantity: Int
 		let unit: String
 		
 		var body: some View {
@@ -53,7 +59,7 @@ extension MacroCardView {
 		}
 		
 		private var valueText: AttributedString {
-			let value =  AttributedString(quantity.formatted(.number))
+			let value =  AttributedString(currentValue.formatted(.number))
 			let unit = AttributedString(" \(unit)")
 			
 			return value + unit
@@ -62,7 +68,6 @@ extension MacroCardView {
 	
 	struct TextDependencies {
 		let title: String
-		let quantity: Int
 		let unit: String
 	}
 }
@@ -73,19 +78,22 @@ extension MacroCardView {
 extension MacroCardView {
 	struct GraphView: View {
 		//MARK: Dependencies
+		let goal: Int
+		let currentValue: Int
 		let color: Color
 		
 		var body: some View {
 			ZStack {
-				GraphCircle()
-					.stroke(style: StrokeStyle(lineWidth: 18, lineCap: .round))
-					.foregroundStyle(color)
+				GraphCircle(goal: goal,
+							currentValue: currentValue
+				)
+				.stroke(style: StrokeStyle(lineWidth: 18, lineCap: .round))
+				.foregroundStyle(color)
 				
 				Circle()
 					.stroke(style: StrokeStyle(lineWidth: 22, lineCap: .round))
-					.foregroundStyle(color.opacity(0.1))
+					.foregroundStyle(color.opacity(0.2))
 			}
-			.frame(height: 200)
 			.padding(44)
 			.background(color.opacity(0.4))
 			.clipShape(
@@ -95,6 +103,10 @@ extension MacroCardView {
 			)
 		}
 	}
+	
+	struct GraphDependencies {
+		let color: Color
+	}
 }
 
 extension MacroCardView.GraphView {
@@ -103,20 +115,29 @@ extension MacroCardView.GraphView {
 	}
 	
 	struct GraphCircle: Shape {
+		//MARK: Dependencies
+		let goal: Int
+		let currentValue: Int
 		
+		let startAngle: Angle = .degrees(-90)
 		func path(in rect: CGRect) -> Path {
 			var path = Path()
-		
+			
 			path
 				.addArc(
 					center: CGPoint(x: rect.midX, y: rect.midY),
 					radius: rect.width / 2,
-					startAngle:.degrees(-90),
-					endAngle: .degrees(-50),
-					clockwise: false
+					startAngle: startAngle,
+					endAngle: endAngle,
+					clockwise: true
 				)
 			
 			return path
+		}
+		
+		private var endAngle: Angle {
+			let multiplier = Double(currentValue) / Double(goal)
+			return .degrees(-360 * multiplier + startAngle.degrees)
 		}
 	}
 }
@@ -126,10 +147,14 @@ extension MacroCardView.GraphView {
 	ZStack {
 		Color.gray
 		
-		MacroCardView(text: .init(title: "Protein",
-								  quantity: 230,
-								  unit: "g"
-								 )
+		MacroCardView(
+			goal: 230,
+			currentValue: 200,
+			text: .init(
+				title: "Protein",
+				unit: "g"
+			),
+			graph: .init(color: .brandPrimary)
 		)
 	}
 	.ignoresSafeArea()
