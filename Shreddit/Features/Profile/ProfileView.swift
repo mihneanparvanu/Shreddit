@@ -12,7 +12,7 @@ struct ProfileView: View {
     var body: some View {
 		VStack {
 			ProfilePicture(picture: user.picture, size: 120)
-			
+				.profilePictureBorder(color: .brandPrimary)
 			
 			Text(user.username)
 				.font(.subheadline)
