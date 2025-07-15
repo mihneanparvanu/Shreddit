@@ -16,8 +16,11 @@ struct HealthManager {
 	let stepCount = HKQuantityType(.stepCount)
 	let activeEnergy = HKQuantityType(.activeEnergyBurned)
 	
-	//Energy consumed
+	//Diet stats
 	let dietaryEnergyConsumed = HKQuantityType(.dietaryEnergyConsumed)
+	let protein = HKQuantityType(.dietaryProtein)
+	let fat = HKQuantityType(.dietaryFatTotal)
+	let carbs = HKQuantityType(.dietaryCarbohydrates)
 	
 	//Body stats
 	let basalEnergy = HKQuantityType(.basalEnergyBurned)

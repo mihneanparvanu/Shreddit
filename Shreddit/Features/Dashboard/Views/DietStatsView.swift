@@ -37,6 +37,16 @@ struct DietStatsView: View {
 							   afterHighlight: "kilocalories today.")
 			)
 			
+			MacroCardView(
+				goal: 200,
+				currentValue: 150,
+				text: .init(title: "Protein",
+							unit: "g"),
+				graph: .init(
+					color: DesignConstants.Colors.Brand.primary
+				)
+			)
+			
 			VStack (spacing: 16){
 				StatView(icon: .init(systemName: "shoe",
 									 color: DesignConstants.Colors.Brand.primary),
@@ -52,7 +62,6 @@ struct DietStatsView: View {
 			}
 			
 		}
-		.padding()
 		.alert(item: $vm.alert) { error in
 			Alert(
 				title: Text(error.title),
