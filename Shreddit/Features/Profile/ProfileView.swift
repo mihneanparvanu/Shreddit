@@ -14,7 +14,9 @@ struct ProfileView: View {
     var body: some View {
 		VStack {
 			ProfilePicture(picture: user.picture, size: 120)
-				.profilePictureBorder(color: .brandPrimary)
+				.profilePictureBorder(
+					color: DesignConstants.Colors.Brand.primary
+				)
 			
 			Text(user.username)
 				.font(.subheadline)

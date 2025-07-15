@@ -14,9 +14,11 @@ struct MacroCardView: View {
 	let text: TextDependencies
 	let graph: GraphDependencies
 	
+
+	
 	var body: some View {
 		HStack (spacing: 40){
-			TextView(	 currentValue: currentValue,
+			TextView(currentValue: currentValue,
 						 title: text.title,
 						 unit: text.unit
 			)
@@ -47,14 +49,19 @@ extension MacroCardView {
 		let title: String
 		let unit: String
 		
+		//MARK: Environment
+		@Environment(\.designSystem) var designSystem
+		
 		var body: some View {
-			VStack (alignment: .leading, spacing: 8) {
+			VStack (alignment: .leading) {
 				Text(title)
 					.font(.title2)
 					.foregroundStyle(.gray.opacity(0.9))
 				
 				Text(valueText)
-					.font(.system(size: 40))
+					.foregroundStyle(designSystem.colors.content.primary)
+					.font(.system(size: DesignConstants.Sizing.mediumLarge))
+			
 			}
 		}
 		
@@ -154,7 +161,7 @@ extension MacroCardView.GraphView {
 				title: "Protein",
 				unit: "g"
 			),
-			graph: .init(color: .brandPrimary)
+			graph: .init(color: DesignConstants.Colors.Brand.primary)
 		)
 	}
 	.ignoresSafeArea()

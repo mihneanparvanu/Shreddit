@@ -39,7 +39,7 @@ struct DietStatsView: View {
 			
 			VStack (spacing: 16){
 				StatView(icon: .init(systemName: "shoe",
-									 color: .brandPrimary),
+									 color: DesignConstants.Colors.Brand.primary),
 						 title: "Steps today",
 						 value: vm.steps,
 						 unit: "steps")

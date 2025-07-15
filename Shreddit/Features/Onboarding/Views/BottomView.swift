@@ -21,7 +21,7 @@ extension OnboardingView {
 		}
 		
 		var buttons: some View {
-			HStack (spacing: DesignConstants.Spacing.base * 10){
+			HStack (spacing: DesignConstants.Spacing.medium){
 				if shouldShowBackButton {
 					Button {
 						backButtonAction()
