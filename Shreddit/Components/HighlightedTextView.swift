@@ -12,14 +12,14 @@ struct HighlightedTextView: View {
 	let highlightedValue: String
 	let afterHighlight: String
     var body: some View {
-		Text(calorieText)
+		Text(highlightedText)
 			.font(.system(size: 24))
     }
 	
 	///Highlight a number value
 	init(beforeHighlight: String, highlightedValue: Int, afterHighlight: String) {
 		self.beforeHighlight = beforeHighlight
-		self.highlightedValue = String(highlightedValue)
+		self.highlightedValue = highlightedValue.formatted(.number)
 		self.afterHighlight = afterHighlight
 	}
 	
@@ -30,7 +30,7 @@ struct HighlightedTextView: View {
 		self.afterHighlight = afterHighlight
 	}
 	
-	private var calorieText: AttributedString {
+	private var highlightedText: AttributedString {
 		var part1 = AttributedString(beforeHighlight)
 		let part2 = AttributedString(" \(highlightedValue) ")
 		var part3 = AttributedString(afterHighlight)
