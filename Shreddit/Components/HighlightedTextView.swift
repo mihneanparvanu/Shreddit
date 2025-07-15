@@ -12,7 +12,6 @@ struct HighlightedTextView: View {
 	let highlight: Highlight
 	let content: Content
 	
-	
 	var body: some View {
 		Text(highlightedText)
 			.font(.system(size: 24))
@@ -29,7 +28,6 @@ struct HighlightedTextView: View {
 		return part1 + part2 + part3
 	}
 }
-
 
 extension HighlightedTextView {
 	struct Highlight {
