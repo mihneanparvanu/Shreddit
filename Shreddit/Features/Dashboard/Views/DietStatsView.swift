@@ -31,7 +31,11 @@ struct DietStatsView: View {
 	var body: some View {
 		VStack (spacing: 32){
 			
-			CaloriesLeftView(caloriesLeft: vm.caloriesLeft)
+			HighlightedTextView(
+				beforeHighlight: "Have fun eating the rest",
+				highlightedValue: vm.caloriesLeft,
+				afterHighlight: "calories today"
+			)
 			
 			CaloriesInDeficitView(weightToLose: vm.weightToLose)
 			
@@ -121,3 +125,4 @@ extension DietStatsView.StatView {
 	)
 	.environment(AppSettingsManager())
 }
+

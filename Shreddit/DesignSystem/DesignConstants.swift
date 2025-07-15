@@ -15,11 +15,15 @@ enum DesignConstants {
 		static let small: CGFloat = 16
 		static let medium: CGFloat = 32
 		static let large: CGFloat = 64
+		static let smallMultiplier: CGFloat = 1.1
+		static let mediumMultiplier: CGFloat = 1.2
+		static let largeMultiplier: CGFloat = 1.4
 	}
 	
 	enum Spacing {
 		static let base: CGFloat = 4
 	}
+	
 	
 	enum Colors {
 		static let brandPrimary = Color("BrandPrimary")

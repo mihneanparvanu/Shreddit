@@ -22,7 +22,7 @@ struct ProfilePictureBorderViewModifier: ViewModifier {
 				}
 				Circle()
 					.foregroundStyle(color)
-					.frame(size: size * 1.1)
+					.frame(size: size * DesignConstants.Sizing.smallMultiplier)
 			}
 			.padding(.bottom, size * 0.1)
 	}
