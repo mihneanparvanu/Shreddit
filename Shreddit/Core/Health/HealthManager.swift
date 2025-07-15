@@ -18,9 +18,9 @@ struct HealthManager {
 	
 	//Diet stats
 	let dietaryEnergyConsumed = HKQuantityType(.dietaryEnergyConsumed)
-	let protein = HKQuantityType(.dietaryProtein)
-	let fat = HKQuantityType(.dietaryFatTotal)
-	let carbs = HKQuantityType(.dietaryCarbohydrates)
+	let dietaryProtein = HKQuantityType(.dietaryProtein)
+	let dietaryFat = HKQuantityType(.dietaryFatTotal)
+	let dietaryCarbs = HKQuantityType(.dietaryCarbohydrates)
 	
 	//Body stats
 	let basalEnergy = HKQuantityType(.basalEnergyBurned)
@@ -32,7 +32,10 @@ struct HealthManager {
 			basalEnergy,
 			activeEnergy,
 			currentWeight,
-			dietaryEnergyConsumed
+			dietaryEnergyConsumed,
+			dietaryProtein,
+			dietaryFat,
+			dietaryCarbs
 		]
 	}
 	
@@ -81,6 +84,27 @@ struct HealthManager {
 				}
 			healthStore.execute(query)
 		}
+	}
+	
+	func fetchMacros(startDate: Date) async throws -> (protein: Int, fat: Int, carbs: Int) {
+		async let protein = fetchCumulativeSum(
+			for: dietaryProtein,
+			unit: .gram(),
+			startDate: startDate
+		)
+		
+		async let fat = fetchCumulativeSum(
+			for: dietaryFat,
+			unit: .gram(),
+			startDate: startDate
+		)
+		
+		async let carbs = fetchCumulativeSum(
+			for: dietaryCarbs,
+			unit: .gram(),
+			startDate: startDate)
+			
+			return try await (protein, fat, carbs)
 	}
 	
 	func fetchDietaryEnergyConsumed (startDate: Date) async throws -> Int {

@@ -38,10 +38,10 @@ struct DietStatsView: View {
 			)
 			
 			MacroCardView(
-				goal: 200,
-				currentValue: 150,
-				text: .init(title: "Protein",
-							unit: "g"),
+				goal: vm.dietaryProtein.goal,
+				currentValue: vm.dietaryProtein.currentValue,
+				text: .init(title: vm.dietaryProtein.title,
+							unit: vm.dietaryProtein.unit),
 				graph: .init(
 					color: DesignConstants.Colors.Brand.primary
 				)
