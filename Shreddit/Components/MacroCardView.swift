@@ -14,8 +14,6 @@ struct MacroCardView: View {
 	let text: TextDependencies
 	let graph: GraphDependencies
 	
-
-	
 	var body: some View {
 		HStack (spacing: 40){
 			TextView(currentValue: currentValue,
@@ -127,13 +125,16 @@ extension MacroCardView.GraphView {
 		let currentValue: Int
 		
 		let startAngle: Angle = .degrees(-90)
+		let angleRange: Angle = .degrees(360)
 		var endAngle: Angle {
 			// Calculate progress and clamp it to 1
 			let progress = min(Double(currentValue) / Double(goal), 1)
+			
 			// The end angle will be the start + the total angle to fill * progress
 			// Total angle to fill is negative because the direction is clockwise
-			return startAngle + .degrees(-360 * progress)
+			return startAngle + (-angleRange * progress)
 		}
+		
 		func path(in rect: CGRect) -> Path {
 			var path = Path()
 			
