@@ -127,7 +127,13 @@ extension MacroCardView.GraphView {
 		let currentValue: Int
 		
 		let startAngle: Angle = .degrees(-90)
-		
+		var endAngle: Angle {
+			// Calculate progress and clamp it to 1
+			let progress = min(Double(currentValue) / Double(goal), 1)
+			// The end angle will be the start + the total angle to fill * progress
+			// Total angle to fill is negative because the direction is clockwise
+			return startAngle + .degrees(-360 * progress)
+		}
 		func path(in rect: CGRect) -> Path {
 			var path = Path()
 			
@@ -141,11 +147,6 @@ extension MacroCardView.GraphView {
 				)
 			
 			return path
-		}
-		
-		private var endAngle: Angle {
-			let multiplier = Double(currentValue) / Double(goal)
-			return .degrees(-360 * multiplier + startAngle.degrees)
 		}
 	}
 }
