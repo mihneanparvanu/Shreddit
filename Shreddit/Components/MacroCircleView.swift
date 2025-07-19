@@ -45,8 +45,16 @@ extension MacroCircleView {
 		
 		func path(in rect: CGRect) -> Path {
 			let startAngle: Angle = .degrees(150)
-			let progress = min(Double(current) / Double(goal), 1)
-			let endAngle: Angle = startAngle + .degrees(240 * progress)
+			let angleRange: Angle = .degrees(230)
+			
+			var endAngle: Angle {
+				// Calculate progress and clamp it to 1
+				let progress = min(Double(current) / Double(goal), 1)
+				
+				// End angle is start angle + the total angle to fill * the progress
+				return startAngle + (angleRange * progress)
+			}
+			
 		var path = Path()
 			path
 				.addArc(
