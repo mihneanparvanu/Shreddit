@@ -127,6 +127,7 @@ extension MacroCardView.GraphView {
 		let currentValue: Int
 		
 		let startAngle: Angle = .degrees(-90)
+		
 		func path(in rect: CGRect) -> Path {
 			var path = Path()
 			

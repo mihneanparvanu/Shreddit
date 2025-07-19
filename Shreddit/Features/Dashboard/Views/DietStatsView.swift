@@ -30,6 +30,8 @@ struct DietStatsView: View {
 	
 	var body: some View {
 		VStack (spacing: 32){
+			Text ("Calories in")
+				.font(.title2)
 			
 			HighlightedTextView(
 				highlight: .init(value: vm.caloriesLeft),
@@ -37,15 +39,35 @@ struct DietStatsView: View {
 							   afterHighlight: "kilocalories today.")
 			)
 			
-			MacroCardView(
-				goal: vm.dietaryProtein.goal,
-				currentValue: vm.dietaryProtein.currentValue,
-				text: .init(title: vm.dietaryProtein.title,
-							unit: vm.dietaryProtein.unit),
-				graph: .init(
-					color: DesignConstants.Colors.Brand.primary
+			
+			ScrollView(.vertical)
+			{
+				MacroCardView(
+					goal: vm.dietaryProtein.goal,
+					currentValue: vm.dietaryProtein.currentValue,
+					text: .init(title: vm.dietaryProtein.title,
+								unit: vm.dietaryProtein.unit),
+					graph: .init(
+						color: DesignConstants.Colors.Brand.primary
+					)
 				)
-			)
+				
+				MacroCardView(
+					goal: vm.dietaryProtein.goal,
+					currentValue: vm.dietaryProtein.currentValue,
+					text: .init(title: vm.dietaryProtein.title,
+								unit: vm.dietaryProtein.unit),
+					graph: .init(
+						color: DesignConstants.Colors.Brand.primary
+					)
+				)
+			}
+			.frame(height: 200)
+			
+			
+			
+			Text("Calories out")
+				.font(.title2)
 			
 			VStack (spacing: 16){
 				StatView(icon: .init(systemName: "shoe",
@@ -82,7 +104,6 @@ struct DietStatsView: View {
 }
 
 //MARK: StatView
-
 extension DietStatsView {
 	struct StatView: View {
 		let icon: Icon
