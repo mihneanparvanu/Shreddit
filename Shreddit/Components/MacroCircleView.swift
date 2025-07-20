@@ -14,38 +14,56 @@ struct MacroCircleView: View {
 	let title: String
 	
 	//MARK: State
-	@State private var circleSize: CGSize = .zero
+	@State private var circleSize: CGFloat = 0
+	
 	var body: some View {
 		ZStack {
-			VStack {
-				Text (title)
-			}
-	
-			.padding(40)
+			
+			Graph(current: current,
+				  goal: goal)
+			.stroke(style: .init(lineWidth: 8,
+								 lineCap: .square))
+			.foregroundStyle(accentColor)
+			.frame(size: circleSize)
+			
+				VStack {
+					Text (current.formatted(.number))
+						.font(.title.weight(.semibold))
+						.foregroundStyle(accentColor)
+				}
+				.padding(40)
+			
 			.background{
-				Color.gray.opacity(0.2)
+				GeometryReader { geo in
+					Color(.systemGray6)
+						.onAppear {
+							circleSize = geo.size.height
+						}
+				}
 			}
 			.clipShape(.circle)
-			
-			GraphView(current: current,
-					  goal: goal)
-				.stroke(style: .init(lineWidth: 10, lineCap: .round))
-				.foregroundStyle(DesignConstants.Colors.Brand.primary)
-				.frame(size: 100)
-			
 		}
 	}
 }
 
+//MARK: Colors
 extension MacroCircleView {
-	struct GraphView: Shape {
+	private var accentColor: Color {
+		DesignConstants.Colors.Brand.primary
+	}
+}
+
+
+//MARK: Graph
+extension MacroCircleView {
+	struct Graph: Shape {
 		//MARK: Dependencies
 		let current: Int
 		let goal: Int
 		
 		func path(in rect: CGRect) -> Path {
 			let startAngle: Angle = .degrees(150)
-			let angleRange: Angle = .degrees(230)
+			let angleRange: Angle = .degrees(240)
 			
 			var endAngle: Angle {
 				// Calculate progress and clamp it to 1
@@ -55,9 +73,8 @@ extension MacroCircleView {
 				return startAngle + (angleRange * progress)
 			}
 			
-		var path = Path()
-			path
-				.addArc(
+			var path = Path()
+			path.addArc(
 					center: CGPoint(x: rect.midX,
 									y: rect.midY),
 					radius: rect.width/2,
