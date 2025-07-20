@@ -30,52 +30,14 @@ struct DietStatsView: View {
 	
 	var body: some View {
 		VStack (spacing: 32){
-			Text ("Calories in")
-				.font(.title2)
 			
-			HighlightedTextView(
-				highlight: .init(value: vm.caloriesLeft),
-				content: .init(beforeHighlight: "Have fun eating the rest",
-							   afterHighlight: "kilocalories today.")
-			)
-			
-			
-			HStack (spacing: 20) {
-				
-				
-				HighlightedTextView(
-					highlight: .init(value: vm.dietaryProtein.currentValue),
-					content: .init(afterHighlight: vm.dietaryProtein.title)
-				)
-				
-				HighlightedTextView(
-					highlight: .init(value: vm.dietaryCarbs.currentValue),
-					content: .init(afterHighlight: vm.dietaryCarbs.title)
-				)
-				
-				HighlightedTextView(
-					highlight: .init(value: vm.dietaryFat.currentValue),
-					content: .init(afterHighlight: vm.dietaryFat.title)
-				)
-				
-			}
 			
 			Text("Calories out")
 				.font(.title2)
 			
-			VStack (spacing: 16){
-				StatView(icon: .init(systemName: "shoe",
-									 color: DesignConstants.Colors.Brand.primary),
-						 title: "Steps today",
-						 value: vm.steps,
-						 unit: "steps")
+				HighlightedTextView(highlight: .init(value: vm.tdee),
+									content: .init(afterHighlight: "kilocalories"))
 				
-				StatView(icon: .init(systemName: "flame",
-									 color: .red),
-						 title: "TDEE",
-						 value: vm.tdee,
-						 unit: "kilocalories")
-			}
 			
 		}
 		.alert(item: $vm.alert) { error in
@@ -97,50 +59,48 @@ struct DietStatsView: View {
 	}
 }
 
-//MARK: StatView
 extension DietStatsView {
-	struct StatView: View {
-		let icon: Icon
-		let title: String
-		let value: Int
-		let unit: String
+	struct CaloriesIn: View {
+		//MARK: Dependencies
+		let caloriesLeft: Int
+		let protein: Macro
+		let carbs: Macro
+		let fat: Macro
 		
 		var body: some View {
-			VStack {
-				icon.image
-					.foregroundStyle(icon.color ?? .primary)
-				
-				Text(title)
-				
-				Text(valueUnit)
-					.font(.title)
-			}
-		}
-		private var valueUnit: AttributedString {
-			let value = AttributedString(value.formatted(.number))
-			let unit = AttributedString(" \(unit)")
+			Text ("Calories in")
+				.font(.title2)
 			
-			return value + unit
+			HighlightedTextView(
+				highlight: .init(value: caloriesLeft),
+				content: .init(beforeHighlight: "Have fun eating the rest",
+							   afterHighlight: "kilocalories today.")
+			)
+			
+			
+			HStack (spacing: 20) {
+				
+				
+				HighlightedTextView(
+					highlight: .init(value: protein.currentValue),
+					content: .init(afterHighlight: protein.title)
+				)
+				
+				HighlightedTextView(
+					highlight: .init(value: carbs.currentValue),
+					content: .init(afterHighlight: carbs.title)
+				)
+				
+				HighlightedTextView(
+					highlight: .init(value: carbs.currentValue),
+					content: .init(afterHighlight: carbs.title)
+				)
+				
+			}
 		}
 	}
 }
 
-extension DietStatsView.StatView {
-	struct Icon {
-		let image: Image
-		let color: Color?
-		
-		init(resourceName: String, color: Color? = nil){
-			self.image = Image(resourceName)
-			self.color = color
-		}
-		
-		init(systemName: String, color: Color){
-			self.image = Image(systemName: systemName)
-			self.color = color
-		}
-	}
-}
 #Preview {
 	DietStatsView(healthManager: HealthManager(),
 				  settingsManager: AppSettingsManager()

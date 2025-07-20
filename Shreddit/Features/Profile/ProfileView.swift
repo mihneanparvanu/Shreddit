@@ -13,7 +13,7 @@ struct ProfileView: View {
 	
     var body: some View {
 		VStack {
-			ProfilePicture(picture: user.picture, size: 120)
+			ProfilePicture(picture: user.image, size: 120)
 				.profilePictureBorder(
 					color: DesignConstants.Colors.Brand.primary
 				)

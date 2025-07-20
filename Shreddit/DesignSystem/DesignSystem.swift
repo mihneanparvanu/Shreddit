@@ -14,6 +14,9 @@ struct DesignSystem {
 		colors: .init(
 			accent: .init(primary: DesignConstants.Colors.Brand.primary,
 						  secondary: DesignConstants.Colors.Brand.secondary),
+			surface: .init(base: DesignConstants.Colors.Surface.primary,
+						   secondary: DesignConstants.Colors.Surface.secondary,
+						   tertiary: DesignConstants.Colors.Surface.tertiary),
 			content: .init(heading: DesignConstants.Colors.Content.primary,
 						   subheading: DesignConstants.Colors.Content.secondary,
 						   description: DesignConstants.Colors.Content.tertiary
@@ -24,10 +27,17 @@ struct DesignSystem {
 		
 		struct Colors {
 			let accent: Accent
+			let surface: Surface
 			let content: Content
+			
 			struct Accent {
 				let primary: Color
 				let secondary: Color
+			}
+			struct Surface {
+				let base: Color
+				let secondary: Color
+				let tertiary: Color
 			}
 			struct Content {
 				let heading: Color

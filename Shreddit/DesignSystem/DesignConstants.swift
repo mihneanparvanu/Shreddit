@@ -47,14 +47,14 @@ enum DesignConstants {
 	
 	enum Colors {
 		enum Brand {
-			static let primary = Color(.Colors.brandPrimary)
-			static let secondary = Color("BrandSecondary")
+			static let primary = Color(.Colors.appPrimary)
+			static let secondary = Color(.Colors.appSecondary)
 		}
 		
 		enum Surface {
-			static let primary = Color("SurfacePrimary")
-			static let secondary = Color("SurfaceSecondary")
-			static let tertiary = Color("SurfaceTertiary")
+			static let primary = Color(.Colors.surfacePrimary)
+			static let secondary = Color(.Colors.surfaceSecondary)
+			static let tertiary = Color(.Colors.surfaceTertiary)
 		}
 		
 		enum Content {

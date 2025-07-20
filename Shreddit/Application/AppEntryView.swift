@@ -10,6 +10,7 @@ import SwiftUI
 struct AppEntryView: View {
 	//MARK: Dependencies
 	let healthManager: HealthManager
+	let user: User
 	
 	//MARK: Environment
 	@Environment(AppSettingsManager.self) var settingsManager
@@ -20,7 +21,8 @@ struct AppEntryView: View {
 		Group {
 			if onboardingManager.state.hasOnboarded  {
 				DashboardView(
-					healthManager: healthManager
+					healthManager: healthManager,
+					user: user
 				)
 			} else {
 				OnboardingView(onboardingManager: onboardingManager,
@@ -35,6 +37,8 @@ struct AppEntryView: View {
 }
 
 #Preview {
-	AppEntryView(healthManager: HealthManager())
+	AppEntryView(healthManager: HealthManager(),
+				 user: User.preview
+	)
 		.environment(AppSettingsManager())
 }

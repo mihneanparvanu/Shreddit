@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct OnboardingView: View {
-	@State var vm: OnboardingViewModel
-	@Environment(\.scenePhase) var scenePhase
+	//MARK: Dependencies
 	let healthManager: HealthManager
 	
+	//MARK: Environment
+	@Environment(\.scenePhase) var scenePhase
+
+	//MARK: State
+	@State var vm: OnboardingViewModel
+
+	//MARK: Initializer
 	init(onboardingManager: any OnboardingManager,
 		settingsManager: any SettingsManager,
 		 healthManager: HealthManager

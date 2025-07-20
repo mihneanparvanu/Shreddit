@@ -7,56 +7,19 @@
 
 import SwiftUI
 
-struct TopToolbarView: View {
+struct TopToolbarView <Content: View> : View  {
 	//MARK: Dependencies
-	let settingsButtonAction: () -> Void
-	let dietSimulatorButtonAction: () -> Void
+	let spacing: CGFloat? = nil
+	@ViewBuilder let content: Content
 	
 	var body: some View {
-		HStack {
-			Menu{
-				MenuItem(title: "Diet Simulator",
-						 image: "play.circle.fill",
-						 action: dietSimulatorButtonAction)
-				
-				MenuItem(title: "Settings",
-						 image: "gear",
-						 action: settingsButtonAction)
-			}
-			label: {
-				Image(systemName: "ellipsis")
-			}
-			.tint(.primary)
-			
-			
-			Spacer()
-			
-			HStack {
-				Text(Date().formatted(.dateTime.month(.abbreviated).day()))
-				
-				ProfilePicture(picture: "ProfilePicture", size: 24)
-			}
-			.padding(.trailing)
+		HStack (spacing: spacing){
+			content
 		}
 		.padding()
 	}
 }
 
-extension TopToolbarView {
-	struct MenuItem: View {
-		let title: String
-		let image: String
-		let action: () -> Void
-		var body: some View {
-			Button {
-				action()
-			} label: {
-				Label(title, systemImage: image)
-			}
-		}
-	}
-}
-
 #Preview {
-	TopToolbarView(settingsButtonAction: {}, dietSimulatorButtonAction: {})
+
 }

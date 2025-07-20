@@ -5,7 +5,7 @@
 //  Created by Mihnea Nicolae Pârvanu on 14.07.2025.
 //
 
-import Foundation
+import SwiftUI
 
 struct User: Codable, Identifiable {
 	var id: String { username }
@@ -14,7 +14,7 @@ struct User: Codable, Identifiable {
 	let username: String
 	let email: String?
 	let password: String?
-	let picture: String?
+	let image: String?
 	let createdAt: Date
 }
 
@@ -26,7 +26,12 @@ extension User {
 		username: "m",
 		email: nil,
 		password: nil,
-		picture: "ProfilePicture",
+		image: "Preview/mProfileImage",
 		createdAt: Date()
 	)
+}
+
+
+#Preview {
+	ProfileView(user: User.preview)
 }

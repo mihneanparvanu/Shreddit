@@ -158,12 +158,3 @@ final class DietStatsViewModel {
 	}
 	
 }
-
-extension DietStatsViewModel {
-	struct Macro {
-		let title: String
-		var currentValue: Int
-		var goal: Int
-		let unit: String
-	}
-}
