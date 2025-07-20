@@ -17,32 +17,37 @@ struct MacroCircleView: View {
 	@State private var circleSize: CGFloat = 0
 	
 	var body: some View {
-		ZStack {
-			
-			Graph(current: current,
-				  goal: goal)
-			.stroke(style: .init(lineWidth: 8,
-								 lineCap: .square))
-			.foregroundStyle(accentColor)
-			.frame(size: circleSize)
-			
-				VStack {
-					Text (current.formatted(.number))
-						.font(.title.weight(.semibold))
-						.foregroundStyle(accentColor)
-				}
-				.padding(40)
-			
-			.background{
-				GeometryReader { geo in
-					Color(.systemGray6)
-						.onAppear {
-							circleSize = geo.size.height
+	
+		VStack {
+			ZStack {
+				Graph(current: current,
+					  goal: goal)
+				.stroke(style: .init(lineWidth: 8,
+									 lineCap: .square))
+				.foregroundStyle(accentColor)
+				.frame(size: circleSize)
+		
+					VStack {
+						Text (current.formatted(.number))
+							.font(.title.weight(.semibold))
+							.foregroundStyle(accentColor)
+					}
+					.padding(40)
+					.background{
+						GeometryReader { geo in
+							Color(.systemGray6)
+								.onAppear {
+									circleSize = geo.size.height
+								}
 						}
-				}
+					}
+					.clipShape(.circle)
 			}
-			.clipShape(.circle)
+			Text (title)
+				.font(.callout.weight(.medium))
+				.foregroundStyle(.secondary)
 		}
+		
 	}
 }
 
@@ -54,7 +59,7 @@ extension MacroCircleView {
 }
 
 
-//MARK: Graph
+
 extension MacroCircleView {
 	struct Graph: Shape {
 		//MARK: Dependencies
@@ -75,14 +80,20 @@ extension MacroCircleView {
 			
 			var path = Path()
 			path.addArc(
-					center: CGPoint(x: rect.midX,
-									y: rect.midY),
-					radius: rect.width/2,
-					startAngle: startAngle,
-					endAngle: endAngle,
-					clockwise: false
-				)
+				center: CGPoint(x: rect.midX,
+								y: rect.midY),
+				radius: rect.width/2,
+				startAngle: startAngle,
+				endAngle: endAngle,
+				clockwise: false
+			)
 			return path
+		}
+	}
+	
+	struct CircleView: View {
+		
+		var body: some View {
 		}
 	}
 }
