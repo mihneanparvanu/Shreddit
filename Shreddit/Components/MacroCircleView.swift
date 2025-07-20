@@ -25,11 +25,11 @@ struct MacroCircleView: View {
 				.stroke(style: .init(lineWidth: 8,
 									 lineCap: .square))
 				.foregroundStyle(accentColor)
-				.frame(size: circleSize)
+				.frame(size: circleSize * 0.98)
 		
 					VStack {
 						Text (current.formatted(.number))
-							.font(.title.weight(.semibold))
+							.font(.title2.weight(.semibold))
 							.foregroundStyle(accentColor)
 					}
 					.padding(40)

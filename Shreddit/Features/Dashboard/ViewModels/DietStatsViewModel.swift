@@ -28,6 +28,18 @@ final class DietStatsViewModel {
 							   currentValue: 0,
 							   goal: 200,
 							   unit: "g")
+		
+	
+	var dietaryCarbs = Macro(title: "Carbs",
+							 currentValue: 0,
+							 goal: 300,
+							 unit: "g")
+	
+	var dietaryFat = Macro(title: "Fat",
+							 currentValue: 0,
+							 goal: 45,
+							 unit: "g")
+	
 	var caloriesLeft: Int {
 		(tdee - dietaryEnergyConsumed) - deficit
 	}
@@ -125,8 +137,11 @@ final class DietStatsViewModel {
 	}
 
 	private func fetchMacros() async throws {
-		dietaryProtein.currentValue = try await healthManager
-			.fetchMacros(startDate: startDate).protein
+		(
+			dietaryProtein.currentValue,
+			dietaryCarbs.currentValue,
+			dietaryFat.currentValue
+		) = try await healthManager.fetchMacros(startDate: startDate)
 	}
 	
 	private func fetchTotalEnergyBurned() async throws {

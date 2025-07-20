@@ -40,31 +40,25 @@ struct DietStatsView: View {
 			)
 			
 			
-			ScrollView(.vertical)
-			{
-				MacroCardView(
-					goal: vm.dietaryProtein.goal,
-					currentValue: vm.dietaryProtein.currentValue,
-					text: .init(title: vm.dietaryProtein.title,
-								unit: vm.dietaryProtein.unit),
-					graph: .init(
-						color: DesignConstants.Colors.Brand.primary
-					)
+			HStack (spacing: 20) {
+				
+				
+				HighlightedTextView(
+					highlight: .init(value: vm.dietaryProtein.currentValue),
+					content: .init(afterHighlight: vm.dietaryProtein.title)
 				)
 				
-				MacroCardView(
-					goal: vm.dietaryProtein.goal,
-					currentValue: vm.dietaryProtein.currentValue,
-					text: .init(title: vm.dietaryProtein.title,
-								unit: vm.dietaryProtein.unit),
-					graph: .init(
-						color: DesignConstants.Colors.Brand.primary
-					)
+				HighlightedTextView(
+					highlight: .init(value: vm.dietaryCarbs.currentValue),
+					content: .init(afterHighlight: vm.dietaryCarbs.title)
 				)
+				
+				HighlightedTextView(
+					highlight: .init(value: vm.dietaryFat.currentValue),
+					content: .init(afterHighlight: vm.dietaryFat.title)
+				)
+				
 			}
-			.frame(height: 200)
-			
-			
 			
 			Text("Calories out")
 				.font(.title2)

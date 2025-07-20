@@ -48,7 +48,7 @@ extension MacroCardView {
 		let unit: String
 		
 		//MARK: Environment
-		@Environment(\.designSystem) var designSystem
+		@Environment(\.designSystem) var design
 		
 		var body: some View {
 			VStack (alignment: .leading) {
@@ -57,7 +57,7 @@ extension MacroCardView {
 					.foregroundStyle(.gray.opacity(0.9))
 				
 				Text(valueText)
-					.foregroundStyle(designSystem.colors.content.primary)
+					.foregroundStyle(design.colors.content.heading)
 					.font(.system(size: DesignConstants.Sizing.mediumLarge))
 			
 			}

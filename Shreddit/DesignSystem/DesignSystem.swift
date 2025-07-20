@@ -12,31 +12,44 @@ struct DesignSystem {
 	
 	static let defaultDesign = DesignSystem(
 		colors: .init(
-			content: .init(primary: DesignConstants.Colors.Content.primary)
-		)
-	)
-	
-	let colors: Colors
-	
-	
-	struct Text {
-	}
-	
-	struct Colors {
-		let content: Content
-		struct Content {
-			let primary: Color
+			accent: .init(primary: DesignConstants.Colors.Brand.primary,
+						  secondary: DesignConstants.Colors.Brand.secondary),
+			content: .init(heading: DesignConstants.Colors.Content.primary,
+						   subheading: DesignConstants.Colors.Content.secondary,
+						   description: DesignConstants.Colors.Content.tertiary
+						  )
+		))
+		
+		let colors: Colors
+		
+		struct Colors {
+			let accent: Accent
+			let content: Content
+			struct Accent {
+				let primary: Color
+				let secondary: Color
+			}
+			struct Content {
+				let heading: Color
+				let subheading: Color
+				let description: Color
+			}
 		}
-	}
-	
-	struct Spacing {
-	}
-	
-	struct Padding {
-	}
-	
-	struct Size {
-	}
+		
+		struct Text {
+			
+		}
+		
+		
+		
+		struct Spacing {
+		}
+		
+		struct Padding {
+		}
+		
+		struct Size {
+		}
 }
 
 private struct DesignSystemKey: EnvironmentKey {

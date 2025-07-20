@@ -59,6 +59,8 @@ enum DesignConstants {
 		
 		enum Content {
 			static let primary = Color(.Colors.contentPrimary)
+			static let secondary = Color(.Colors.contentSecondary)
+			static let tertiary = Color(.Colors.contentTertiary)
 		}
 	}
 }
