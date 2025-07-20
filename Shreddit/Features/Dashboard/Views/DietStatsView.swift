@@ -31,6 +31,18 @@ struct DietStatsView: View {
 	var body: some View {
 		VStack (spacing: 32){
 			
+			CaloriesIn(caloriesLeft: vm.caloriesLeft,
+					   protein: .init(title: vm.protein.title,
+									  currentValue: vm.protein.currentValue,
+									  goal: vm.protein.goal),
+					   
+					   carbs: .init(title: vm.carbs.title,
+									currentValue: vm.carbs.currentValue,
+									goal: vm.carbs.goal),
+					   
+					   fat: .init(title: vm.fat.title,
+								  currentValue: vm.fat.currentValue,
+								  goal: vm.fat.goal))
 			
 			Text("Calories out")
 				.font(.title2)
@@ -54,7 +66,6 @@ struct DietStatsView: View {
 			Task {
 				try? await vm.fetchEverything()
 			}
-			
 		}
 	}
 }
