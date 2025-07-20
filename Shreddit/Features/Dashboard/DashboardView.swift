@@ -22,7 +22,12 @@ struct DashboardView: View {
 	var body: some View {
 		VStack {
 			TopToolbarView {
-				MenuView(dietSimulatorButtonAction: {}, settingsButtonAction: {})
+				MenuView(dietSimulatorButtonAction: {
+					vm.present(.dietSimulator)
+				},
+						 settingsButtonAction: {
+					vm.present(.settings)
+				})
 				
 				Spacer()
 				
@@ -33,6 +38,10 @@ struct DashboardView: View {
 				healthManager: healthManager,
 				settingsManager: settingsManager
 			)
+			.onTapGesture {
+				 
+			}
+			
 			.padding(28)
 			.background(design.colors.surface.base)
 			.clipShape(.rect(cornerRadius: 12))
@@ -47,6 +56,7 @@ struct DashboardView: View {
 		.fullScreenCover(item: $vm.fullScreenContent ){ content in
 			PresentedView(content)
 		}
+
 		
 	}
 }

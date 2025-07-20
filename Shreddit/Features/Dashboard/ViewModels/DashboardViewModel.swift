@@ -11,8 +11,7 @@ import Observation
 @Observable
 final class DashboardViewModel {
 	//MARK: Properties
-	
-	var presentedContent: DashboardView.ContentType?
+	private var presentedContent: DashboardView.ContentType?
 	
 	var sheetContent: DashboardView.ContentType? {
 		get {
@@ -36,6 +35,11 @@ final class DashboardViewModel {
 		set {
 			presentedContent = newValue
 		}
+	}
+	
+	//MARK: Methods
+	func present(_ content: DashboardView.ContentType) {
+		presentedContent = content
 	}
 }
 
