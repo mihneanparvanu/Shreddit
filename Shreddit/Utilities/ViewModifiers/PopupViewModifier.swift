@@ -10,19 +10,12 @@ import SwiftUI
 struct BooleanPopupViewModifier<PopupContent: View>: ViewModifier {
 	//MARK: Dependencies
 	@Binding var isPresented: Bool
-	@ViewBuilder let popupContent: () -> PopupContent
+	@ViewBuilder let popupContent: () ->  PopupContent
 	
 	func body(content: Content) -> some View {
 		if isPresented {
-			ZStack {
-				content
-					.allowsHitTesting(false)
-				
-				Color.black.opacity(0.5)
-					.ignoresSafeArea()
-				
-				popupContent()
-			}
+			PopupView(content: {content},
+					  popupContent: popupContent)
 		} else {
 			content
 		}
@@ -35,14 +28,11 @@ struct ItemPopupViewModifier<Item: Identifiable, PopupContent: View>: ViewModifi
 	@ViewBuilder let popupContent: (Item) -> PopupContent
 	func body(content: Content) -> some View {
 		if let item = item {
-			ZStack {
-				content
-				
-				Color.black.opacity(0.5)
-					.ignoresSafeArea()
-				
-				popupContent(item)
-			}
+			PopupView(content: {content},
+					  popupContent: {
+				popupContent(item
+				)}
+			)
 		} else {
 			content
 		}
@@ -50,7 +40,7 @@ struct ItemPopupViewModifier<Item: Identifiable, PopupContent: View>: ViewModifi
 }
 
 extension View {
-	}
+}
 
 #Preview {
 	@Previewable @Environment(\.designSystem) var design
@@ -61,3 +51,4 @@ extension View {
 		.infinityFrame()
 		.background(design.colors.accent.primary)
 }
+
