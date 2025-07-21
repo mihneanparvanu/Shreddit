@@ -46,7 +46,7 @@ struct PopupView<MainContent: View, PopupContent: View>: View {
 			.ignoresSafeArea()
 	},
 			  popupContent: {
-		FocusView()
+		CaloriesInView()
 		
 	})
 }

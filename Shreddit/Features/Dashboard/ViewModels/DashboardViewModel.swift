@@ -37,6 +37,18 @@ final class DashboardViewModel {
 		}
 	}
 	
+	var popupContent: DashboardView.ContentType? {
+		get {
+			guard let presentedContent, presentedContent.presentation == .popup else {
+				return nil
+			}
+			return presentedContent
+		}
+		set {
+			presentedContent = newValue
+		}
+	}
+	
 	//MARK: Methods
 	func present(_ content: DashboardView.ContentType) {
 		presentedContent = content

@@ -45,6 +45,16 @@ extension DashboardView {
 						Text("Profile")
 					case .dietSimulator:
 						DietSimulatorView()
+					case .caloriesIn:
+						DietStatsView
+							.CaloriesIn(
+								caloriesLeft: <#T##Int#>,
+								protein: <#T##Macro#>,
+								carbs: <#T##Macro#>,
+								fat: <#T##Macro#>
+							)
+					case .caloriesOut:
+						EmptyView()
 				}
 			}
 			.background()

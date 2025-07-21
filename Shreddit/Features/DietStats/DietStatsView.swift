@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct DietStatsView: View {
 	//MARK: Dependencies
 	let healthManager: HealthManager

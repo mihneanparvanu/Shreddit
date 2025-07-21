@@ -38,13 +38,12 @@ struct DashboardView: View {
 				healthManager: healthManager,
 				settingsManager: settingsManager
 			)
-			.onTapGesture {
-				 
-			}
-			
 			.padding(28)
 			.background(design.colors.surface.base)
 			.clipShape(.rect(cornerRadius: 12))
+			.onTapGesture {
+				 
+			}
 			
 			Spacer()
 		}
@@ -56,8 +55,7 @@ struct DashboardView: View {
 		.fullScreenCover(item: $vm.fullScreenContent ){ content in
 			PresentedView(content)
 		}
-		.popup(isPresented: .constant(true)) {
-			FocusView()
+		.popup (item: $vm.popupContent) { content in
 		}
 	}
 }

@@ -8,10 +8,17 @@
 extension DashboardView {
 	enum ContentType: Identifiable {
 		var id: Self { self }
+		// Sheet
 		case settings
 		case profile
+		
+		// Fullscreen
 		case faq
 		case dietSimulator
+		
+		// Popup
+		case caloriesIn
+		case caloriesOut
 		
 		var presentation: Presentation {
 			switch self {
@@ -19,6 +26,8 @@ extension DashboardView {
 						.sheet
 				case .faq, .dietSimulator:
 						.fullScreen
+				case .caloriesIn, .caloriesOut:
+						.popup
 			}
 		}
 	}
@@ -26,7 +35,7 @@ extension DashboardView {
 
 extension DashboardView.ContentType {
 	enum Presentation {
-		case sheet, fullScreen
+		case sheet, fullScreen, popup
 	}
 }
 
@@ -34,7 +43,7 @@ extension DashboardView.ContentType.Presentation {
 	var isFullscreen: Bool {
 		switch self {
 			case .fullScreen: return true
-			case .sheet: return false
+			case .sheet, .popup: return false
 		}
 	}
 }

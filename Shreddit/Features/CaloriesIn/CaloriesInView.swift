@@ -1,5 +1,5 @@
 //
-//  FocusView.swift
+//  CaloriesInView.swift
 //  Shreddit
 //
 //  Created by Mihnea Nicolae Pârvanu on 7/20/25.
@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct FocusView: View {
-	
+struct CaloriesInView: View {
 	//MARK: Environment
 	@Environment(\.designSystem) var design
 	
@@ -41,5 +40,5 @@ struct FocusView: View {
 }
 
 #Preview {
-    FocusView()
+    CaloriesInView()
 }
