@@ -8,37 +8,40 @@
 import SwiftUI
 
 struct CaloriesInView: View {
-	//MARK: Environment
-	@Environment(\.designSystem) var design
+	//MARK: Dependencies
+	let caloriesLeft: Int
+	let protein: Macro
+	let carbs: Macro
+	let fat: Macro
 	
-    var body: some View {
-		VStack{
-			Text("Calories in")
-				.font(.largeTitle.weight(.semibold))
-				.foregroundStyle(design.colors.content.heading)
+	var body: some View {
+		Text ("Calories in")
+			.font(.title2)
+		
+		HighlightedTextView(
+			highlight: .init(value: caloriesLeft),
+			content: .init(beforeHighlight: "Have fun eating the rest",
+						   afterHighlight: "kilocalories today.")
+		)
+		
+		HStack (spacing: 20) {
+			HighlightedTextView(
+				highlight: .init(value: protein.currentValue),
+				content: .init(afterHighlight: protein.title)
+			)
 			
-			Text("Total energy consumed with macros")
-				.font(.callout)
-				.foregroundStyle(design.colors.content.description)
+			HighlightedTextView(
+				highlight: .init(value: carbs.currentValue),
+				content: .init(afterHighlight: carbs.title)
+			)
 			
-			Spacer()
-			
-			Text ("3000 calories today")
-				.font(.largeTitle.weight(.semibold))
-				.foregroundStyle(design.colors.accent.primary)
-			
-			
-			Text ("600 calories deficit")
-				.font(.caption)
-				.padding()
-				.background(design.colors.surface.secondary)
-				.clipShape(.capsule)
-			
-			Spacer()
+			HighlightedTextView(
+				highlight: .init(value: carbs.currentValue),
+				content: .init(afterHighlight: carbs.title)
+			)
 		}
-    }
+	}
 }
-
 #Preview {
     CaloriesInView()
 }

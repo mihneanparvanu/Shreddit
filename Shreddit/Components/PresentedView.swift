@@ -46,13 +46,7 @@ extension DashboardView {
 					case .dietSimulator:
 						DietSimulatorView()
 					case .caloriesIn:
-						DietStatsView
-							.CaloriesIn(
-								caloriesLeft: <#T##Int#>,
-								protein: <#T##Macro#>,
-								carbs: <#T##Macro#>,
-								fat: <#T##Macro#>
-							)
+						EmptyView()
 					case .caloriesOut:
 						EmptyView()
 				}

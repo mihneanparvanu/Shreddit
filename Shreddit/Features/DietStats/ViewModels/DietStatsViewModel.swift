@@ -17,7 +17,6 @@ final class DietStatsViewModel {
 	let settingsManager: any SettingsManager
 	private let converter = UnitConverter()
 	
-	//MARK: Properties
 	
 	var startDate = Date().startOfDay
 	var deficit = 600
@@ -151,5 +150,4 @@ final class DietStatsViewModel {
 	private func fetchDietaryEnergyConsumed() async throws {
 		dietaryEnergyConsumed = try await healthManager.fetchDietaryEnergyConsumed(startDate: startDate)
 	}
-	
 }
