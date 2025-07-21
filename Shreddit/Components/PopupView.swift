@@ -10,7 +10,7 @@ import SwiftUI
 struct PopupView<MainContent: View, PopupContent: View>: View {
 	@ViewBuilder var mainContent: () -> MainContent
 	@ViewBuilder var popupContent: () -> PopupContent
-    var body: some View {
+	var body: some View {
 		ZStack {
 			mainContent()
 				.allowsHitTesting(false)
@@ -18,13 +18,35 @@ struct PopupView<MainContent: View, PopupContent: View>: View {
 			Color.black.opacity(0.69)
 				.ignoresSafeArea()
 			
-			popupContent()
+			VStack {
+				TopToolbarView {
+					Spacer ()
+					Button {
+						
+					} label: {
+						Image(systemName: "xmark")
+					}
+					.buttonStyle(.glass)
+				}
+				popupContent()
+					.padding(24)
+					.frame(height: 500)
+					.background()
+					.clipShape(.rect(cornerRadius: 12))
+			}
+			
 		}
-    }
+	}
 }
 
 #Preview {
 	@Previewable @Environment(\.designSystem) var design
-	PopupView(mainContent: {design.colors.accent.primary},
-			  popupContent: {})
+	PopupView(mainContent: {
+		design.colors.surface.base
+			.ignoresSafeArea()
+	},
+			  popupContent: {
+		FocusView()
+		
+	})
 }

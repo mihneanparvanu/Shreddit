@@ -56,8 +56,9 @@ struct DashboardView: View {
 		.fullScreenCover(item: $vm.fullScreenContent ){ content in
 			PresentedView(content)
 		}
-
-		
+		.popup(isPresented: .constant(true)) {
+			FocusView()
+		}
 	}
 }
 
