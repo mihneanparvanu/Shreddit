@@ -12,10 +12,10 @@ struct Diet: Identifiable, Codable {
 	let startDate: Date
 	let endDate: Date
 	let startWeight: Double
-	let endWeight: Double
-	let currentCalories: Int
+	let endWeight: Double?
 	let difficulty: Difficulty
-	
+	let currentDeficit: Int
+
 	enum Difficulty: Codable {
 		case preset(preset: Preset)
 		case customizable(lossRate: Double)
@@ -34,6 +34,17 @@ struct Diet: Identifiable, Codable {
 					return 0.7
 				case .hard:
 					return 0.9
+			}
+		}
+		
+		var description: String {
+			switch self {
+				case .easy:
+					return "Easy"
+				case .medium:
+					return "Medium"
+				case .hard:
+					return "Hard"
 			}
 		}
 	}

@@ -28,29 +28,8 @@ struct DietStatsView: View {
 	}
 	
 	var body: some View {
-		VStack (spacing: 32){
-			Text("Calories out")
-				.font(.title2)
-			
-			HighlightedTextView(highlight: .init(value: vm.tdee),
-								content: .init(afterHighlight: "kilocalories"))
-			
-		}
-		.alert(item: $vm.alert) { error in
-			Alert(
-				title: Text(error.title),
-				message: Text(error.message),
-				dismissButton: error.dismiss
-			)
-		}
-		.task {
-			await vm.setupAndFetch()
-		}
-		.onViewReady {
-			Task {
-				try? await vm.fetchEverything()
-			}
-		}
+		HighlightedTextView(highlight: .init(value: 16000),
+							content: .init(afterHighlight: "kilocalories left in this deficit"))
 	}
 }
 

@@ -34,7 +34,6 @@ struct PopupView<MainContent: View, PopupContent: View>: View {
 					.background()
 					.clipShape(.rect(cornerRadius: 12))
 			}
-			
 		}
 	}
 }
@@ -46,7 +45,8 @@ struct PopupView<MainContent: View, PopupContent: View>: View {
 			.ignoresSafeArea()
 	},
 			  popupContent: {
-		CaloriesInView()
-		
+		CaloriesInView(healthManager: HealthManager(),
+					   deficit: 500
+		)
 	})
 }

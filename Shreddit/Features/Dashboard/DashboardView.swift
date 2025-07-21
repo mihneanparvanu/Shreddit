@@ -33,17 +33,15 @@ struct DashboardView: View {
 				
 				CurrentView(userImage: user.image)
 			}
-			
 			DietStatsView(
 				healthManager: healthManager,
 				settingsManager: settingsManager
 			)
-			.padding(28)
-			.background(design.colors.surface.base)
-			.clipShape(.rect(cornerRadius: 12))
-			.onTapGesture {
-				 
+			
+			HStack {
+				
 			}
+			
 			
 			Spacer()
 		}
@@ -56,6 +54,14 @@ struct DashboardView: View {
 			PresentedView(content)
 		}
 		.popup (item: $vm.popupContent) { content in
+			switch content {
+				case .caloriesIn:
+					CaloriesInView(
+						healthManager: healthManager,
+						deficit: user.currentDiet?.currentDeficit)
+				default:
+					EmptyView()
+			}
 		}
 	}
 }
