@@ -14,8 +14,9 @@ struct BooleanPopupViewModifier<PopupContent: View>: ViewModifier {
 	
 	func body(content: Content) -> some View {
 		if isPresented {
-			PopupView(content: {content},
-					  popupContent: popupContent)
+			PopupView(mainContent: {content}) {
+				popupContent()
+			}
 		} else {
 			content
 		}
@@ -28,11 +29,9 @@ struct ItemPopupViewModifier<Item: Identifiable, PopupContent: View>: ViewModifi
 	@ViewBuilder let popupContent: (Item) -> PopupContent
 	func body(content: Content) -> some View {
 		if let item = item {
-			PopupView(content: {content},
-					  popupContent: {
-				popupContent(item
-				)}
-			)
+			PopupView(mainContent: {content}) {
+				popupContent(item)
+			}
 		} else {
 			content
 		}
