@@ -9,15 +9,24 @@ import SwiftUI
 
 struct DietFatigueLog: View {
 	@State var fatigueState: DietFatigueState? = .noFatigue
+	
+	@Environment(\.designSystem) var design
 	var body: some View {
-		Text("How is your diet fatigue?")
-			.font(.largeTitle)
-		Text (fatigueState?.description ?? "")
-			.font(.callout)
-			.foregroundStyle(.gray)
+		VStack{
 		
-		EmojiView(selectedEmoji: $fatigueState)
-		
+			VStack {
+				Text("How is your diet fatigue?")
+					.font(.title.weight(.semibold))
+					.foregroundStyle(design.colors.content.heading)
+				Text (fatigueState?.description ?? "")
+					.font(.callout)
+					.foregroundStyle(design.colors.content.description)
+			}
+			
+			EmojiView(selectedEmoji: $fatigueState)
+		}
+		.infinityFrame(.height)
+		.background(design.colors.surface.secondary)
 	}
 }
 
@@ -29,7 +38,7 @@ extension DietFatigueLog {
 				HStack (spacing: 0) {
 					ForEach(DietFatigueState.allCases){ state in
 						Text (state.emoji)
-							.containerRelativeFrame(.horizontal)
+							.frame(width: 125)
 							.font(.system(size: 100))
 							.rotation3DEffect(
 								calculateEffects(for: state,
@@ -48,26 +57,30 @@ extension DietFatigueLog {
 									selectedEmoji: selectedEmoji
 								).scale
 							)
+							.offset(y: calculateEffects(for: state,
+														selectedEmoji: selectedEmoji).offsetY)
 					}
 				}
 				.scrollTargetLayout()
+				.infinityFrame(.height)
 			}
 			.scrollTargetBehavior(.viewAligned)
 			.scrollPosition(id: $selectedEmoji, anchor: .center)
 		}
 		
 		
-		private func calculateEffects(for currentEmoji: DietFatigueState, selectedEmoji: DietFatigueState?) -> (rotation: Angle, opacity: CGFloat, scale: CGFloat) {
+		private func calculateEffects(for currentEmoji: DietFatigueState, selectedEmoji: DietFatigueState?) -> (rotation: Angle, opacity: CGFloat, scale: CGFloat, offsetY: CGFloat) {
 		
 			// Early exit
 			guard let selectedEmoji = selectedEmoji, selectedEmoji != currentEmoji else {
-				return (.degrees(0), 1, 1)
+				return (.degrees(0), 1, 1, 0)
 			}
 		
 			// Calculate the distance from the current emoji
 			let distance = Double(selectedEmoji.index.distance(to: currentEmoji.index))
 			// Calculate the rotation based on the distance with the signed value
 			let rotation = Angle(degrees: distance * 20)
+			let offsetY = CGFloat(abs(distance) * 30)
 			
 			let maxDistance = 2.0
 		
@@ -77,7 +90,8 @@ extension DietFatigueLog {
 			let opacity = 0.7 + CGFloat(percentage * 0.3)
 			let scale = 0.7 + CGFloat(percentage * 0.3)
 			
-			return (rotation, opacity, scale)
+			
+			return (rotation, opacity, scale, offsetY)
 		}
 	}
 }
