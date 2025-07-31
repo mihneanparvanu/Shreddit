@@ -68,7 +68,6 @@ extension DietFatigueLog {
 			.scrollPosition(id: $selectedEmoji, anchor: .center)
 		}
 		
-		
 		private func calculateEffects(for currentEmoji: DietFatigueState, selectedEmoji: DietFatigueState?) -> (rotation: Angle, opacity: CGFloat, scale: CGFloat, offsetY: CGFloat) {
 		
 			// Early exit

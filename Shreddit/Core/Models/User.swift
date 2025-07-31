@@ -30,9 +30,9 @@ extension User {
 		createdAt: Date(),
 		currentDiet: .init(
 			startDate: .distantPast,
-			endDate: .distantPast,
+			endDate: .distantFuture,
 			startWeight: 153,
-			endWeight: 153,
+			endWeight: 141,
 			difficulty: .preset(preset: .hard),
 			currentDeficit: 600,
 		)

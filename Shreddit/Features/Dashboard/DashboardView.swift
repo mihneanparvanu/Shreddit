@@ -42,7 +42,6 @@ struct DashboardView: View {
 				
 			}
 			
-			
 			Spacer()
 		}
 		.infinityFrame()
