@@ -34,6 +34,7 @@ struct DashboardView: View {
 				CurrentView(userImage: user.image)
 			}
 			DietStatsView(
+				diet: user.currentDiet,
 				healthManager: healthManager,
 				settingsManager: settingsManager
 			)
@@ -51,16 +52,6 @@ struct DashboardView: View {
 		}
 		.fullScreenCover(item: $vm.fullScreenContent ){ content in
 			PresentedView(content)
-		}
-		.popup (item: $vm.popupContent) { content in
-			switch content {
-				case .caloriesIn:
-					CaloriesInView(
-						healthManager: healthManager,
-						deficit: user.currentDiet?.currentDeficit)
-				default:
-					EmptyView()
-			}
 		}
 	}
 }

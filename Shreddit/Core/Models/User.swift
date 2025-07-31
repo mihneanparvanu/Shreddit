@@ -31,10 +31,10 @@ extension User {
 		currentDiet: .init(
 			startDate: .distantPast,
 			endDate: .distantFuture,
-			startWeight: 153,
-			endWeight: 141,
-			difficulty: .preset(preset: .hard),
-			currentDeficit: 600,
+			startWeight: 153.0,
+			currentWeight: 141.0,
+			goalWeight: 138.0,
+			difficulty: .preset(.hard)
 		)
 	)
 }
