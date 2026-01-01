@@ -12,7 +12,7 @@ struct DietStatsView: View {
 	let diet: Diet?
 	let healthManager: HealthManager
 	let settingsManager: any SettingsManager
-
+	
 	
 	//MARK: State
 	@State var vm: DietStatsViewModel
@@ -21,7 +21,7 @@ struct DietStatsView: View {
 	
 	//MARK: Initializer
 	init (diet: Diet?,
-		healthManager: HealthManager,
+		  healthManager: HealthManager,
 		  settingsManager: any SettingsManager
 	) {
 		self.diet = diet
@@ -37,30 +37,19 @@ struct DietStatsView: View {
 	var body: some View {
 		if let diet = diet {
 			VStack {
-				HighlightedTextView(highlight: .init(value: 16000),
-									content: .init(afterHighlight: "kilocalories left in this deficit"))
+				HighlightedTextView(
+					highlight: .init(
+						value: diet
+							.currentDeficit(
+								caloriesMultiplier: settingsManager.settings.units.massUnit.caloriesMultiplier)
+					),
+									content: .init(afterHighlight: "kilocalories left in this deficit")
+)
 				
-				HStack {
-					Text (
-						"\(diet.calculateCurrentDeficit(caloriesMultiplier: settingsManager.settings.units.massUnit.caloriesMultiplier))"
-					)
-					.infinityFrame(.width)
-
-					Text ("10 lbs lost")
-						.infinityFrame(.width)
-					
-					Text ("4 weeks to go")
-						.infinityFrame(.width)
-				}
 			}
-			.sheet(isPresented: $isSheetPresented) {
-				DietFatigueLog(fatigueState: $dietFatigueState)
-		}
 		}
 	}
 }
-
-
 
 #Preview {
 	let user = User.preview

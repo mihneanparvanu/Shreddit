@@ -16,7 +16,7 @@ struct Diet: Identifiable, Codable {
 	let goalWeight: Double
 	let difficulty: Difficulty
 	
-	func calculateCurrentDeficit(caloriesMultiplier: Double) -> Int {
+	func currentDeficit(caloriesMultiplier: Double) -> Int {
 		Int((currentWeight * caloriesMultiplier * (difficulty.weeklyLossRate / 100)) / 7)
 	}
 	
