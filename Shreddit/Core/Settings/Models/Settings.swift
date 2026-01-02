@@ -65,7 +65,7 @@ struct Settings: Codable {
 				}
 			}
 			
-			var caloriesMultiplier: Double {
+			var weightToCalories: Double {
 				switch self {
 					case .kg:
 						return 7700

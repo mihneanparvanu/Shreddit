@@ -15,9 +15,10 @@ struct Diet: Identifiable, Codable {
 	let currentWeight: Double
 	let goalWeight: Double
 	let difficulty: Difficulty
+	let settings: Settings
 	
-	func currentDeficit(caloriesMultiplier: Double) -> Int {
-		Int((currentWeight * caloriesMultiplier * (difficulty.weeklyLossRate / 100)) / 7)
+	func currentDeficit () -> Int {
+		Int((currentWeight * settings.units.massUnit.weightToCalories * (difficulty.weeklyLossRate / 100)) / 7)
 	}
 	
 	enum Difficulty: Codable {
