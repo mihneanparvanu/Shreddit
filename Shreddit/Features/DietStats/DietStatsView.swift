@@ -40,8 +40,7 @@ struct DietStatsView: View {
 				HighlightedTextView(
 					highlight: .init(
 						value: diet
-							.currentDeficit(
-								caloriesMultiplier: settingsManager.settings.units.massUnit.caloriesMultiplier)
+							.currentDeficit()
 					),
 									content: .init(afterHighlight: "kilocalories left in this deficit")
 )

@@ -10,7 +10,7 @@ import SwiftUI
 struct DashboardView: View {
 	//MARK: Dependencies
 	let healthManager: HealthManager
-	let user: User
+	@State var user: User
 	
 	//MARK: Environment
 	@Environment(AppSettingsManager.self) var settingsManager
@@ -39,11 +39,11 @@ struct DashboardView: View {
 				settingsManager: settingsManager
 			)
 			
-			HStack {
-				
-			}
-			
 			Spacer()
+		}
+		// Initialize settings into user on appear
+		.onAppear {
+			user.settings? = settingsManager.settings
 		}
 		.infinityFrame()
 		.background(design.colors.surface.secondary)

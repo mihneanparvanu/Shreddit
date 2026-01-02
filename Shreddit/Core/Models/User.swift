@@ -16,7 +16,8 @@ struct User: Codable, Identifiable {
 	let password: String?
 	let image: String?
 	let createdAt: Date
-	let currentDiet: Diet?
+	var settings: Settings?
+	var currentDiet: Diet?
 }
 
 extension User {
@@ -28,13 +29,15 @@ extension User {
 		password: nil,
 		image: "Preview/mProfileImage",
 		createdAt: Date(),
+		settings: nil,
 		currentDiet: .init(
 			startDate: .distantPast,
 			endDate: .distantFuture,
 			startWeight: 153.0,
 			currentWeight: 141.0,
 			goalWeight: 138.0,
-			difficulty: .preset(.hard)
+			difficulty: .preset(.hard),
+			settings: preview.settings
 		)
 	)
 }
