@@ -26,11 +26,8 @@ struct DietSimulatorView: View {
 				TextField("Weight to lose", value: $weightToLose, format: .number)
 			
 				
-				Text(settingsManager.settings.units.massUnit.rawValue)
+				Text(settingsManager.settings.units.unitMass.description)
 			}
-			
-			HighlightedTextView(highlight: .init(value: caloriesLeftInDeficit),
-								content: .init(afterHighlight: "kilocalories left in deficit"))
 			
 			Spacer()
 		}
@@ -39,9 +36,6 @@ struct DietSimulatorView: View {
 }
 
 extension DietSimulatorView {
-	var caloriesLeftInDeficit: Int {
-		Int(weightToLose * settingsManager.settings.units.massUnit.caloriesMultiplier)
-	}
 }
 
 #Preview {

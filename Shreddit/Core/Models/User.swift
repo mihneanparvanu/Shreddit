@@ -36,8 +36,7 @@ extension User {
 			startWeight: 153.0,
 			currentWeight: 141.0,
 			goalWeight: 138.0,
-			difficulty: .preset(.hard),
-			settings: preview.settings
+			difficulty: .preset(.hard)
 		)
 	)
 }

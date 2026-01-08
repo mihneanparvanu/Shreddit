@@ -15,17 +15,12 @@ struct Diet: Identifiable, Codable {
 	let currentWeight: Double
 	let goalWeight: Double
 	let difficulty: Difficulty
-	var settings: Settings?
-	
-	func currentDeficit () -> Int {
-		Int((currentWeight * (settings?.units.massUnit.weightToCalories ?? 0) * (difficulty.weeklyLossRate / 100)) / 7)
-	}
-	
+
 	enum Difficulty: Codable {
 		case preset(Preset)
 		case custom(lossRate: Double)
 		
-		var weeklyLossRate: Double {
+		var weeklyLossRatePercentage: Double {
 			switch self {
 				case .preset(let preset):
 					switch preset {

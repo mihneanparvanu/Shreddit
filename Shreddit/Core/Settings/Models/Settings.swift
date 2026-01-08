@@ -8,14 +8,12 @@
 import SwiftUI
 typealias Appearance = Settings.Appearance
 typealias Units = Settings.Units
-typealias MassUnit = Units.MassUnit
-typealias EnergyUnit = Units.EnergyUnit
 
 
 struct Settings: Codable {
 	var appearance: Appearance = .system
-	var units: Units = Units()
-
+	var units: Units
+	
 	enum Appearance: CaseIterable, Identifiable, Codable {
 		case light
 		case dark
@@ -25,7 +23,7 @@ struct Settings: Codable {
 		
 		var title: String {
 			switch self {
-					case .light:
+				case .light:
 					return "Light"
 				case .dark:
 					return "Dark"
@@ -36,7 +34,7 @@ struct Settings: Codable {
 		
 		var colorScheme: ColorScheme? {
 			switch self {
-					case .light:
+				case .light:
 					return .light
 				case .dark:
 					return .dark
@@ -46,51 +44,87 @@ struct Settings: Codable {
 		}
 	}
 	
+	
+	
 	struct Units: Codable {
-		var massUnit: MassUnit = .kg
-		var energyUnit: EnergyUnit = .kcal
+		private var massUnit: MassUnit
+		private var energyUnit: EnergyUnit
 		
-		enum MassUnit: String, CaseIterable, Identifiable, Codable {
-			case kg
-			case lbs
-			
-			var id: Self { self }
-			
-			var description: String {
-				switch self {
+		init (massUnit: MassUnit? = nil, energyUnit: EnergyUnit = .kcal) {
+			if let massUnit = massUnit {
+				self.massUnit = massUnit
+			} else {
+				let locale = Locale.current
+				switch locale.measurementSystem {
+					case .metric:
+						self.massUnit = .kg
+					case .us:
+						self.massUnit = .lbs
+					case.uk:
+						self.massUnit = .st
+					default:
+						self.massUnit = .kg
+				}
+			}
+			self.energyUnit = energyUnit
+		}
+		
+		var unitMass: UnitMass {
+			get {
+				switch massUnit {
 					case .kg:
-						return "Kilograms (kg)"
+						return .kilograms
 					case .lbs:
-						return "Pounds (lbs)"
+						return .pounds
+					case .st:
+						return .stones
 				}
 			}
 			
-			var weightToCalories: Double {
-				switch self {
-					case .kg:
-						return 7700
-					case .lbs:
-						return 3500
+			set {
+				switch newValue {
+					case .kilograms:
+						self.massUnit = .kg
+					case .pounds:
+						self.massUnit = .lbs
+					case .stones:
+						self.massUnit = .st
+					default: break
 				}
 			}
 		}
-
-		enum EnergyUnit: CaseIterable, Identifiable, Codable{
-			case kcal
-			case kjoules
-
-			var id: Self { self }
-			
-			var title: String {
-				switch self {
-						case .kjoules:
-						return "Kilojoules (kJ)"
+		
+		var unitEnergy: UnitEnergy {
+			get {
+				switch energyUnit {
 					case .kcal:
-						return "Kilocalories (kcal)"
+						return .kilocalories
+					case .kj:
+						return .kilojoules
 				}
 			}
+			set {
+				switch newValue {
+					case .kilocalories:
+						self.energyUnit = .kcal
+					case .kilojoules:
+						self.energyUnit = .kj
+					default: break
+				}
+			}
+		}
+		
+		
+		enum MassUnit: String, CaseIterable, RawRepresentable, Identifiable, Codable {
+			case kg, lbs, st
+			
+			var id: Self { self }
+		}
+		
+		enum EnergyUnit: String, CaseIterable, RawRepresentable, Identifiable, Codable {
+			case kcal, kj
+			
+			var id: Self { self }
 		}
 	}
 }
-
-

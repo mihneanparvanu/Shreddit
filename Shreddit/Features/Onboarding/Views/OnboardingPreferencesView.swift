@@ -21,15 +21,15 @@ struct OnboardingPreferencesView: View {
 				}
 			}
 			Section ("Choose your units") {
-				Picker("Weight", selection: $selectedUnits.massUnit) {
-					ForEach (MassUnit.allCases) {unit in
-						Text(unit.description)
+				Picker("Weight", selection: $selectedUnits.unitMass) {
+					ForEach (Settings.Units.MassUnit.allCases) {unit in
+						Text(unit.rawValue)
 					}
 				}
 				
-				Picker("Energy", selection: $selectedUnits.energyUnit) {
-					ForEach(EnergyUnit.allCases){unit in
-						Text(unit.title)
+				Picker("Energy", selection: $selectedUnits.unitEnergy) {
+					ForEach(Settings.Units.EnergyUnit.allCases) {unit in
+						Text(unit.rawValue)
 					}
 				}
 			}

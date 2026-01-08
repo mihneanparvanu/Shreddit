@@ -31,24 +31,24 @@ struct SettingsView: View {
 				Picker(
 					"Weight",
 					selection: Binding(
-						get: { settingsManager.settings.units.massUnit },
-						set: { settingsManager.settings.units.massUnit = $0 }
+						get: { settingsManager.settings.units.unitMass },
+						set: { settingsManager.settings.units.unitMass = $0 }
 					)
 				) {
-					ForEach(MassUnit.allCases) { unit in
-						Text(unit.description)
+					ForEach(Settings.Units.MassUnit.allCases) { unit in
+						Text(unit.rawValue)
 					}
 				}
 				
 				Picker(
 					"Energy",
 					selection: Binding(
-						get: { settingsManager.settings.units.energyUnit },
-						set: { settingsManager.settings.units.energyUnit = $0 }
+						get: { settingsManager.settings.units.unitEnergy },
+						set: { settingsManager.settings.units.unitEnergy = $0 }
 					)
 				) {
-					ForEach(EnergyUnit.allCases) { unit in
-						Text(unit.title)
+					ForEach(Settings.Units.EnergyUnit.allCases) { unit in
+						Text(unit.rawValue)
 					}
 				}
 			}

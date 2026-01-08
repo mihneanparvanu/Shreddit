@@ -28,6 +28,7 @@ struct DietStatsView: View {
 		self.healthManager = healthManager
 		self.settingsManager = settingsManager
 		self.vm = .init(
+			diet: diet,
 			healthManager: healthManager,
 			settingsManager: settingsManager
 		)
@@ -35,16 +36,12 @@ struct DietStatsView: View {
 	
 	
 	var body: some View {
-		if let diet = diet {
+		if diet != nil {
 			VStack {
 				HighlightedTextView(
-					highlight: .init(
-						value: diet
-							.currentDeficit()
-					),
-									content: .init(afterHighlight: "kilocalories left in this deficit")
-)
-				
+					highlight: .init(text: "Test"),
+					content: .init(afterHighlight: "Test")
+				)
 			}
 		}
 	}

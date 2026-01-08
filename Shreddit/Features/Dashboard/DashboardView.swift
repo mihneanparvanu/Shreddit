@@ -41,10 +41,6 @@ struct DashboardView: View {
 			
 			Spacer()
 		}
-		// Initialize settings into user on appear
-		.onAppear {
-			user.settings? = settingsManager.settings
-		}
 		.infinityFrame()
 		.background(design.colors.surface.secondary)
 		.sheet(item: $vm.sheetContent) { content in

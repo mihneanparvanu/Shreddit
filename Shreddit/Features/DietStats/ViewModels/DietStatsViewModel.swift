@@ -13,13 +13,25 @@ import SwiftUI
 @MainActor
 final class DietStatsViewModel {
 	//MARK: Dependencies
+	var diet: Diet?
 	let healthManager: HealthManager
 	let settingsManager: any SettingsManager
-	private let converter = UnitConverter()
-	
 	
 	var startDate = Date().startOfDay
 	var deficit = 600
+	
+	var currentDeficit: Int {
+		if let diet = diet {
+			return PhysiologyEngine
+				.calculateDailyDeficit(
+					weight: diet.currentWeight,
+					unit: settingsManager.settings.units.unitMass,
+					weeklyLossRate: diet.difficulty.weeklyLossRatePercentage
+				)
+		}
+		return deficit
+}
+		
 	
 	// Calories in
 	var dietaryEnergyConsumed = 0
@@ -46,10 +58,6 @@ final class DietStatsViewModel {
 		currentWeight - goalWeight
 	}
 	
-	var caloriesLeftInDeficit: Int {
-		let massUnit = settingsManager.settings.units.massUnit
-		return converter.calories(forWeight: weightToLose, in: massUnit)
-	}
 	
 	// Calories out
 	var steps = 0
@@ -59,9 +67,11 @@ final class DietStatsViewModel {
 	var alert: AlertItem?
 	
 	//MARK: Initializer
-	init (healthManager: HealthManager,
+	init (diet: Diet?,
+		healthManager: HealthManager,
 		  settingsManager: any SettingsManager
 	) {
+		self.diet = diet
 		self.healthManager = healthManager
 		self.settingsManager = settingsManager
 	}

@@ -25,9 +25,11 @@ final class AppSettingsManager: SettingsManager {
 	}
 	let preferencesKey: String = "settings"
 	
-	var settings: Settings = Settings(units: Settings.Units()) {
+	var settings: Settings = Settings(
+		units: .init()
+	) {
 		didSet {
-			set()
+			set ()
 		}
 	}
 	
