@@ -7,19 +7,18 @@
 
 import SwiftUI
 
-struct TopToolbarView <Content: View> : View  {
-	//MARK: Dependencies
-	let spacing: CGFloat? = nil
-	@ViewBuilder let content: Content
-	
-	var body: some View {
-		HStack (spacing: spacing){
-			content
-		}
-		.padding()
-	}
+struct TopToolbarView<Content: View>: View {
+    // MARK: Dependencies
+
+    let spacing: CGFloat? = nil
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        HStack(spacing: spacing) {
+            content
+        }
+        .padding()
+    }
 }
 
-#Preview {
-
-}
+#Preview {}

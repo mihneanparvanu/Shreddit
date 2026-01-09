@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct CurrentView: View {
-	//MARK: Dependencies
-	let userImage: String?
-	
+    // MARK: Dependencies
+
+    let userImage: String?
+
     var body: some View {
-		HStack {
-			Text(Date().formatted(.dateTime.month(.abbreviated).day()))
-			
-			ProfilePicture(picture: userImage,
-						   size: 24)
-		}
-		.padding(.trailing)
+        HStack {
+            Text(Date().formatted(.dateTime.month(.abbreviated).day()))
+
+            ProfilePicture(picture: userImage,
+                           size: 24)
+        }
+        .padding(.trailing)
     }
 }
 
 #Preview {
-	CurrentView(userImage: User.preview.image)
+    CurrentView(userImage: User.preview.image)
 }

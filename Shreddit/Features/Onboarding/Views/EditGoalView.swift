@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct EditGoalView: View {
-	var body: some View {
-		VStack {
-			Text("Choose your goal look")
-		}
-		.padding()
-	}
+    var body: some View {
+        VStack {
+            Text("Choose your goal look")
+        }
+        .padding()
+    }
 }
 
 #Preview {
-	EditGoalView()
+    EditGoalView()
 }

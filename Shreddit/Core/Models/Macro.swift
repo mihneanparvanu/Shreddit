@@ -8,7 +8,7 @@
 import Foundation
 
 struct Macro {
-	let title: String
-	var currentValue: Int
-	var goal: Int
+    let title: String
+    var currentValue: Int
+    var goal: Int
 }

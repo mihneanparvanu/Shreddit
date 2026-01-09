@@ -8,37 +8,36 @@
 import SwiftUI
 
 struct DietSimulatorView: View {
-	
-	//MARK: Environment
-	@Environment(AppSettingsManager.self) var settingsManager
-	
-	//MARK: State
-	@State private var weightToLose: Double = 0
-	
-    var body: some View {
-		VStack{
-			Text("Diet simulator")
-				.font(.title)
-				.foregroundStyle(.gray)
+    // MARK: Environment
 
-			Text("How much weight do you want to lose?")
-			HStack (spacing: 2){
-				TextField("Weight to lose", value: $weightToLose, format: .number)
-			
-				
-				Text(settingsManager.settings.units.unitMass.description)
-			}
-			
-			Spacer()
-		}
-		.background()
+    @Environment(AppSettingsManager.self) var settingsManager
+
+    // MARK: State
+
+    @State private var weightToLose: Double = 0
+
+    var body: some View {
+        VStack {
+            Text("Diet simulator")
+                .font(.title)
+                .foregroundStyle(.gray)
+
+            Text("How much weight do you want to lose?")
+            HStack(spacing: 2) {
+                TextField("Weight to lose", value: $weightToLose, format: .number)
+
+                Text(settingsManager.settings.units.unitMass.description)
+            }
+
+            Spacer()
+        }
+        .background()
     }
 }
 
-extension DietSimulatorView {
-}
+extension DietSimulatorView {}
 
 #Preview {
     DietSimulatorView()
-		.environment(AppSettingsManager())
+        .environment(AppSettingsManager())
 }

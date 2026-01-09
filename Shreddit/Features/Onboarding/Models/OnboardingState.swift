@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingState: Codable {
-	var hasOnboarded: Bool = false
-	var currentStep: OnboardingStep = .welcome
-	var lastSetTime: Date = Date()
+    var hasOnboarded: Bool = false
+    var currentStep: OnboardingStep = .welcome
+    var lastSetTime: Date = .init()
 }
