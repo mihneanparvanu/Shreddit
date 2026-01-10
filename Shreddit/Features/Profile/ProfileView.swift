@@ -8,48 +8,83 @@
 import SwiftUI
 
 struct ProfileView: View {
-    // MARK: Dependencies
+	// MARK: Dependencies
 
-    let user: User
+	let user: User
 
-    var body: some View {
-        VStack {
-            NavigationStack {
-                ProfilePicture(picture: user.image, size: 120)
-                    .profilePictureBorder(
-                        color: DesignConstants.Colors.Brand.primary
-                    )
+	var body: some View {
+		NavigationStack {
+			Form {
+				Section {
+					header
+				}
+				.listRowBackground(Color.clear)
 
-                Text(user.username)
-                    .font(.subheadline)
-                    .foregroundStyle(.gray)
-
-                Spacer()
-
-                profileFormView
-            }
-        }
-    }
+				ProfileSections()
+			}
+			.navigationTitle("Profile")
+			.navigationBarTitleDisplayMode(.inline)
+		}
+	}
 }
 
-extension ProfileView {
-    var profileFormView: some View {
-        Form {
-            Section("Personalize") {
-                Text("Your profile")
-            }
+private extension ProfileView {
+	@ViewBuilder var header: some View {
+		VStack {
+			ProfilePicture(picture: user.image, size: 120)
+				.profilePictureBorder(
+					color: DesignConstants.Colors.Brand.primary
+				)
 
-            Section("Preferences") {
-                NavigationLink("Settings") {
-                    SettingsView()
-                }
-            }
-        }
-    }
+			Text(user.username)
+				.font(.subheadline)
+				.foregroundStyle(.gray)
+		}
+		.frame(maxWidth: .infinity)
+	}
+}
+
+private extension ProfileView {
+	struct ProfileSections: View {
+		let settingsRow = Row(title: "Settings", iconName: "gear")
+		let profileRow = Row(title: "Profile", iconName: "person")
+
+		var body: some View {
+			Group {
+				Section("Personalize".uppercased()) {
+					NavigationLink(destination: EmptyView()) {
+						profileRow.label
+					}
+				}
+
+				Section(settingsRow.uppercasedTitle) {
+					NavigationLink(destination: SettingsView()) {
+						settingsRow.label
+					}
+				}
+			}
+			.accentColor(.gray)
+		}
+	}
+
+	struct Row {
+		private let title: String
+		private let iconName: String
+
+		var uppercasedTitle: String { title.uppercased() }
+		@ViewBuilder var label: some View {
+			Label(title, systemImage: iconName)
+		}
+
+		init(title: String, iconName: String) {
+			self.title = title
+			self.iconName = iconName
+		}
+	}
 }
 
 #Preview {
-    let user = User.preview
-    ProfileView(user: user)
-        .environment(AppSettingsManager())
+	let user = User.preview
+	ProfileView(user: user)
+		.environment(AppSettingsManager())
 }

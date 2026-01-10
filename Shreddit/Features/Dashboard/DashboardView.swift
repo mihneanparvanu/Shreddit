@@ -8,55 +8,55 @@
 import SwiftUI
 
 struct DashboardView: View {
-    // MARK: Dependencies
+	// MARK: Dependencies
 
-    let healthManager: HealthManager
-    @State var user: User
+	let healthManager: HealthManager
+	@State var user: User
 
-    // MARK: Environment
+	// MARK: Environment
 
-    @Environment(AppSettingsManager.self) var settingsManager
-    @Environment(\.designSystem) var design
+	@Environment(AppSettingsManager.self) var settingsManager
+	@Environment(\.designSystem) var design
 
-    // MARK: State
+	// MARK: State
 
-    @State private var vm = DashboardViewModel()
+	@State private var vm = DashboardViewModel()
 
-    var body: some View {
-        VStack {
-            TopToolbarView {
-                MenuView(dietSimulatorButtonAction: {
-                             vm.present(.dietSimulator)
-                         },
-                         settingsButtonAction: {
-                             vm.present(.settings)
-                         })
+	var body: some View {
+		VStack {
+			TopToolbarView {
+				MenuView(dietSimulatorButtonAction: {
+				         	vm.present(.dietSimulator)
+				         },
+				         settingsButtonAction: {
+				         	vm.present(.settings)
+				         })
 
-                Spacer()
+				Spacer()
 
-                CurrentView(userImage: user.image)
-            }
-            DietStatsView(
-                diet: user.currentDiet,
-                healthManager: healthManager,
-                settingsManager: settingsManager
-            )
+				CurrentView(userImage: user.image)
+			}
+			DietStatsView(
+				diet: user.currentDiet,
+				healthManager: healthManager,
+				settingsManager: settingsManager
+			)
 
-            Spacer()
-        }
-        .infinityFrame()
-        .background(design.colors.surface.secondary)
-        .sheet(item: $vm.sheetContent) { content in
-            PresentedView(content)
-        }
-        .fullScreenCover(item: $vm.fullScreenContent) { content in
-            PresentedView(content)
-        }
-    }
+			Spacer()
+		}
+		.infinityFrame()
+		.background(design.colors.surface.secondary)
+		.sheet(item: $vm.sheetContent) { content in
+			PresentedView(content)
+		}
+		.fullScreenCover(item: $vm.fullScreenContent) { content in
+			PresentedView(content)
+		}
+	}
 }
 
 #Preview {
-    DashboardView(healthManager: HealthManager(),
-                  user: User.preview)
-        .environment(AppSettingsManager())
+	DashboardView(healthManager: HealthManager(),
+	              user: User.preview)
+		.environment(AppSettingsManager())
 }
