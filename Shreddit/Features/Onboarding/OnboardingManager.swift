@@ -8,12 +8,14 @@
 import Observation
 import SwiftUI
 
+@MainActor
 protocol OnboardingManager: PreferencesManager {
     var state: OnboardingState { get set }
 }
 
 @Observable
-final class AppOnboardingManager: OnboardingManager {
+
+final class AppOnboardingManager: @MainActor OnboardingManager {
     var preferences: OnboardingState {
         get {
             state

@@ -10,11 +10,11 @@ import SwiftUI
 typealias Appearance = Settings.Appearance
 typealias Units = Settings.Units
 
-struct Settings: Codable {
+struct Settings: Codable, Sendable {
     var appearance: Appearance = .system
     var units: Units
 
-    enum Appearance: CaseIterable, Identifiable, Codable {
+	enum Appearance: CaseIterable, Identifiable, Codable, Sendable {
         case light
         case dark
         case system
@@ -44,7 +44,7 @@ struct Settings: Codable {
         }
     }
 
-    struct Units: Codable {
+	struct Units: Codable, Sendable {
         private var massUnit: MassUnit
         private var energyUnit: EnergyUnit
 
@@ -112,13 +112,13 @@ struct Settings: Codable {
             }
         }
 
-        enum MassUnit: String, CaseIterable, RawRepresentable, Identifiable, Codable {
+        enum MassUnit: String, CaseIterable, RawRepresentable, Identifiable, Codable, Sendable {
             case kg, lbs, st
 
             var id: Self { self }
         }
 
-        enum EnergyUnit: String, CaseIterable, RawRepresentable, Identifiable, Codable {
+		enum EnergyUnit: String, CaseIterable, RawRepresentable, Identifiable, Codable, Sendable {
             case kcal, kj
 
             var id: Self { self }
