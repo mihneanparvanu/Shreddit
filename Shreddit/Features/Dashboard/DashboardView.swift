@@ -34,7 +34,10 @@ struct DashboardView: View {
 
 				Spacer()
 
-				CurrentView(userImage: user.image)
+				CurrentUserView(
+					user: user,
+					variant: .detailed(alignment: .trailing)
+				)
 			}
 			DietStatsView(
 				diet: user.currentDiet,
