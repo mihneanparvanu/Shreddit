@@ -33,10 +33,15 @@ struct DashboardView: View {
 				         })
 
 				Spacer()
-
 				CurrentUserView(
-					user: user,
-					variant: .detailed(alignment: .trailing)
+					user: User.preview,
+					variant:
+					.detailed(
+						details: (
+							highlight: .init(value: 20),
+							content: .init(afterHighlight: "days")
+						)
+					)
 				)
 			}
 			DietStatsView(
