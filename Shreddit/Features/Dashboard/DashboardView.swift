@@ -25,7 +25,7 @@ struct DashboardView: View {
 	var body: some View {
 		VStack {
 			TopToolbarView {
-				Text(Date.now.formatted(date: .long, time: .omitted))
+				Text(Date.now.formatted(.dateTime.month(.wide).day()))
 				Spacer()
 				CurrentUserView(
 					user: user,
