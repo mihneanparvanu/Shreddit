@@ -17,13 +17,11 @@ struct CurrentUserView: View {
 		switch variant {
 			case .compact:
 				CompactView(userImageURL: user.image, userName: user.username)
-			case .detailed(let alignment, let details):
+			case .detailed(let details):
 				DetailedView(
 					userImageURL: user.image,
 					userName: user.username,
-					details: details,
-					alignment: alignment
-				)
+					details: details)
 			case .imageOnly:
 				ImageOnlyView(userImageURL: user.image ?? "")
 		}
@@ -32,23 +30,26 @@ struct CurrentUserView: View {
 
 enum Variant {
 	case detailed(
-		alignment: HorizontalAlignment = .trailing,
-		details: (highlight:
-			HighlightedTextView.Highlight?,
-			content:
-			HighlightedTextView.Content?)
+		details: CurrentUserView.UserDetails
 	), compact, imageOnly
 }
 
+extension CurrentUserView {
+	struct UserDetails {
+		let highlight: HighlightedTextView.Highlight?
+		let content: HighlightedTextView.Content?
+	}
+}
+
 private extension CurrentUserView {
+	
 	struct DetailedView: View {
 		let userImageURL: String?
 		let userName: String
-		let details: (highlight: HighlightedTextView.Highlight?, content: HighlightedTextView.Content?)
-		let alignment: HorizontalAlignment
+		let details: UserDetails
 		var body: some View {
-			VStack(alignment: alignment) {
-				CompactView(userImageURL: userImageURL, userName: userName)
+			HStack {
+				
 
 				if let highlight = details.highlight, let content = details.content {
 					HighlightedTextView(
@@ -56,6 +57,8 @@ private extension CurrentUserView {
 						content: content
 					)
 				}
+				
+				CompactView(userImageURL: userImageURL, userName: userName)
 			}
 		}
 	}
@@ -68,7 +71,6 @@ private extension CurrentUserView {
 			HStack {
 				ProfilePicture(picture: userImageURL,
 				               size: 24)
-
 				Text(userName)
 			}
 		}
@@ -88,11 +90,11 @@ private extension CurrentUserView {
 	CurrentUserView(
 		user: User.preview,
 		variant:
-		.detailed(
-			details: (
-				highlight: .init(value: 20),
-				content: .init(afterHighlight: "days")
-			)
-		)
+				.detailed(
+					details: .init(
+						highlight: .init(value: 20),
+						content: .init(afterHighlight: "days")
+					)
+				)
 	)
 }

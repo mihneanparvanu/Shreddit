@@ -15,6 +15,10 @@ struct Diet: Identifiable, Codable {
     let currentWeight: Double
     let goalWeight: Double
     let difficulty: Difficulty
+	
+	var daysElapsed: Int {
+		Calendar.current.dateComponents([.day], from: startDate, to: Date()).day ?? 0
+	}
 
     enum Difficulty: Codable {
         case preset(Preset)

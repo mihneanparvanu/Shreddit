@@ -25,43 +25,43 @@ struct DashboardView: View {
 	var body: some View {
 		VStack {
 			TopToolbarView {
-				MenuView(dietSimulatorButtonAction: {
-				         	vm.present(.dietSimulator)
-				         },
-				         settingsButtonAction: {
-				         	vm.present(.settings)
-				         })
-
+				Text(Date.now.formatted(date: .long, time: .omitted))
 				Spacer()
 				CurrentUserView(
-					user: User.preview,
+					user: user,
 					variant:
-					.detailed(
-						details: (
-							highlight: .init(value: 20),
-							content: .init(afterHighlight: "days")
-						)
-					)
+							.detailed(
+								details: .init(
+									highlight: .init(
+										value: user.currentDiet?.daysElapsed
+									),
+									content: .init(afterHighlight: "days")
+								)
+							)
 				)
 			}
-			DietStatsView(
-				diet: user.currentDiet,
-				healthManager: healthManager,
-				settingsManager: settingsManager
-			)
+		}
+		
+		
+		DietStatsView(
+			diet: user.currentDiet,
+			healthManager: healthManager,
+			settingsManager: settingsManager
+		)
 
-			Spacer()
-		}
-		.infinityFrame()
-		.background(design.colors.surface.secondary)
-		.sheet(item: $vm.sheetContent) { content in
-			PresentedView(content)
-		}
-		.fullScreenCover(item: $vm.fullScreenContent) { content in
-			PresentedView(content)
-		}
+		Spacer()
+		
+			.infinityFrame()
+			.sheet(item: $vm.sheetContent) { content in
+				PresentedView(content)
+			}
+			.fullScreenCover(item: $vm.fullScreenContent) { content in
+				PresentedView(content)
+			}
 	}
+
 }
+
 
 #Preview {
 	DashboardView(healthManager: HealthManager(),

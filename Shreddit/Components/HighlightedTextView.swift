@@ -15,12 +15,14 @@ struct HighlightedTextView: View {
 
 	var body: some View {
 		Text(highlightedText)
-			.font(.system(size: 24))
 	}
 
 	private var highlightedText: AttributedString {
 		var part1 = AttributedString(content.beforeHighlight)
-		let part2 = AttributedString(" \(highlight.value) ")
+		var part2 = AttributedString(" ")
+		if let value = highlight.value {
+			part2 = AttributedString(" \(value) ")
+		}
 		var part3 = AttributedString(content.afterHighlight)
 
 		part1.foregroundColor = content.color
@@ -32,17 +34,17 @@ struct HighlightedTextView: View {
 
 extension HighlightedTextView {
 	struct Highlight {
-		let value: String
+		let value: String?
 		let color: Color
 
 		/// Highlight a number value
-		init(value: Int, color: Color = .primary) {
-			self.value = value.formatted(.number)
+		init(value: Int? = 0, color: Color = .primary) {
+			self.value = value?.formatted(.number)
 			self.color = color
 		}
 
 		/// Highlight a piece of text
-		init(text: String, color: Color = .primary) {
+		init(text: String?, color: Color = .primary) {
 			value = text
 			self.color = color
 		}

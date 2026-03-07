@@ -7,21 +7,18 @@
 
 import SwiftUI
 
-struct MenuView: View {
+struct MenuView<Content: View>: View {
     // MARK: Dependencies
 
-    let dietSimulatorButtonAction: () -> Void
-    let settingsButtonAction: () -> Void
+	@ViewBuilder let content: Content
+	
+	init(@ViewBuilder content: () -> Content) {
+		self.content = content()
+	}
 
     var body: some View {
         Menu {
-            MenuItem(title: "Diet Simulator",
-                     image: "play.circle.fill",
-                     action: dietSimulatorButtonAction)
-
-            MenuItem(title: "Settings",
-                     image: "gear",
-                     action: settingsButtonAction)
+				content
         }
         label: {
             Image(systemName: "ellipsis")
@@ -46,6 +43,7 @@ extension MenuView {
 }
 
 #Preview {
-    MenuView(dietSimulatorButtonAction: {},
-             settingsButtonAction: {})
+	MenuView{
+		EmptyView()
+	}
 }
