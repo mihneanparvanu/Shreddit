@@ -10,11 +10,11 @@ import SwiftUI
 struct DashboardView: View {
 	// MARK: Dependencies
 
-	let healthManager: HealthManager
 	@State var user: User
 
 	// MARK: Environment
 
+	@Environment(HealthManager.self) var healthManager
 	@Environment(AppSettingsManager.self) var settingsManager
 	@Environment(\.designSystem) var design
 
@@ -64,7 +64,6 @@ struct DashboardView: View {
 
 
 #Preview {
-	DashboardView(healthManager: HealthManager(),
-	              user: User.preview)
+	DashboardView(user: User.preview)
 		.environment(AppSettingsManager())
 }

@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct OnboardingContent: View {
+	// MARK: Environment
+	
+	@Environment(AppSettingsManager.self) private var settingsManager
+	@Environment(HealthManager.self) private var healthManager
+	
 	let step: OnboardingStep
-	@Binding var settings: Settings
-	let healthManager: HealthManager
 	var body: some View {
+		@Bindable var bindableSettingsManager = settingsManager
 		switch step {
 			case .welcome:
 				WelcomeView()
@@ -22,7 +26,10 @@ struct OnboardingContent: View {
 			case .dietPace:
 				DietPaceView()
 			case .userData:
-				UserDataView(settings: $settings, healthManager: healthManager)
+				UserDataView(
+					settings: $bindableSettingsManager.settings,
+					healthManager: healthManager
+				)
 			case .finish:
 				FinishView()
 		}

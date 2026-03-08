@@ -14,7 +14,6 @@ final class OnboardingViewModel {
     // MARK: Properties
 
     // Dependencies
-    var settingsManager: any SettingsManager
     var onboardingManager: any OnboardingManager
 
     // Onboarding State
@@ -27,24 +26,12 @@ final class OnboardingViewModel {
             onboardingManager.state.lastSetTime = Date()
         }
     }
-
-    // Settings
-	var settings: Settings {
-        get {
-            settingsManager.settings
-        }
-        set {
-            settingsManager.settings = newValue
-        }
-    }
-
+	
     // MARK: Initializer
 
-    init(onboardingManager: any OnboardingManager,
-         settingsManager: any SettingsManager)
+    init(onboardingManager: any OnboardingManager)
     {
         self.onboardingManager = onboardingManager
-        self.settingsManager = settingsManager
     }
 
     // MARK: Methods

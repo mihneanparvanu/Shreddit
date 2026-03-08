@@ -6,8 +6,10 @@
 //
 
 import HealthKit
+import Observation
 
-struct HealthManager {
+@Observable
+final class HealthManager {
     // MARK: Properties
 
     let healthStore = HKHealthStore()
@@ -38,6 +40,7 @@ struct HealthManager {
             dietaryCarbs,
         ]
     }
+	
 
     // MARK: Methods
 

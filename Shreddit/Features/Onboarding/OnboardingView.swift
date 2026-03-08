@@ -10,35 +10,22 @@ import SwiftUI
 struct OnboardingView: View {
     // MARK: Dependencies
 
-    let healthManager: HealthManager
-
-    // MARK: Environment
-
-    @Environment(\.scenePhase) var scenePhase
-
     // MARK: State
 
     @State var vm: OnboardingViewModel
 
     // MARK: Initializer
 
-    init(onboardingManager: any OnboardingManager,
-         settingsManager: any SettingsManager,
-         healthManager: HealthManager)
+    init(onboardingManager: any OnboardingManager)
     {
         vm = OnboardingViewModel(
-            onboardingManager: onboardingManager,
-            settingsManager: settingsManager
+            onboardingManager: onboardingManager
         )
-        self.healthManager = healthManager
     }
 
     var body: some View {
         VStack {
-			OnboardingContent(step: vm.currentStep,
-							  settings: $vm.settings,
-							  healthManager: healthManager
-			)
+			OnboardingContent(step: vm.currentStep)
 			
 			Spacer()
 			
@@ -55,8 +42,9 @@ struct OnboardingView: View {
 }
 
 #Preview {
-    OnboardingView(
-        onboardingManager: AppOnboardingManager(),
-        settingsManager: AppSettingsManager(), healthManager: HealthManager()
-    )
+	OnboardingView(
+		onboardingManager: AppOnboardingManager(),
+)
+	.environment(AppSettingsManager())
+		.environment(HealthManager())
 }

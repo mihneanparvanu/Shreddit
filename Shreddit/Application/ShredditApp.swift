@@ -11,20 +11,20 @@ import SwiftUI
 struct ShredditApp: App {
     // MARK: Properties
 
-    let healthManager = HealthManager()
     let user: User = .preview
 
     // MARK: State
-
-    @State private var settingsManager = AppSettingsManager()
-    @State private var onboardingState = AppOnboardingManager()
+	@State private var healthManager = HealthManager()
+	@State private var settingsManager = AppSettingsManager()
+    @State private var onboardingManager = AppOnboardingManager()
 
     var body: some Scene {
         WindowGroup {
             AppEntryView(healthManager: healthManager,
                          user: user)
+				.environment(healthManager)
                 .environment(settingsManager)
-                .environment(onboardingState)
+                .environment(onboardingManager)
         }
     }
 }

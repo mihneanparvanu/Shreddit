@@ -22,14 +22,9 @@ struct AppEntryView: View {
     var body: some View {
         Group {
             if onboardingManager.state.hasOnboarded {
-                DashboardView(
-                    healthManager: healthManager,
-                    user: user
-                )
+                DashboardView(user: user)
             } else {
-                OnboardingView(onboardingManager: onboardingManager,
-                               settingsManager: settingsManager,
-                               healthManager: healthManager)
+                OnboardingView(onboardingManager: onboardingManager)
             }
         }
         .colorScheme(settingsManager.settings.appearance.colorScheme ?? systemScheme)
@@ -39,5 +34,8 @@ struct AppEntryView: View {
 #Preview {
     AppEntryView(healthManager: HealthManager(),
                  user: User.preview)
+	.environment(HealthManager())
         .environment(AppSettingsManager())
+			.environment(AppOnboardingManager())
+
 }
