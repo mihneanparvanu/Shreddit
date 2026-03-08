@@ -35,9 +35,8 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack {
-            contentFor(vm.currentStep)
+			OnboardingContent(step: vm.currentStep)
 			
-
             BottomView(currentStep: vm.currentStep,
                        backButtonAction: { vm.goToPreviousStep() },
                        nextButtonAction: { vm.goToNextStep() })
@@ -46,26 +45,6 @@ struct OnboardingView: View {
         .background()
         .onViewReady {
             vm.resetOnboardingIfNeeded(after: Config.Onboarding.resetInterval)
-        }
-    }
-
-    @ViewBuilder func contentFor(_ currentStep: OnboardingStep) -> some View {
-        switch currentStep {
-        case .welcome:
-            WelcomeView()
-        case .intro:
-            IntroView()
-        case .preferences:
-            OnboardingPreferencesView(appearance: $vm.appearance,
-                                      selectedUnits: $vm.units)
-        case .setGoal:
-            EditGoalView()
-        case .start:
-            EmptyView()
-        case .dataRequest:
-            DataRequestView(healthManager: healthManager)
-        case .additionalData:
-            EmptyView()
         }
     }
 }

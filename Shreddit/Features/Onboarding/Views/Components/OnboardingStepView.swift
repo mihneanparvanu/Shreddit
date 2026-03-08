@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingLayout<Content: View>: View {
+struct OnboardingStepView<Content: View>: View {
     @Environment(\.designSystem) private var design
 
     let title: String
@@ -55,10 +55,11 @@ struct OnboardingLayout<Content: View>: View {
 
             VStack(alignment: .leading) {
                 Text(subheadline)
-                    .font(.title2).fontWeight(.semibold)
+                    .font(.title).fontWeight(.semibold)
 
                 Text(bodyText)
             }
+			.padding(.horizontal, 24)
         }
 
         Spacer()
@@ -66,7 +67,7 @@ struct OnboardingLayout<Content: View>: View {
 }
 
 #Preview {
-    OnboardingLayout(
+    OnboardingStepView(
         title: "Welcome to Shreddit",
         subheadline: "You’re getting shredded this summer ☀️",
         bodyText: "Get into the shape of your life. No BS, no burnout, just the exact calories left until you look insane."
