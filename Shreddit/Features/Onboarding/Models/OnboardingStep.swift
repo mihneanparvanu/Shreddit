@@ -8,11 +8,10 @@
 enum OnboardingStep: String, CaseIterable, Identifiable, Codable {
     case welcome
     case intro
-    case preferences
-    case dataRequest
-    case additionalData
-    case setGoal
-    case start
+    case goalLook
+	case dietPace
+    case userData
+	case finish
 
     var id: String { rawValue }
 }

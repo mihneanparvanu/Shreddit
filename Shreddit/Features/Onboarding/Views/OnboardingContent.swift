@@ -9,25 +9,23 @@ import SwiftUI
 
 struct OnboardingContent: View {
 	let step: OnboardingStep
+	@Binding var settings: Settings
+	let healthManager: HealthManager
 	var body: some View {
-		switch currentStep {
+		switch step {
 			case .welcome:
 				WelcomeView()
 			case .intro:
 				IntroView()
-			case .preferences:
-				PreferencesView(appearance: $vm.appearance,
-										  selectedUnits: $vm.units)
-			case .setGoal:
-				EditGoalView()
-			case .dataRequest:
-				DataRequestView(healthManager: healthManager)
+			case .goalLook:
+				GoalLookView()
+			case .dietPace:
+				DietPaceView()
+			case .userData:
+				UserDataView(settings: $settings, healthManager: healthManager)
+			case .finish:
+				FinishView()
 		}
 	}
 }
 
-
-
-#Preview {
-    OnboardingContent()
-}

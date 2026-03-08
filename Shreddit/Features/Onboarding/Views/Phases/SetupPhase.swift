@@ -8,51 +8,57 @@
 import SwiftUI
 
 extension OnboardingContent {
-	struct PreferencesView: View {
-		@Binding var appearance: Appearance
-		@Binding var selectedUnits: Units
-		
+	
+	struct GoalLookView: View {
 		var body: some View {
-			Form {
-				Section("Choose your appearance") {
-					Picker("Appearance", selection: $appearance) {
-						ForEach(Appearance.allCases) { scheme in
-							Text(scheme.title)
-						}
-					}
-				}
-				Section("Choose your units") {
-					Picker("Weight", selection: $selectedUnits.unitMass) {
-						ForEach(Settings.Units.MassUnit.allCases) { unit in
-							Text(unit.rawValue)
-						}
-					}
-					
-					Picker("Energy", selection: $selectedUnits.unitEnergy) {
-						ForEach(Settings.Units.EnergyUnit.allCases) { unit in
-							Text(unit.rawValue)
-						}
+			OnboardingStepView(title: "What's your goal look?", subheadline: "Goal weights are arbitrary. Pick the aesthetic you want.", bodyText: "Lorem ipsum") {
+				HStack {
+					VStack {
+						Text ("Shredded")
+						Text("10% body fat")
 					}
 				}
 			}
-			.scrollContentBackground(.hidden)
 		}
 	}
 	
-	struct EditGoalView: View {
+	struct DietPaceView: View {
 		var body: some View {
-			VStack {
-				Text("Choose your goal look")
-			}
-			.padding()
+			OnboardingStepView(title: "What's your diet pace?", subheadline: "Dieting is hard.", bodyText: "Sustainable fat loss is capped at 0.9% of body weight per week. Faster than that, you burn muscle.")
 		}
 	}
 	
-	struct DataRequestView: View {
+	struct UserDataView: View {
+		@Binding var settings: Settings
 		let healthManager: HealthManager
 		@State private var didRequestAuthorization: Bool = false
 		var body: some View {
 			VStack {
+					Form {
+						Section("Choose your appearance") {
+							Picker("Appearance", selection: $settings.appearance) {
+								ForEach(Appearance.allCases) { scheme in
+									Text(scheme.title)
+								}
+							}
+						}
+						Section("Choose your units") {
+							Picker("Weight", selection: $settings.units.massUnit) {
+								ForEach(Settings.Units.MassUnit.allCases) { unit in
+									Text(unit.title)
+								}
+							}
+							
+							Picker("Energy", selection:  $settings.units.energyUnit) {
+								ForEach(Settings.Units.EnergyUnit.allCases) { unit in
+									Text(unit.title)
+								}
+							}
+						}
+					}
+					.scrollContentBackground(.hidden)
+				}
+			
 				Text("Shreddit needs acces to your health data to help you get shredded. Please allow access in your settings.")
 
 				if didRequestAuthorization {
@@ -78,5 +84,5 @@ extension OnboardingContent {
 				}
 			}
 		}
-	}
 }
+

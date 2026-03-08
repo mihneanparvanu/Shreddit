@@ -45,8 +45,8 @@ struct Settings: Codable, Sendable {
     }
 
 	struct Units: Codable, Sendable {
-        private var massUnit: MassUnit
-        private var energyUnit: EnergyUnit
+		var massUnit: MassUnit
+		var energyUnit: EnergyUnit
 
         init(massUnit: MassUnit? = nil, energyUnit: EnergyUnit = .kcal) {
             if let massUnit = massUnit {
@@ -116,12 +116,27 @@ struct Settings: Codable, Sendable {
             case kg, lbs, st
 
             var id: Self { self }
+			
+			var title: String {
+				switch self {
+					case .kg: "Kilograms"
+					case .lbs: "Pounds"
+					case .st: "Stones"
+				}
+			}
         }
 
 		enum EnergyUnit: String, CaseIterable, RawRepresentable, Identifiable, Codable, Sendable {
             case kcal, kj
 
             var id: Self { self }
+			
+			var title: String {
+				switch self {
+					case .kcal: "Kilocalories"
+					case .kj: "Kilojoules"
+				}
+			}
         }
     }
 }

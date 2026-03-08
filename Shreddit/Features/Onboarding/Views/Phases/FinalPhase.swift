@@ -7,12 +7,16 @@
 
 import SwiftUI
 
-struct FinalPhase: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    FinalPhase()
+extension OnboardingContent {
+	struct FinishView: View  {
+		var body: some View {
+			OnboardingStepView(title: "Let's get shredded!",
+							   subheadline: "Lorem",
+							   bodyText: "ipsum")
+			{
+				HighlightedTextView(highlight: .init(value: 44_000),
+									content: .init(afterHighlight: "calories to burn until 10% body fat"))
+			}
+		}
+	}
 }

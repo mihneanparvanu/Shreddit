@@ -35,7 +35,12 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack {
-			OnboardingContent(step: vm.currentStep)
+			OnboardingContent(step: vm.currentStep,
+							  settings: $vm.settings,
+							  healthManager: healthManager
+			)
+			
+			Spacer()
 			
             BottomView(currentStep: vm.currentStep,
                        backButtonAction: { vm.goToPreviousStep() },
