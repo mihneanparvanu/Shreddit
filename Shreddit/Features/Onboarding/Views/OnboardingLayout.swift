@@ -8,44 +8,69 @@
 import SwiftUI
 
 struct OnboardingLayout<Content: View>: View {
-	@Environment(\.designSystem) var design
-	 
-	let title: String
-	let subheadline: String
-	let bodyText: String
-	@ViewBuilder let content: Content?
+    @Environment(\.designSystem) private var design
+
+    let title: String
+    let subheadline: String
+    let bodyText: String
+    let content: Content
+
+	/// Layout with additional content
+	init(
+		title: String,
+		subheadline: String,
+		bodyText: String,
+		@ViewBuilder content : () -> Content
+	) {
+		self.title = title
+		self.subheadline = subheadline
+		self.bodyText = bodyText
+		self.content = content()
+	}
 	
+	/// Layout without additional content
+	init(
+		title: String,
+		subheadline: String,
+		bodyText: String
+	) where Content == EmptyView {
+		self.title = title
+		self.subheadline = subheadline
+		self.bodyText = bodyText
+		self.content = EmptyView()
+	}
+
     var body: some View {
-		VStack {
-			Text(title)
-				.font(.largeTitle).fontWeight(.semibold)
-		}
-		.padding(.trailing, 64)
-		.padding(.top, 36)
-		
-		Spacer()
-		
-		VStack {
+        VStack {
+            Text(title)
+                .font(.largeTitle).fontWeight(.semibold)
+        }
+        .padding(.trailing, 64)
+        .padding(.top, 36)
+
+        Spacer()
+
+        VStack {
 			content
-			
-			VStack (alignment: .leading){
-				Text(subheadline)
-					.font(.title2).fontWeight(.semibold)
-				
-				Text(bodyText)
-			}
-		}
-		
-		
-		Spacer()
-		
+
+            VStack(alignment: .leading) {
+                Text(subheadline)
+                    .font(.title2).fontWeight(.semibold)
+
+                Text(bodyText)
+            }
+        }
+
+        Spacer()
     }
 }
 
 #Preview {
-	OnboardingLayout(title: "Welcome to Shreddit",
-					 subheadline: "You’re getting shredded this summer ☀️",
-					 bodyText: "Get into the shape of your life. No BS, no burnout, just the exact calories left until you look insane.") {
-		Text ("Test")
-	}
+    OnboardingLayout(
+        title: "Welcome to Shreddit",
+        subheadline: "You’re getting shredded this summer ☀️",
+        bodyText: "Get into the shape of your life. No BS, no burnout, just the exact calories left until you look insane."
+    ) {
+        Text("Test")
+    }
 }

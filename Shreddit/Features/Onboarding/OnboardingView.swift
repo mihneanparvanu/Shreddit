@@ -35,8 +35,6 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack {
-            Spacer()
-
             contentFor(vm.currentStep)
 			
 

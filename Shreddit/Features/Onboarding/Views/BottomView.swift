@@ -69,5 +69,5 @@ extension OnboardingView.BottomView {
     OnboardingView
         .BottomView(currentStep: .intro,
                     backButtonAction: {},
-                    nextButtonAction: {}).buttons
+					nextButtonAction: {})
 }
