@@ -34,8 +34,5 @@ struct AppEntryView: View {
 #Preview {
     AppEntryView(healthManager: HealthManager(),
                  user: User.preview)
-	.environment(HealthManager())
-        .environment(AppSettingsManager())
-			.environment(AppOnboardingManager())
-
+	.previewEnvironment()
 }

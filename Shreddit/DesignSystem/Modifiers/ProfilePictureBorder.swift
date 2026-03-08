@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfilePictureBorderViewModifier: ViewModifier {
+	
+	@Environment(\.designSystem) var design
     @State var size: CGFloat = 0
     let color: Color
 
@@ -22,7 +24,7 @@ struct ProfilePictureBorderViewModifier: ViewModifier {
                 }
                 Circle()
                     .foregroundStyle(color)
-                    .frame(size: size * DesignConstants.Sizing.smallMultiplier)
+					.frame(size: size * 1)
             }
             .padding(.bottom, size * 0.1)
     }

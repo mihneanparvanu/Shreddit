@@ -45,6 +45,5 @@ struct OnboardingView: View {
 	OnboardingView(
 		onboardingManager: AppOnboardingManager(),
 )
-	.environment(AppSettingsManager())
-		.environment(HealthManager())
+	.previewEnvironment()
 }
