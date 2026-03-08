@@ -7,20 +7,31 @@
 
 import SwiftUI
 
+
 extension OnboardingView {
     struct WelcomeView: View {
+		@Environment(\.designSystem) var design
+
         var body: some View {
+			VStack (alignment: .leading) {
+				Text ("Welcome to Shreddit")
+					.font(.largeTitle).fontWeight(.semibold)
+					
+			}
+			.padding(.top, 24)
+			.padding(.trailing, 50)
+			
             Spacer()
 
-            Image(systemName: "scissors")
-
             VStack(alignment: .leading) {
-                Text("You're getting shredded!")
-                    .font(.largeTitle).fontWeight(.semibold)
+                Text("You’re getting shredded this summer ☀️")
+					.font(.title2).fontWeight(.semibold)
 
-                Text("This app will get you in the shape of your life by using industry disrupting calories-left-to-burn, overview of diet, activity levels and more!")
+                Text("Get into the shape of your life. No BS, no burnout, just the exact calories left until you look insane.")
                     .foregroundStyle(.gray)
             }
+			
+			Spacer()
         }
     }
 }

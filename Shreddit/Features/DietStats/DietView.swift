@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DietStatsView: View {
+struct DietView: View {
     // MARK: Dependencies
 
     let diet: Diet?
@@ -16,7 +16,7 @@ struct DietStatsView: View {
 
     // MARK: State
 
-    @State var vm: DietStatsViewModel
+    @State var vm: DietViewModel
     @State private var isSheetPresented: Bool = false
     @State private var dietFatigueState: DietFatigueState?
 
@@ -40,8 +40,8 @@ struct DietStatsView: View {
         if diet != nil {
             VStack {
                 HighlightedTextView(
-                    highlight: .init(text: "Test"),
-                    content: .init(afterHighlight: "Test")
+					highlight: .init(value: vm.remainingDeficit),
+                    content: .init(afterHighlight: "calories remaining until goal body fat")
                 )
             }
         }
@@ -50,7 +50,7 @@ struct DietStatsView: View {
 
 #Preview {
     let user = User.preview
-    DietStatsView(
+    DietView(
         diet: user.currentDiet,
         healthManager: HealthManager(),
         settingsManager: AppSettingsManager()

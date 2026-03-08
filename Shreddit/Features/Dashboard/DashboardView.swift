@@ -43,7 +43,7 @@ struct DashboardView: View {
 		}
 		
 		
-		DietStatsView(
+		DietView(
 			diet: user.currentDiet,
 			healthManager: healthManager,
 			settingsManager: settingsManager

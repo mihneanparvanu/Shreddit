@@ -37,7 +37,8 @@ struct OnboardingView: View {
         VStack {
             Spacer()
 
-            stepView(vm.currentStep)
+            contentFor(vm.currentStep)
+			
 
             BottomView(currentStep: vm.currentStep,
                        backButtonAction: { vm.goToPreviousStep() },
@@ -50,7 +51,7 @@ struct OnboardingView: View {
         }
     }
 
-    @ViewBuilder func stepView(_ currentStep: OnboardingStep) -> some View {
+    @ViewBuilder func contentFor(_ currentStep: OnboardingStep) -> some View {
         switch currentStep {
         case .welcome:
             WelcomeView()
