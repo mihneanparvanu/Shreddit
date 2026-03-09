@@ -57,11 +57,11 @@ extension View {
 }
 
 #Preview {
-    @Previewable @Environment(\.designSystem) var design
+    @Previewable @Environment(\.theme) var theme
 
     Text("Hello World")
         .font(.title.bold())
-        .foregroundStyle(design.colors.surface.base)
+		.foregroundStyle(theme.colors.accent.primary)
         .infinityFrame()
-        .background(design.colors.accent.primary)
+		.background(theme.colors.accent.primary)
 }

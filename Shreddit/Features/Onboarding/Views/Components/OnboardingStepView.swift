@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct OnboardingStepView<Content: View>: View {
-    @Environment(\.designSystem) private var design
 
     let title: String
     let subheadline: String
@@ -45,7 +44,7 @@ struct OnboardingStepView<Content: View>: View {
             Text(title)
                 .font(.largeTitle).fontWeight(.semibold)
         }
-        .padding(.trailing, 64)
+		.padding(.trailing, Design.padding)
         .padding(.top, 36)
 
         Spacer()

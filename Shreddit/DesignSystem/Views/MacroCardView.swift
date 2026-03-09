@@ -61,7 +61,7 @@ extension MacroCardView {
 
                 Text(valueText)
                     .foregroundStyle(design.colors.content.heading)
-                    .font(.system(size: DesignConstants.Sizing.mediumLarge))
+					.font(.headline)
             }
         }
 
@@ -155,18 +155,4 @@ extension MacroCardView.GraphView {
 }
 
 #Preview {
-    ZStack {
-        Color.gray
-
-        MacroCardView(
-            goal: 230,
-            currentValue: 200,
-            text: .init(
-                title: "Protein",
-                unit: "g"
-            ),
-            graph: .init(color: DesignConstants.Colors.Brand.primary)
-        )
-    }
-    .ignoresSafeArea()
 }

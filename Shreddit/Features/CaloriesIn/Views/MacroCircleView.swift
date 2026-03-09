@@ -13,6 +13,8 @@ struct MacroCircleView: View {
     let goal: Int
     let current: Int
     let title: String
+	
+	@Environment(\.designSystem) var design
 
     // MARK: State
 
@@ -25,13 +27,13 @@ struct MacroCircleView: View {
                       goal: goal)
                     .stroke(style: .init(lineWidth: 8,
                                          lineCap: .square))
-                    .foregroundStyle(accentColor)
+					.foregroundStyle(design.colors.accent.primary)
                     .frame(size: circleSize * 0.98)
 
                 VStack {
                     Text(current.formatted(.number))
                         .font(.title2.weight(.semibold))
-                        .foregroundStyle(accentColor)
+                        .foregroundStyle(design.colors.accent.primary)
                 }
                 .padding(40)
                 .background {
@@ -48,14 +50,6 @@ struct MacroCircleView: View {
                 .font(.callout.weight(.medium))
                 .foregroundStyle(.secondary)
         }
-    }
-}
-
-// MARK: Colors
-
-extension MacroCircleView {
-    private var accentColor: Color {
-        DesignConstants.Colors.Brand.primary
     }
 }
 

@@ -32,9 +32,6 @@ private extension ProfileView {
 	@ViewBuilder var header: some View {
 		VStack {
 			ProfilePicture(picture: user.image, size: 120)
-				.profilePictureBorder(
-					color: DesignConstants.Colors.Brand.primary
-				)
 
 			Text(user.username)
 				.font(.subheadline)
