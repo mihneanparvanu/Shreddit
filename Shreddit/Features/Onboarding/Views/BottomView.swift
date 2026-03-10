@@ -12,9 +12,11 @@ extension OnboardingView {
         let currentStep: OnboardingStep
         let backButtonAction: () -> Void
         let nextButtonAction: () -> Void
+		
+		@Environment(\.theme) var theme
 				
         var body: some View {
-            VStack {
+			VStack (spacing: Design.space.m) {
                 buttons
 
                 stepIndicator
@@ -22,7 +24,7 @@ extension OnboardingView {
         }
 
         var buttons: some View {
-            HStack(spacing: 16) {
+			HStack(spacing: Design.space.s) {
                 if shouldShowBackButton {
                     Button {
                         backButtonAction()
@@ -52,8 +54,9 @@ extension OnboardingView {
             HStack {
                 ForEach(OnboardingStep.allCases) { step in
                     Circle()
-                        .fill(step == currentStep ? Color.accentColor : Color.gray)
-						.frame(size: Design.size.l)
+						.fill(
+							step == currentStep ? theme.colors.content.secondary : theme.colors.content.tertiary)
+						.frame(size: Design.size.xS)
                 }
             }
         }

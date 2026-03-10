@@ -12,24 +12,39 @@ import SwiftUI
 // MARK: Design System
 enum Design {
 	struct Size {
-		 let xS: CGFloat = 20
-		 let s: CGFloat = 44
-		 let m: CGFloat = 64
-		 let l: CGFloat = 128
-		 let xL: CGFloat = 256
+		/// 20 pt
+		let xS: CGFloat = 20
+		/// 44 pt
+		let s: CGFloat = 44
+		/// 64 pt
+		let m: CGFloat = 64
+		/// 128 pt
+		let l: CGFloat = 128
+		/// 256 pt
+		let xL: CGFloat = 256
 	}
 	static let size = Size()
 	
 	struct Space {
+		/// 4 pt
 		let base: CGFloat = 4
+		/// 8 pt
 		let xxxS: CGFloat = 8
+		/// 12 pt
 		let xxS: CGFloat = 12
-		 let xS: CGFloat = 16
-		 let s: CGFloat = 20
-		 let m: CGFloat = 24
-		 let l: CGFloat = 32
-		 let xL: CGFloat = 40
+		/// 16 pt
+		let xS: CGFloat = 16
+		/// 20 pt
+		let s: CGFloat = 20
+		/// 24 pt
+		let m: CGFloat = 24
+		/// 32 pt
+		let l: CGFloat = 32
+		/// 40 pt
+		let xL: CGFloat = 40
+		/// 56 pt
 		let xxL: CGFloat = 56
+		/// 64 pt
 		let xxxL: CGFloat = 64
 	}
 	static let space = Space()

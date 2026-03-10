@@ -11,7 +11,7 @@ extension OnboardingContent {
 	
 	struct GoalLookView: View {
 		var body: some View {
-			OnboardingStepView(title: "What's your goal look?", subheadline: "Goal weights are arbitrary. Pick the aesthetic you want.", bodyText: "Lorem ipsum") {
+			OnboardingStepView(title: "What's your goal look?", subheadline: "Goal weights are arbitrary. Pick the aesthetic you want.") {
 				HStack {
 					VStack {
 						Text ("Shredded")
@@ -33,56 +33,62 @@ extension OnboardingContent {
 		let healthManager: HealthManager
 		@State private var didRequestAuthorization: Bool = false
 		var body: some View {
-			VStack {
-					Form {
-						Section("Choose your appearance") {
-							Picker("Appearance", selection: $settings.appearance) {
-								ForEach(Appearance.allCases) { scheme in
-									Text(scheme.title)
-								}
-							}
-						}
-						Section("Choose your units") {
-							Picker("Weight", selection: $settings.units.massUnit) {
-								ForEach(Settings.Units.MassUnit.allCases) { unit in
-									Text(unit.title)
-								}
-							}
-							
-							Picker("Energy", selection:  $settings.units.energyUnit) {
-								ForEach(Settings.Units.EnergyUnit.allCases) { unit in
-									Text(unit.title)
-								}
-							}
-						}
-					}
-					.scrollContentBackground(.hidden)
-				}
 			
-				Text("Shreddit needs acces to your health data to help you get shredded. Please allow access in your settings.")
-
-				if didRequestAuthorization {
-					switch healthManager.userHasAuthorizedDataAccess() {
-					case true:
-							Text("Shreddit is now authorized to access your health data.")
-					case false:
-							Text("Shreddit couldn't access your health data. Please allow access in your settings.")
+			OnboardingStepView(title: "Make it your own") {
+				VStack {
+						Form {
+							Section("Choose your appearance") {
+								Picker("Appearance", selection: $settings.appearance) {
+									ForEach(Appearance.allCases) { scheme in
+										Text(scheme.title)
+									}
+								}
+							}
+							Section("Choose your units") {
+								Picker("Weight", selection: $settings.units.massUnit) {
+									ForEach(Settings.Units.MassUnit.allCases) { unit in
+										Text(unit.title)
+									}
+								}
+								
+								Picker("Energy", selection:  $settings.units.energyUnit) {
+									ForEach(Settings.Units.EnergyUnit.allCases) { unit in
+										Text(unit.title)
+									}
+								}
+							}
+						}
+						.scrollContentBackground(.hidden)
 					}
-				}
+				
+					Text("Shreddit needs acces to your health data to help you get shredded. Please allow access in your settings.")
 
-				Button("Allow") {
-					Task {
-						try await healthManager.requestAuthorization()
-						didRequestAuthorization = true
+					if didRequestAuthorization {
+						switch healthManager.userHasAuthorizedDataAccess() {
+						case true:
+								Text("Shreddit is now authorized to access your health data.")
+						case false:
+								Text("Shreddit couldn't access your health data. Please allow access in your settings.")
+						}
 					}
-				}
 
-				Button("Open Settings") {
-					if let url = URL(string: UIApplication.openSettingsURLString) {
-						UIApplication.shared.open(url)
+					Button("Allow") {
+						Task {
+							try await healthManager.requestAuthorization()
+							didRequestAuthorization = true
+						}
+					}
+
+					Button("Open Settings") {
+						if let url = URL(string: UIApplication.openSettingsURLString) {
+							UIApplication.shared.open(url)
+						}
 					}
 				}
 			}
-		}
+
+			}
+			
 }
+
 

@@ -10,15 +10,15 @@ import SwiftUI
 struct OnboardingStepView<Content: View>: View {
 
     let title: String
-    let subheadline: String
-    let bodyText: String
+	let subheadline: String?
+    let bodyText: String?
     let content: Content
 
 	/// Layout with additional content
 	init(
 		title: String,
-		subheadline: String,
-		bodyText: String,
+		subheadline: String? = nil,
+		bodyText: String? = nil,
 		@ViewBuilder content : () -> Content
 	) {
 		self.title = title
@@ -30,8 +30,8 @@ struct OnboardingStepView<Content: View>: View {
 	/// Layout without additional content
 	init(
 		title: String,
-		subheadline: String,
-		bodyText: String
+		subheadline: String? = nil,
+		bodyText: String? = nil
 	) where Content == EmptyView {
 		self.title = title
 		self.subheadline = subheadline
@@ -40,12 +40,14 @@ struct OnboardingStepView<Content: View>: View {
 	}
 
     var body: some View {
-        VStack {
+		HStack  {
             Text(title)
                 .font(.largeTitle).fontWeight(.semibold)
+			
+			Spacer()
         }
-		.padding(.trailing, Design.space.l)
-        .padding(.top, 36)
+		.padding(.leading, Design.space.s)
+		.padding(.top, Design.space.m)
 
         Spacer()
 
@@ -53,10 +55,15 @@ struct OnboardingStepView<Content: View>: View {
 			content
 
             VStack(alignment: .leading) {
-                Text(subheadline)
-                    .font(.title).fontWeight(.semibold)
+				if let subheadline {
+					Text(subheadline)
+						.font(.title).fontWeight(.semibold)
+				}
+              
 
-                Text(bodyText)
+				if let bodyText {
+					Text(bodyText)
+				}
             }
 			.padding(.horizontal, 24)
         }
@@ -66,11 +73,5 @@ struct OnboardingStepView<Content: View>: View {
 }
 
 #Preview {
-    OnboardingStepView(
-        title: "Welcome to Shreddit",
-        subheadline: "You’re getting shredded this summer ☀️",
-        bodyText: "Get into the shape of your life. No BS, no burnout, just the exact calories left until you look insane."
-    ) {
-        Text("Test")
-    }
+	
 }
