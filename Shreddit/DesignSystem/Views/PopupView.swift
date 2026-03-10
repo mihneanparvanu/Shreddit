@@ -36,14 +36,3 @@ struct PopupView<MainContent: View, PopupContent: View>: View {
     }
 }
 
-#Preview {
-    @Previewable @Environment(\.designSystem) var design
-    PopupView(mainContent: {
-                  design.colors.surface.base
-                      .ignoresSafeArea()
-              },
-              popupContent: {
-                  CaloriesInView(healthManager: HealthManager(),
-                                 deficit: 500)
-              })
-}

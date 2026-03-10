@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfilePictureBorderViewModifier: ViewModifier {
 	
-	@Environment(\.designSystem) var design
     @State var size: CGFloat = 0
     let color: Color
 

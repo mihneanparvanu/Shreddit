@@ -12,9 +12,7 @@ extension OnboardingView {
         let currentStep: OnboardingStep
         let backButtonAction: () -> Void
         let nextButtonAction: () -> Void
-		
-		@Environment(\.designSystem) var design
-		
+				
         var body: some View {
             VStack {
                 buttons
@@ -55,7 +53,7 @@ extension OnboardingView {
                 ForEach(OnboardingStep.allCases) { step in
                     Circle()
                         .fill(step == currentStep ? Color.accentColor : Color.gray)
-						.frame(size: design.sizing.l)
+						.frame(size: Design.size.l)
                 }
             }
         }

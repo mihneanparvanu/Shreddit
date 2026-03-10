@@ -44,7 +44,7 @@ struct OnboardingStepView<Content: View>: View {
             Text(title)
                 .font(.largeTitle).fontWeight(.semibold)
         }
-		.padding(.trailing, Design.padding)
+		.padding(.trailing, Design.space.l)
         .padding(.top, 36)
 
         Spacer()

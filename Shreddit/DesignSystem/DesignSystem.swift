@@ -12,6 +12,15 @@ import SwiftUI
 // MARK: Design System
 enum Design {
 	struct Size {
+		 let xS: CGFloat = 20
+		 let s: CGFloat = 44
+		 let m: CGFloat = 64
+		 let l: CGFloat = 128
+		 let xL: CGFloat = 256
+	}
+	static let size = Size()
+	
+	struct Space {
 		let base: CGFloat = 4
 		let xxxS: CGFloat = 8
 		let xxS: CGFloat = 12
@@ -20,20 +29,18 @@ enum Design {
 		 let m: CGFloat = 24
 		 let l: CGFloat = 32
 		 let xL: CGFloat = 40
-		let xxL: CGFloat = 64
-		let xxxL: CGFloat = 80
+		let xxL: CGFloat = 56
+		let xxxL: CGFloat = 64
 	}
-	static let size = Size()
-	
-	struct Space {}
 	static let space = Space()
 
 	fileprivate struct Palette {
-		struct Brand {
-			let primary = Color(.systemBlue)
-			let secondary = Color(.systemCyan)
-		}
-		let brand = Brand()
+		let lightBlue = Color("Colors/LightBlue")
+		let gray100 = Color("Colors/Gray100")
+		let gray200 = Color("Colors/Gray200")
+		let gray300 = Color("Colors/Gray300")
+		let gray400 = Color("Colors/Gray400")
+		let gray500 = Color("Colors/Gray500")
 	}
 	fileprivate static let palette = Palette()
 }
@@ -42,30 +49,26 @@ struct Theme {
 	struct Colors {
 			struct Accent {
 				let primary: Color
-				let secondary: Color
 			}
-			
-			struct Surface {
-				let base: Color
+						
+			struct Content {
+				let primary: Color
 				let secondary: Color
 				let tertiary: Color
 			}
-			
-			struct Content {
-				let heading: Color
-				let subheading: Color
-				let description: Color
-			}
 		let accent: Accent
+		let content: Content
 	}
 	
 	let colors: Colors
 	
-	static let defaultTheme = Theme(
-		colors: Colors(
-			accent: .init(
-				primary: Design.palette.brand.primary,
-				secondary: Design.palette.brand.secondary)
+	static let defaultTheme = Theme(colors: Colors(
+		accent: .init(primary: Design.palette.lightBlue),
+		content: .init(
+			primary: Design.palette.gray200,
+			secondary: Design.palette.gray300,
+			tertiary: Design.palette.gray500
+			)
 		)
 	)
 }

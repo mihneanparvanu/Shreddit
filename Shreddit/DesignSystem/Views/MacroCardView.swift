@@ -51,7 +51,6 @@ extension MacroCardView {
 
         // MARK: Environment
 
-        @Environment(\.designSystem) var design
 
         var body: some View {
             VStack(alignment: .leading) {
@@ -60,7 +59,6 @@ extension MacroCardView {
                     .foregroundStyle(.gray.opacity(0.9))
 
                 Text(valueText)
-                    .foregroundStyle(design.colors.content.heading)
 					.font(.headline)
             }
         }

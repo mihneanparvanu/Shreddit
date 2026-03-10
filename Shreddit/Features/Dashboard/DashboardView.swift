@@ -16,7 +16,6 @@ struct DashboardView: View {
 
 	@Environment(HealthManager.self) var healthManager
 	@Environment(AppSettingsManager.self) var settingsManager
-	@Environment(\.designSystem) var design
 
 	// MARK: State
 

@@ -10,22 +10,18 @@ import SwiftUI
 struct DietFatigueLog: View {
     @Binding var fatigueState: DietFatigueState?
 
-    @Environment(\.designSystem) var design
     var body: some View {
         VStack {
             VStack {
                 Text("How is your diet fatigue?")
                     .font(.title.weight(.semibold))
-                    .foregroundStyle(design.colors.content.heading)
                 Text(fatigueState?.description ?? "")
                     .font(.callout)
-                    .foregroundStyle(design.colors.content.description)
             }
 
             EmojiView(selectedEmoji: $fatigueState)
         }
         .infinityFrame(.height)
-        .background(design.colors.surface.secondary)
     }
 }
 

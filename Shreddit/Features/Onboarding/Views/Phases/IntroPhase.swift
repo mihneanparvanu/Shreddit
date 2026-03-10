@@ -8,9 +8,7 @@
 import SwiftUI
 
 extension OnboardingContent {
-	struct WelcomeView: View {
-		@Environment(\.designSystem) var design
-		
+	struct WelcomeView: View {		
 		var body: some View {
 			OnboardingStepView(title: "Welcome to Shreddit",
 							 subheadline: "You’re getting shredded this summer ☀️",

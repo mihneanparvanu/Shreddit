@@ -14,8 +14,6 @@ struct MacroCircleView: View {
     let current: Int
     let title: String
 	
-	@Environment(\.designSystem) var design
-
     // MARK: State
 
     @State private var circleSize: CGFloat = 0
@@ -27,13 +25,13 @@ struct MacroCircleView: View {
                       goal: goal)
                     .stroke(style: .init(lineWidth: 8,
                                          lineCap: .square))
-					.foregroundStyle(design.colors.accent.primary)
+					.foregroundStyle(.accent)
                     .frame(size: circleSize * 0.98)
 
                 VStack {
                     Text(current.formatted(.number))
                         .font(.title2.weight(.semibold))
-                        .foregroundStyle(design.colors.accent.primary)
+						.foregroundStyle(.accent)
                 }
                 .padding(40)
                 .background {
