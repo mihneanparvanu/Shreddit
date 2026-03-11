@@ -13,6 +13,9 @@ struct CaloriesInView: View {
     let healthManager: HealthManager
     let deficit: Int?
 
+	
+	@Environment(\.units) var units
+	
     // MARK: State
 
     @State private var vm: CaloriesInViewModel
@@ -29,12 +32,13 @@ struct CaloriesInView: View {
     }
 
     var body: some View {
-        VStack {
+		VStack (spacing: Design.space.l){
             HighlightedTextView(
                 highlight: .init(value: vm.caloriesLeft),
                 content: .init(beforeHighlight: "Have fun eating the rest",
-                               afterHighlight: "kilocalories today.")
+							   afterHighlight: units.energy.title)
             )
+			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 
             HStack(spacing: 20) {
                 HighlightedTextView(
@@ -49,14 +53,16 @@ struct CaloriesInView: View {
 
                 HighlightedTextView(
                     highlight: .init(value: vm.carbs.currentValue),
-                    content: .init(afterHighlight: vm.carbs.title)
+					content: .init(afterHighlight: vm.carbs.title)
                 )
             }
         }
+		.padding(.horizontal, Design.space.s)
     }
 }
 
 #Preview {
     CaloriesInView(healthManager: HealthManager(),
                    deficit: 600)
+	.previewEnvironment()
 }

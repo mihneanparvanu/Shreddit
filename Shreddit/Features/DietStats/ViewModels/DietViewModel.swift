@@ -26,7 +26,7 @@ final class DietViewModel {
             return PhysiologyEngine
                 .calculateDailyDeficit(
                     weight: diet.currentWeight,
-                    unit: settingsManager.settings.units.unitMass,
+					unit: settingsManager.settings.units.foundationMass,
                     weeklyLossRate: diet.difficulty.weeklyLossRatePercentage
                 )
         }
@@ -39,7 +39,7 @@ final class DietViewModel {
 				.calculateDeficitRemainingInDiet(
 					weight: diet.currentWeight,
 					goalWeight: diet.goalWeight,
-					unit: settingsManager.settings.units.unitMass
+					unit: settingsManager.settings.units.foundationMass
 				)
 		}
 		return 0

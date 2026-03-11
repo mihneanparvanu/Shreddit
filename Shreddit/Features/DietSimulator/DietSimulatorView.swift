@@ -26,7 +26,7 @@ struct DietSimulatorView: View {
             HStack(spacing: 2) {
                 TextField("Weight to lose", value: $weightToLose, format: .number)
 
-                Text(settingsManager.settings.units.unitMass.description)
+				Text(settingsManager.settings.units.massUnit.title)
             }
 
             Spacer()

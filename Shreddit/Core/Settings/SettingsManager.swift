@@ -43,7 +43,7 @@ final class AppSettingsManager: @MainActor SettingsManager {
 		get()
 	}
 
-	func get() {
+	 func get() {
 		guard let settingsData = UserDefaults.standard.data(forKey: preferencesKey),
 		      let decodedSettings = try? JSONDecoder().decode(Settings.self, from: settingsData)
 		else {
@@ -52,3 +52,5 @@ final class AppSettingsManager: @MainActor SettingsManager {
 		settings = decodedSettings
 	}
 }
+
+

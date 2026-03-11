@@ -64,5 +64,5 @@ struct DashboardView: View {
 
 #Preview {
 	DashboardView(user: User.preview)
-		.environment(AppSettingsManager())
+		.previewEnvironment()
 }

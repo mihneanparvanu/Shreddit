@@ -46,13 +46,13 @@ extension OnboardingContent {
 							}
 							Section("Choose your units") {
 								Picker("Weight", selection: $settings.units.massUnit) {
-									ForEach(Settings.Units.MassUnit.allCases) { unit in
+									ForEach(Units.MassUnit.allCases) { unit in
 										Text(unit.title)
 									}
 								}
 								
 								Picker("Energy", selection:  $settings.units.energyUnit) {
-									ForEach(Settings.Units.EnergyUnit.allCases) { unit in
+									ForEach(Units.EnergyUnit.allCases) { unit in
 										Text(unit.title)
 									}
 								}
