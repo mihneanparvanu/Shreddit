@@ -7,8 +7,20 @@
 
 import Foundation
 
-struct Macro {
-    let title: String
+struct MacroData {
+	let macro: Macro
     var currentValue: Int
     var goal: Int
+}
+
+enum Macro: String {
+	case protein, fats, carbs, fiber
+	
+	var caloriesPerGram: Int {
+		switch self {
+			case .fiber: return 2
+			case .protein, .carbs: return 4
+			case .fats: return 9
+		}
+	}
 }
