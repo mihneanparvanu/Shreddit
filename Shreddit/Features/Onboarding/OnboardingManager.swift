@@ -9,45 +9,32 @@ import Observation
 import SwiftUI
 
 @MainActor
-protocol OnboardingManager: PreferencesManager {
+protocol OnboardingManager {
     var state: OnboardingState { get set }
 }
 
 @Observable
 
 final class AppOnboardingManager: @MainActor OnboardingManager {
-    var preferences: OnboardingState {
-        get {
-            state
-        }
-        set {
-            state = newValue
-        }
-    }
-
-    var preferencesKey: String = "onboardingState"
-
+	var preferencesKey: String = "onboardingState"
+  
     var state: OnboardingState = .init() {
         didSet {
-            set()
+            persist()
         }
     }
 
     init() {
-        get()
+		if let data = UserDefaults.standard.data(forKey: preferencesKey),
+		   let decoded = try? JSONDecoder().decode(OnboardingState.self, from: data) {
+			state = decoded
+		} else {
+			state = .init()
+		}
     }
 
-    func get() {
-        guard let savedData = UserDefaults.standard.data(forKey: preferencesKey),
-              let savedPreferences = try? JSONDecoder().decode(OnboardingState.self, from: savedData)
-        else {
-            return
-        }
-        preferences = savedPreferences
-    }
-
-    func set() {
-        if let data = try? JSONEncoder().encode(preferences) {
+   private func persist() {
+        if let data = try? JSONEncoder().encode(preferencesKey) {
             UserDefaults.standard.set(data, forKey: preferencesKey)
         }
     }

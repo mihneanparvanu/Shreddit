@@ -147,3 +147,49 @@ final class HealthManager {
         return try await (basal, active, basal + active)
     }
 }
+
+extension HealthManager {
+	func fetchAverageWeight (days: Int = 14) async throws -> Double {
+		guard let weightType = HKQuantityType.quantityType(
+			forIdentifier: .bodyMass
+		) else {
+			throw HealthKitError.dataUnavailable
+		}
+		
+		let endDate = Date()
+		guard let startDate = Calendar.current.date(
+			byAdding: .day,
+			value: -days,
+			to: endDate
+		) else {
+			throw HealthKitError.dataUnavailable
+		}
+		
+		let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+		
+		return try await withCheckedThrowingContinuation { continuation in
+					
+					let query = HKStatisticsQuery(
+						quantityType: weightType,
+						quantitySamplePredicate: predicate,
+						options: .discreteAverage
+					) { _, result, error in
+						
+						if let error = error {
+							continuation.resume(throwing: error)
+							return
+						}
+						
+						guard let averageQuantity = result?.averageQuantity() else {
+							continuation.resume(returning: 0.0)
+							return
+						}
+						
+						let averageKg = averageQuantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
+						continuation.resume(returning: averageKg)
+					}
+					
+					self.healthStore.execute(query)
+				}
+	}
+}

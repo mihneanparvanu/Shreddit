@@ -20,9 +20,9 @@ extension User {
 		currentDiet: .init(
 			startDate: Date.from(year: 2026, month: 1, day: 1),
 			endDate: .distantFuture,
-			startWeight: 153.0,
-			currentWeight: 136.0,
-			goalWeight: 124.0,
+			startWeight: 70,
+			currentWeight: 61.69,
+			goalWeight: 56.25,
 			difficulty: .preset(.hard)
 		)
 	)
