@@ -8,29 +8,18 @@
 import Observation
 import SwiftUI
 
-protocol SettingsManager: PreferencesManager {
+
+
+protocol SettingsManager {
 	var settings: Settings {get set}
 }
 
 @Observable
 final class AppSettingsManager: @MainActor SettingsManager {
-	var preferences: Settings {
-		get {
-			settings
-		}
-		set {
-			settings = newValue
-		}
-	}
+	private let preferencesKey: String = "settings"
 		
-	private func persist () {
-		if let encoded = try? JSONEncoder().encode(settings) {
-			UserDefaults.standard.set(encoded, forKey: preferencesKey)
-		}
-	}
 
-	let preferencesKey: String = "settings"
-
+	
 	var settings: Settings = .init(
 		units: .init()
 	) {
@@ -40,16 +29,18 @@ final class AppSettingsManager: @MainActor SettingsManager {
 	}
 	
 	init() {
-		get()
-	}
-
-	 func get() {
-		guard let settingsData = UserDefaults.standard.data(forKey: preferencesKey),
-		      let decodedSettings = try? JSONDecoder().decode(Settings.self, from: settingsData)
-		else {
-			return
+		if let data = UserDefaults.standard.data(forKey: preferencesKey),
+		   let decoded = try? JSONDecoder().decode(Settings.self, from: data) {
+			settings = decoded
+		} else {
+			settings = .init(units: .init())
 		}
-		settings = decodedSettings
+	}
+	
+	private func persist () {
+		if let encoded = try? JSONEncoder().encode(settings) {
+			UserDefaults.standard.set(encoded, forKey: preferencesKey)
+		}
 	}
 }
 

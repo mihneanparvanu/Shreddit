@@ -24,13 +24,16 @@ extension OnboardingContent {
 	
 	struct DietPaceView: View {
 		var body: some View {
-			OnboardingStepView(title: "What's your diet pace?", subheadline: "Dieting is hard.", bodyText: "Sustainable fat loss is capped at 0.9% of body weight per week. Faster than that, you burn muscle.")
+			OnboardingStepView(title: "What's your diet pace?",
+							   subheadline: "Dieting is hard.", bodyText:
+								"Sustainable fat loss is capped at 0.9% of body weight per week. Faster than that, you burn muscle.")
 		}
 	}
 	
 	struct UserDataView: View {
+		
 		@Binding var settings: Settings
-		let healthManager: HealthManager
+		@Environment(HealthManager.self) var healthManager
 		@State private var didRequestAuthorization: Bool = false
 		var body: some View {
 			
@@ -61,7 +64,7 @@ extension OnboardingContent {
 						.scrollContentBackground(.hidden)
 					}
 				
-					Text("Shreddit needs acces to your health data to help you get shredded. Please allow access in your settings.")
+				Text(Config.Onboarding.dataRequestReason)
 
 					if didRequestAuthorization {
 						switch healthManager.userHasAuthorizedDataAccess() {
@@ -90,5 +93,7 @@ extension OnboardingContent {
 			}
 			
 }
+
+
 
 

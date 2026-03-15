@@ -13,5 +13,7 @@ enum Config {
     enum Onboarding {
         /// The time after which the onboarding process resets to the welcome screen.
         static let resetInterval: TimeUnit = .days(1)
-    }
+		
+		static let dataRequestReason: String = "Shreddit needs acces to your health data to help you get shredded. Please allow access in your settings."
+	}
 }

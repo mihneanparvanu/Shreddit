@@ -55,7 +55,7 @@ extension OnboardingView {
                 ForEach(OnboardingStep.allCases) { step in
                     Circle()
 						.fill(
-							step == currentStep ? theme.colors.content.secondary : theme.colors.content.tertiary)
+							step == currentStep ? theme.colors.content.primary : theme.colors.content.tertiary)
 						.frame(size: Design.size.xS)
                 }
             }

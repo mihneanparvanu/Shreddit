@@ -26,10 +26,7 @@ struct OnboardingContent: View {
 			case .dietPace:
 				DietPaceView()
 			case .userData:
-				UserDataView(
-					settings: $bindableSettingsManager.settings,
-					healthManager: healthManager
-				)
+				UserDataView(settings: $bindableSettingsManager.settings)
 			case .finish:
 				FinishView()
 		}

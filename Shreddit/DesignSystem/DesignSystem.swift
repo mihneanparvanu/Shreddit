@@ -80,11 +80,10 @@ struct Theme {
 	static let defaultTheme = Theme(colors: Colors(
 		accent: .init(primary: Design.palette.lightBlue),
 		content: .init(
-			primary: Design.palette.gray200,
+			primary: Design.palette.gray100,
 			secondary: Design.palette.gray300,
-			tertiary: Design.palette.gray500
-			)
-		)
+			tertiary: Design.palette.gray400
+		))
 	)
 }
 
