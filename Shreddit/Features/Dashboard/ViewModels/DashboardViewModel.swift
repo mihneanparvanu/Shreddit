@@ -16,39 +16,24 @@ final class DashboardViewModel {
 	// MARK: Dependencies & Properties
 
 	let healthManager: HealthManager
-	let deficit: Int?
 
 	let startDate = Date().startOfDay
 
-	var dietaryEnergyConsumed: Int = 0
-	
-	var protein = MacroData(macro: .protein, currentValue: 0, goal: 150)
-	var carbs = MacroData(macro: .carbs, currentValue: 0, goal: 200)
-	var fat = MacroData(macro: .fat, currentValue: 0, goal: 60)
-
-	var caloriesLeft: Int = 0
-
 	// MARK: Initializer
 
-	init(healthManager: HealthManager, deficit: Int?) {
+	init(healthManager: HealthManager) {
 		self.healthManager = healthManager
-		self.deficit = deficit
 	}
 
 	func fetchCaloriesLeft() async throws {
 		let tdee = try await fetchTDEE()
-
-		caloriesLeft = tdee - dietaryEnergyConsumed - (deficit ?? 0)
 	}
 	
 
 	func fetchDietaryStats() async throws {
-		dietaryEnergyConsumed = try await fetchDietaryCalories()
+		let dietaryEnergyConsumed = try await fetchDietaryCalories()
 
 		let macros = try await fetchMacros()
-		protein.currentValue = macros.protein
-		carbs.currentValue = macros.carbs
-		fat.currentValue = macros.fat
 	}
 
 	private func fetchTDEE() async throws -> Int {

@@ -18,12 +18,22 @@ struct Diet: Identifiable, Codable {
 	var daysElapsed: Int {
 		Calendar.current.dateComponents([.day], from: startDate, to: Date()).day ?? 0
 	}
+	var dailyDeficit: Int {
+		PhysiologyEngine.calculateDailyDeficit(weight: currentWeight, weeklyLossRate: difficulty.weeklyLossRate)
+	}
+	var remainingDeficit: Int {
+		PhysiologyEngine
+			.calculateRemainingDeficit(
+				weight: currentWeight,
+				goalWeight: goalWeight
+)
+	}
 
     enum Difficulty: Codable {
         case preset(Preset)
         case custom(lossRate: Double)
 
-        var weeklyLossRatePercentage: Double {
+        var weeklyLossRate: Double {
             switch self {
             case let .preset(preset):
                 switch preset {

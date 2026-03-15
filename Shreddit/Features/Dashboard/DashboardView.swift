@@ -11,16 +11,25 @@ struct DashboardView: View {
 	// MARK: Dependencies
 
 	@State var user: User
+	let healthManager: HealthManager
 
 	// MARK: Environment
 
-	@Environment(HealthManager.self) var healthManager
-	@Environment(AppSettingsManager.self) var settingsManager
-
+	@Environment(\.units) var units
 	// MARK: State
 
-	@State private var vm = DashboardViewModel()
-
+	@State private var vm: DashboardViewModel
+	
+	init(
+		user: User,
+		healthManager: HealthManager,
+	) {
+		self.user = user
+		self.healthManager = healthManager
+		self.vm = .init(
+			healthManager: healthManager)
+	}
+		
 	var body: some View {
 		VStack {
 			TopToolbarView {
@@ -42,17 +51,11 @@ struct DashboardView: View {
 		}
 		
 		
-		DietView(
-			diet: user.currentDiet,
-			healthManager: healthManager,
-			settingsManager: settingsManager
-		)
-		
-		let macros = [MacroData(macro: .carbs, currentValue: 200, goal: 200),
+	let macros = [MacroData(macro: .carbs, currentValue: 200, goal: 200),
 					  MacroData(macro: .protein, currentValue: 100, goal: 150),
-					  MacroData(macro: .fats, currentValue: 100, goal: 60)]
+					  MacroData(macro: .fats, currentValue: 50, goal: 60)]
 		
-		DietaryEnergyView(caloriesLeft: 600,
+		DietaryEnergyView(caloriesLeft: user.currentDiet?.dailyDeficit ?? 0,
 						  macros: macros)
 
 		Spacer()
@@ -70,6 +73,6 @@ struct DashboardView: View {
 
 
 #Preview {
-	DashboardView(user: User.preview)
+	DashboardView(user: User.preview, healthManager: HealthManager())
 		.previewEnvironment()
 }

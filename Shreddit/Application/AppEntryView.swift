@@ -22,7 +22,7 @@ struct AppEntryView: View {
     var body: some View {
         Group {
             if onboardingManager.state.hasOnboarded {
-                DashboardView(user: user)
+				DashboardView(user: user, healthManager: healthManager)
             } else {
                 OnboardingView(onboardingManager: onboardingManager)
             }

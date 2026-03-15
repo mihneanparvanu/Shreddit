@@ -8,31 +8,13 @@
 import Foundation
 
 enum PhysiologyEngine {
+	private static let caloriesPerKg: Int = 7_700
 	
-	// Calories per unit of body weight lost, by unit
-	static func caloriesPerUnitMass(_ unit : UnitMass) -> Double {
-		switch unit {
-		case .kilograms:
-			7700.0
-		case .pounds:
-			3500.0
-		case .stones:
-			49000.0
-		default:
-			0.0
-		}
+	static func calculateDailyDeficit(weight: Double, weeklyLossRate: Double) -> Int {
+		Int((weeklyLossRate * weight) / 7) * caloriesPerKg
 	}
 	
-    static func calculateDailyDeficit(weight _: Double, unit: UnitMass, weeklyLossRate: Double) -> Int {
-		let weeklyCaloriesToLose = weeklyLossRate * caloriesPerUnitMass(unit)
-        let dailyDeficit = weeklyCaloriesToLose / 7.0
-
-        return Int(dailyDeficit.rounded())
-    }
-	
-	static func calculateDeficitRemainingInDiet (weight: Double, goalWeight: Double, unit: UnitMass) -> Int {
-	let remainingWeight = weight - goalWeight
-		return Int(remainingWeight * caloriesPerUnitMass(unit).rounded())
+	static func calculateRemainingDeficit (weight: Double, goalWeight: Double) -> Int {
+		Int(weight - goalWeight) * caloriesPerKg
 	}
-	
 }
