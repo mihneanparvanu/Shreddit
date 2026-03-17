@@ -50,7 +50,6 @@ struct DashboardView: View {
 			}
 		}
 		
-		
 	let macros = [MacroData(macro: .carbs, currentValue: 200, goal: 200),
 					  MacroData(macro: .protein, currentValue: 100, goal: 150),
 					  MacroData(macro: .fats, currentValue: 50, goal: 60)]
@@ -68,7 +67,6 @@ struct DashboardView: View {
 				PresentedView(content)
 			}
 	}
-
 }
 
 

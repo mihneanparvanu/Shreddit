@@ -18,6 +18,7 @@ struct User: Codable, Identifiable {
 	let createdAt: Date
 	var settings: Settings?
 	var currentDiet: Diet?
+	var metabolsim: Metabolism
 }
 
 #Preview {

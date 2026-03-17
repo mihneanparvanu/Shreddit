@@ -24,7 +24,9 @@ extension User {
 			currentWeight: 61.69,
 			goalWeight: 56.25,
 			difficulty: .preset(.hard)
-		)
+		),
+		metabolsim: .init(tdeeCalories: 2600,
+						  intakeCalories: 2000)
 	)
 }
 
