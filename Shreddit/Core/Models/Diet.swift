@@ -12,26 +12,40 @@ struct Diet: Identifiable, Codable {
 	let startDate: Date
 	let endDate: Date
 	let startWeight: Double
-	let currentWeight: Double
+	let currentAvgWeight: Double
 	let goalWeight: Double
-	let difficulty: Difficulty
 	var daysElapsed: Int {
 		Calendar.current.dateComponents([.day], from: startDate, to: Date()).day ?? 0
 	}
+	let difficulty: Difficulty
+	
 	var dailyDeficit: Int {
 		PhysiologyEngine
 			.calculateDailyDeficit(
-				weight: currentWeight,
+				weight: currentAvgWeight,
 				weeklyLossMultiplier: difficulty
 					.weeklyLossRateMultiplier)
 	}
-	var remainingDeficit: Int {
+
+	//MARK: Remaining deficit feature
+
+	var startingRemainingDeficit: Int {
+		PhysiologyEngine.weightToCalories(weight: startWeight)
+	}
+	
+	var displayRemainingDeficit: Int {
+		startingRemainingDeficit - dailyDeficit
+	}
+	
+	var realisticRemainingDeficit: Int {
 		PhysiologyEngine
 			.calculateRemainingDeficit(
-				weight: currentWeight,
+				weight: currentAvgWeight,
 				goalWeight: goalWeight
 			)
 	}
+	
+	let tdeePenalty: Int
 	
 	enum Difficulty: Codable {
 		case preset(Preset)

@@ -17,14 +17,15 @@ extension User {
 		image: "Preview/mProfileImage",
 		createdAt: Date(),
 		settings: nil,
-		currentDiet: .init(
-			startDate: Date.from(year: 2026, month: 1, day: 1),
-			endDate: .distantFuture,
-			startWeight: 70,
-			currentWeight: 61.69,
-			goalWeight: 56.25,
-			difficulty: .preset(.hard)
-		),
+			currentDiet: .init(
+				startDate: Date.from(year: 2026, month: 1, day: 1),
+				endDate: .distantFuture,
+				startWeight: 70,
+				currentAvgWeight: 61.5,
+				goalWeight: 56.25,
+				tdeePenalty: 0,
+				difficulty: .preset(.hard)
+			),
 		metabolsim: .init(tdeeCalories: 2600,
 						  intakeCalories: 2000)
 	)

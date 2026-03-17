@@ -11,6 +11,11 @@ enum PhysiologyEngine {
 	private static let caloriesPerKg: Double = 7_700.0
 	private static let daysInWeek: Double = 7.0
 	
+	static func weightToCalories(weight: Double) -> Int {
+		let result = weight * caloriesPerKg
+		return Int(result.rounded())
+	}
+	
 	static func calculateDailyDeficit(weight: Double, weeklyLossMultiplier: Double) -> Int {
 		let weeklyWeightLoss = weight * weeklyLossMultiplier
 		let dailyWeightLoss = weeklyWeightLoss / daysInWeek
@@ -23,4 +28,6 @@ enum PhysiologyEngine {
 		let caloriesRemaining = weightToLose * caloriesPerKg
 		return Int(caloriesRemaining.rounded())
 	}
+	
+	
 }

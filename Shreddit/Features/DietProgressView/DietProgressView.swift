@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CaloriesLeftInDietView: View {
+struct DietProgressView: View {
 	let averageWeight: Double
 	let goalWeight: Double
 	var body: some View {
@@ -25,6 +25,7 @@ struct CaloriesLeftInDietView: View {
  
 
 #Preview {
-	CaloriesLeftInDietView(averageWeight: 61.5,
-						   goalWeight: 56.25)
+	let m = User.preview
+	DietProgressView(averageWeight: m.currentDiet?.currentAvgWeight ?? 0,
+						   goalWeight: m.currentDiet?.goalWeight ?? 0)
 }
