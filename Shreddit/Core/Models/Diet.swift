@@ -51,7 +51,7 @@ struct Diet: Identifiable, Codable {
 	
 	enum Difficulty: Codable {
 		case preset(Preset)
-		case custom(lossRate: Double)
+		case custom(SafeLossRate)
 		
 	// Display
 		var weeklyLossRate: Double {
@@ -67,7 +67,7 @@ struct Diet: Identifiable, Codable {
 					}
 					
 				case let .custom(lossRate):
-					return lossRate
+					return lossRate.value
 			}
 		}
 		
@@ -80,6 +80,16 @@ struct Diet: Identifiable, Codable {
 			case easy = "Easy"
 			case medium = "Medium"
 			case hard = "Hard"
+		}
+		
+		
+		struct SafeLossRate: Codable {
+			let value: Double
+			
+			init? (_ value: Double) {
+				guard value > 0, value <= 1.1 else { return nil }
+				self.value = value
+			}
 		}
 	}
 }

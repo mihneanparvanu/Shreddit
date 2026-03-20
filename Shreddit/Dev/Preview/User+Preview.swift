@@ -8,6 +8,7 @@
 import Foundation
 
 extension User {
+	
 	static let preview: User = .init(
 		firstName: "Mihnea",
 		lastName: "Parvanu",
@@ -23,7 +24,7 @@ extension User {
 				startWeight: 70,
 				currentAvgWeight: 61.5,
 				goalWeight: 56.25,
-				difficulty: .custom(lossRate: 1),
+				difficulty: .custom(.init(1.0)!),
 				activeLedger: 0,
 				tdeePenalty: 0
 			),
