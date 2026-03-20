@@ -28,16 +28,16 @@ struct Diet: Identifiable, Codable {
 	}
 
 	//MARK: Remaining deficit feature
-
-	var startingRemainingDeficit: Int {
-		PhysiologyEngine.weightToCalories(weight: startWeight)
+	
+	var initialTargetDeficit: Int {
+		PhysiologyEngine
+			.calculateRemainingDeficit(
+				weight: startWeight,
+				goalWeight: goalWeight
+			)
 	}
 	
-	var displayRemainingDeficit: Int {
-		startingRemainingDeficit - dailyDeficit
-	}
-	
-	var realisticRemainingDeficit: Int {
+	var trueRemainingDeficit: Int {
 		PhysiologyEngine
 			.calculateRemainingDeficit(
 				weight: currentAvgWeight,
@@ -45,7 +45,9 @@ struct Diet: Identifiable, Codable {
 			)
 	}
 	
-	let tdeePenalty: Int
+	var activeLedger: Int
+		
+	var tdeePenalty: Int = 0
 	
 	enum Difficulty: Codable {
 		case preset(Preset)

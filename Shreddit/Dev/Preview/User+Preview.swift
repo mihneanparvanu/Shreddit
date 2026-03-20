@@ -23,8 +23,9 @@ extension User {
 				startWeight: 70,
 				currentAvgWeight: 61.5,
 				goalWeight: 56.25,
-				tdeePenalty: 0,
-				difficulty: .preset(.hard)
+				difficulty: .custom(lossRate: 1),
+				activeLedger: 0,
+				tdeePenalty: 0
 			),
 		metabolsim: .init(tdeeCalories: 2600,
 						  intakeCalories: 2000)
