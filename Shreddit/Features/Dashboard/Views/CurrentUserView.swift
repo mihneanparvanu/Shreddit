@@ -28,13 +28,14 @@ struct CurrentUserView: View {
 	}
 }
 
-enum Variant {
-	case detailed(
-		details: CurrentUserView.UserDetails
-	), compact, imageOnly
-}
 
 extension CurrentUserView {
+	enum Variant {
+		case detailed(
+			details: CurrentUserView.UserDetails
+		), compact, imageOnly
+	}
+	
 	struct UserDetails {
 		let highlight: HighlightedTextView.Highlight?
 		let content: HighlightedTextView.Content?
@@ -42,7 +43,6 @@ extension CurrentUserView {
 }
 
 private extension CurrentUserView {
-	
 	struct DetailedView: View {
 		let userImageURL: String?
 		let userName: String

@@ -10,8 +10,7 @@ import SwiftUI
 @main
 struct ShredditApp: App {
     // MARK: Properties
-
-    let user: User = .preview
+	let user: User = .preview
 
     // MARK: State
 	@State private var healthManager = HealthManager()
@@ -20,8 +19,7 @@ struct ShredditApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AppEntryView(healthManager: healthManager,
-                         user: user)
+            AppEntryView(user: user)
 				.environment(healthManager)
                 .environment(settingsManager)
                 .environment(onboardingManager)

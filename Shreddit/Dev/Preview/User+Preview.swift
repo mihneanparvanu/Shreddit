@@ -18,7 +18,7 @@ extension User {
 		image: "Preview/mProfileImage",
 		createdAt: Date(),
 		settings: nil,
-			currentDiet: .init(
+		currentDiet: .init(
 				startDate: Date.from(year: 2026, month: 1, day: 1),
 				endDate: .distantFuture,
 				startWeight: 70,

@@ -9,15 +9,13 @@ import SwiftUI
 
 struct DashboardView: View {
 	// MARK: Dependencies
-
-	@State var user: User
+	let user: User
 	let healthManager: HealthManager
-
+	
 	// MARK: Environment
-
 	@Environment(\.units) var units
+	
 	// MARK: State
-
 	@State private var vm: DashboardViewModel
 	
 	init(
@@ -29,43 +27,80 @@ struct DashboardView: View {
 		self.vm = .init(
 			healthManager: healthManager)
 	}
-		
+	
 	var body: some View {
 		VStack {
+			
 			TopToolbarView {
 				Text(Date.now.formatted(.dateTime.month(.wide).day()))
+				
 				Spacer()
+								
 				CurrentUserView(
 					user: user,
-					variant:
-							.detailed(
-								details: .init(
-									highlight: .init(
-										value: user.currentDiet?.daysElapsed
-									),
-									content: .init(afterHighlight: "days")
-								)
-							)
+					variant: userViewVariant
 				)
 			}
+			
+			if let diet = user.currentDiet {
+				DietDashboard(diet)
+			}
+			
+		 else {
+				StartDiet()
+			}
+			
+			Spacer()
 		}
 		
-	let macros = [MacroData(macro: .carbs, currentValue: 200, goal: 200),
-					  MacroData(macro: .protein, currentValue: 100, goal: 150),
-					  MacroData(macro: .fats, currentValue: 50, goal: 60)]
-		
-		DietaryEnergyView(caloriesLeft: user.currentDiet?.dailyDeficit ?? 0,
-						  macros: macros)
-
-		Spacer()
-		
-			.infinityFrame()
 			.sheet(item: $vm.sheetContent) { content in
 				PresentedView(content)
 			}
 			.fullScreenCover(item: $vm.fullScreenContent) { content in
 				PresentedView(content)
 			}
+	}
+	
+	struct StartDiet: View {
+		var body: some View {
+			
+			Text("Get shreddit")
+		}
+	}
+	
+	struct DietDashboard: View {
+		let diet: Diet
+		
+		init (_ diet: Diet) {
+			self.diet = diet
+		}
+		
+		var body: some View {
+			
+			DietProgressView(diet)
+			
+		let macros = [MacroData(macro: .carbs, currentValue: 200, goal: 200),
+						  MacroData(macro: .protein, currentValue: 100, goal: 150),
+						  MacroData(macro: .fats, currentValue: 50, goal: 60)]
+			
+			DietaryEnergyView(caloriesLeft: diet.dailyDeficit,
+							  macros: macros)
+		}
+	}
+}
+
+private extension DashboardView {
+	var userViewVariant: CurrentUserView.Variant {
+		guard let diet = user.currentDiet else {
+			return .compact
+		}
+		
+		return .detailed(
+			details: .init(
+				highlight: .init(value: diet.daysElapsed),
+				content: .init(afterHighlight: "days")
+			)
+		)
 	}
 }
 

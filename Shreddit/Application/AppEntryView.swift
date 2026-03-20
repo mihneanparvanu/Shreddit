@@ -10,11 +10,11 @@ import SwiftUI
 struct AppEntryView: View {
     // MARK: Dependencies
 
-    let healthManager: HealthManager
     let user: User
 
     // MARK: Environment
 
+	@Environment(HealthManager.self) var healthManager
     @Environment(AppSettingsManager.self) var settingsManager
     @Environment(AppOnboardingManager.self) var onboardingManager
     @Environment(\.colorScheme) var systemScheme
@@ -32,7 +32,6 @@ struct AppEntryView: View {
 }
 
 #Preview {
-    AppEntryView(healthManager: HealthManager(),
-                 user: User.preview)
+    AppEntryView(user: User.preview)
 	.previewEnvironment()
 }
