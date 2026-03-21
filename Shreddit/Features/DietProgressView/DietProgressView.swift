@@ -22,6 +22,7 @@ struct DietProgressView: View {
 	var body: some View {
 			HighlightedTextView(
 				highlight: .init(value: diet.trueRemainingDeficit),
+
 				content: .init(afterHighlight: "calories left until goal body fat")
 			)
 		}
@@ -32,3 +33,4 @@ struct DietProgressView: View {
 	let diet = User.preview.currentDiet!
 	DietProgressView(diet)
 }
+

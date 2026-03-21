@@ -13,5 +13,7 @@ import Observation
 	
 	init(diet: Diet) {
 		self.diet = diet
+		
 	}
+	
 }

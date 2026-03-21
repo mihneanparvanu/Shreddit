@@ -29,5 +29,49 @@ enum PhysiologyEngine {
 		return Int(caloriesRemaining.rounded())
 	}
 	
+	static func calculateDailyCompensation(activeLedger: Int, trueRemainingDeficit: Int) -> Int {
+		let drift = trueRemainingDeficit - activeLedger
+		let gamificationConfig = Config.Diet.Gamification.self
+		
+		if drift > 0 {
+			switch drift {
+				case  0..<gamificationConfig.DriftThreshold.minor:
+					return gamificationConfig.Penalty.low
+				case gamificationConfig.DriftThreshold.minor..<gamificationConfig.DriftThreshold.major:
+					return gamificationConfig.Penalty.mid
+				default: return gamificationConfig.Penalty.hi
+			}
+		}
+		return 0
+	}
 	
+	static func compensateForDay (oldTDEE: Int, healthTDEE: Int, energyIntake: Int, oldLedger: Int, weight: Double, goalWeight: Double) -> CompensationResult {
+		
+	// Calculate gamified TDEE
+		let gamifiedTDEE = oldTDEE - healthTDEE
+		
+	// See the drift
+		let deficit = gamifiedTDEE - energyIntake
+		
+		let activeLedger = oldLedger - deficit
+		
+		let trueRemainingDeficit = PhysiologyEngine.calculateRemainingDeficit(
+			weight: weight,
+			goalWeight: goalWeight
+		)
+		
+		let drift = PhysiologyEngine.calculateDailyCompensation(
+			activeLedger: activeLedger,
+			trueRemainingDeficit: trueRemainingDeficit
+		)
+		
+		let newTDEE = oldTDEE - drift
+		
+		return CompensationResult(activeLedger: activeLedger, newTDEE: newTDEE)
+	}
+	
+	struct CompensationResult {
+		let activeLedger: Int
+		let newTDEE: Int
+	}
 }
