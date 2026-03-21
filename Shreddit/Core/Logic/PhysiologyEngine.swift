@@ -45,33 +45,36 @@ enum PhysiologyEngine {
 		return 0
 	}
 	
-	static func compensateForDay (oldTDEE: Int, healthTDEE: Int, energyIntake: Int, oldLedger: Int, weight: Double, goalWeight: Double) -> CompensationResult {
+	static func compensateForDay (yesterdayPenalty: Int, healthTDEE: Int, energyIntake: Int, oldLedger: Int, weight: Double, goalWeight: Double) -> CompensationResult {
 		
-	// Calculate gamified TDEE
-		let gamifiedTDEE = oldTDEE - healthTDEE
+		// 1. Calculate gamified TDEE (Health baseline MINUS the secret penalty)
+		let gamifiedTDEE = healthTDEE - yesterdayPenalty
 		
-	// See the drift
-		let deficit = gamifiedTDEE - energyIntake
+		// 2. Calculate what they actually achieved yesterday
+		let dailyDeficit = gamifiedTDEE - energyIntake
 		
-		let activeLedger = oldLedger - deficit
+		// 3. Calculate the new ledger
+		let newActiveLedger = oldLedger - dailyDeficit
 		
-		let trueRemainingDeficit = PhysiologyEngine.calculateRemainingDeficit(
-			weight: weight,
-			goalWeight: goalWeight
+		// 4. Calculate what the penalty should be for TOMORROW
+		let trueRemainingDeficit = calculateRemainingDeficit(weight: weight, goalWeight: goalWeight)
+		
+		let newPenalty = calculateDailyCompensation(
+					activeLedger: newActiveLedger,
+					trueRemainingDeficit: trueRemainingDeficit
+				)
+		
+		return CompensationResult(
+			activeLedger: newActiveLedger,
+			newPenalty: newPenalty
 		)
-		
-		let drift = PhysiologyEngine.calculateDailyCompensation(
-			activeLedger: activeLedger,
-			trueRemainingDeficit: trueRemainingDeficit
-		)
-		
-		let newTDEE = oldTDEE - drift
-		
-		return CompensationResult(activeLedger: activeLedger, newTDEE: newTDEE)
 	}
 	
+}
+
+extension PhysiologyEngine {
 	struct CompensationResult {
 		let activeLedger: Int
-		let newTDEE: Int
+		let newPenalty: Int
 	}
 }
