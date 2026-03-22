@@ -33,6 +33,10 @@ import Observation
 			return
 		}
 		
+		guard !Calendar.current.isDateInToday(diet.lastLedgerUpdateDate) else {
+			return
+		}
+		
 		// Fetch the data
 		let healthTDEE = try await healthManager.fetchEnergyBurned(
 			startDate: yesterday
@@ -54,5 +58,6 @@ import Observation
 		// Update the diet
 		user.currentDiet?.tdeePenalty = newData.newPenalty
 		user.currentDiet?.activeLedger = newData.activeLedger
+		user.currentDiet?.lastLedgerUpdateDate = .now
 	}
 }

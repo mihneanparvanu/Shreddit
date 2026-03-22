@@ -8,7 +8,7 @@
 import Foundation
 
 struct Diet: Identifiable, Codable {
-	var id: String { "Diet \(startDate) - \(endDate)" }
+	var id: UUID = UUID()
 	let startDate: Date
 	let endDate: Date
 	let startWeight: Double
@@ -49,6 +49,17 @@ struct Diet: Identifiable, Codable {
 		
 	var tdeePenalty: Int = 0
 	
+	var lastLedgerUpdateDate: Date = .now
+	
+	func todayCalorieGoal(healthTDEE: Int) -> Int {
+		return healthTDEE - dailyDeficit - tdeePenalty
+	}
+}
+
+
+extension Diet {
+	
+	//MARK: Diet difficulty
 	enum Difficulty: Codable {
 		case preset(Preset)
 		case custom(SafeLossRate)
@@ -92,7 +103,6 @@ struct Diet: Identifiable, Codable {
 			}
 		}
 	}
-}
 
-  
+}
 
