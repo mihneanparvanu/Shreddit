@@ -9,20 +9,17 @@ import SwiftUI
 
 struct DashboardView: View {
 	// MARK: Dependencies
-	let user: User
 	let healthManager: HealthManager
 	
 	// MARK: Environment
+	@Environment(SessionManager.self) var sessionManager
 	@Environment(\.units) var units
 	
 	// MARK: State
 	@State private var vm: DashboardViewModel
 	
-	init(
-		user: User,
-		healthManager: HealthManager,
-	) {
-		self.user = user
+	init(healthManager: HealthManager)
+	{
 		self.healthManager = healthManager
 		self.vm = .init(
 			healthManager: healthManager)
@@ -69,7 +66,7 @@ struct DashboardView: View {
 	}
 	
 	struct DietDashboard: View {
-		let diet: Diet
+		@State var diet: Diet
 		
 		init (_ diet: Diet) {
 			self.diet = diet
@@ -90,6 +87,10 @@ struct DashboardView: View {
 }
 
 private extension DashboardView {
+	var user: User {
+		sessionManager.user
+	}
+	
 	var userViewVariant: CurrentUserView.Variant {
 		guard let diet = user.currentDiet else {
 			return .compact
@@ -106,6 +107,6 @@ private extension DashboardView {
 
 
 #Preview {
-	DashboardView(user: User.preview, healthManager: HealthManager())
+	DashboardView(healthManager: HealthManager())
 		.previewEnvironment()
 }

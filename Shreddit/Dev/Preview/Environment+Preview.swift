@@ -10,6 +10,7 @@ import SwiftUI
 extension View {
 	func previewEnvironment () -> some View {
 		self
+	.environment(SessionManager())
 	.environment(HealthManager())
 	.environment(AppSettingsManager())
 	.environment(AppOnboardingManager())

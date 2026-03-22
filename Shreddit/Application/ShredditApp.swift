@@ -10,16 +10,17 @@ import SwiftUI
 @main
 struct ShredditApp: App {
     // MARK: Properties
-	let user: User = .preview
 
     // MARK: State
+	@State private var sessionManager = SessionManager(user: .preview)
 	@State private var healthManager = HealthManager()
 	@State private var settingsManager = AppSettingsManager()
     @State private var onboardingManager = AppOnboardingManager()
 
     var body: some Scene {
         WindowGroup {
-            AppEntryView(user: user)
+            AppEntryView()
+				.environment(sessionManager)
 				.environment(healthManager)
                 .environment(settingsManager)
                 .environment(onboardingManager)
