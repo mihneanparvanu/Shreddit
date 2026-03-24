@@ -34,10 +34,7 @@ struct DietaryEnergyView: View {
 				ForEach(macros, id: \.macro) { macro in
 					Spacer()
 					
-					HighlightedTextView(
-						highlight: .init(value: macro.currentValue),
-						content: .init(afterHighlight: macro.macro.rawValue)
-					)
+					MacroView(macro)
 					
 					Spacer()
 				}
