@@ -16,44 +16,57 @@ struct MacroView: View {
 		self.macroData = macroData
 	}
 	
-
-    // MARK: State
-
+	
     var body: some View {
 	
-	
-		ZStack{
-			VStack {
-				Spacer ()
-				
-				Rectangle()
-					.foregroundStyle(.green)
-					.frame(height: interpolation)
-			}
+		ZStack {
+			Graph(progress: progress)
 			
 			VStack{
 				Text(macroData.macro.rawValue.capitalized)
-				Text(interpolation.description)
 			}
 			.foregroundStyle(.black)
 			.font(.title3.weight(.semibold))
-        }
+		}
 	
-		.frame(width: 100, height: 100)
-		.background(Color.gray.opacity(0.35))
+		
     }
 }
 
 private extension MacroView {
-	var interpolation: CGFloat {
-		let currentVal = Double(macroData.currentValue)
-		let goalVal = Double(macroData.goal)
-		let ratio = currentVal / goalVal
-		return min(ratio.interpolated(towards: 100, amount: ratio).rounded(), 100)
+	var progress: Double {
+		let currentValue = Double(macroData.currentValue)
+		let goal = Double(macroData.goal)
+		let sanitizedGoal = min(currentValue / goal, 1)
+		return sanitizedGoal
 	}
+	
+	
+	struct Graph: View {
+		let progress: Double
+		let maxHeight: CGFloat = 100
+		var body: some View {
+			ZStack (alignment: .bottom){
+				Rectangle()
+					.frame(height: maxHeight)
+					.foregroundStyle(Color.gray.opacity(0.15))
+				
+				
+				Rectangle()
+					.foregroundStyle(.green)
+					.frame(height: maxHeight * progress)
+					.animation(
+						.spring(response: 0.5, dampingFraction: 0.2),
+						value: progress
+					)
+			}
+			.frame(width: 100)
+		}
+	}
+	
 }
 
 
 #Preview {
-	MacroView(.init(macro: .protein, currentValue: 145, goal: 150))
+	MacroView(.init(macro: .protein, currentValue: 100, goal: 150))
 }
