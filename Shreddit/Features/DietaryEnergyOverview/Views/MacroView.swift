@@ -18,6 +18,9 @@ struct MacroView: View {
     var body: some View {
 		
 		VStack (spacing: Design.space.m){
+			Text(macroData.macro.rawValue.capitalized)
+				.font(.subheadline.weight(.semibold))
+			
 			ZStack {
 				Graph(progress: progress)
 				
@@ -26,9 +29,6 @@ struct MacroView: View {
 				}
 				.font(.caption)
 			}
-			
-			Text(macroData.macro.rawValue.capitalized)
-				.font(.subheadline.weight(.semibold))
 		}
     }
 }
@@ -45,6 +45,7 @@ private extension MacroView {
 	struct Graph: View {
 		let progress: Double
 		let size: CGFloat = Design.size.m
+		let accentColor: Color = .green
 		var body: some View {
 
 			ZStack {
@@ -65,7 +66,7 @@ private extension MacroView {
 				
 				.frame(width: size, height: size)
 				.scaleEffect(1.1)
-					.foregroundStyle(.accent)
+				.foregroundStyle(accentColor)
 				
 				Circle()
 					.frame(width: size, height: size)
@@ -76,7 +77,7 @@ private extension MacroView {
 		}
 	
 		var circleColor: Color {
-			progress == 1 ? .accent : Color(.systemGray3)
+			progress == 1 ? accentColor : Color(.systemGray3)
 		}
 	}
 }

@@ -22,7 +22,7 @@ struct DietaryEnergyView: View {
     // MARK: Initializer
 
     var body: some View {
-		VStack (spacing: Design.space.l){
+		VStack (spacing: Design.space.xxL){
             HighlightedTextView(
                 highlight: .init(value: caloriesLeft),
                 content: .init(beforeHighlight: "Have fun eating the rest",
@@ -30,15 +30,22 @@ struct DietaryEnergyView: View {
             )
 			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 						
-			HStack (spacing: Design.space.l){
+			HStack {
 				ForEach(macros, id: \.macro) { macro in
 					
 					MacroView(macro)
+						
+					if macro.macro != macros.last?.macro {
+						Spacer()
+					}
+					
 					
 				}
 			}
+			.padding(.horizontal)
+			
         }
-		.padding(.horizontal, Design.space.s)
+		.padding(.horizontal)
     }
 	
 }
