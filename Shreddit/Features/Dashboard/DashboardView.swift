@@ -74,8 +74,6 @@ struct DashboardView: View {
 		
 		var body: some View {
 			
-			DietProgressView(diet)
-			
 		let macros = [MacroData(macro: .carbs, currentValue: 200, goal: 200),
 						  MacroData(macro: .protein, currentValue: 100, goal: 150),
 						  MacroData(macro: .fats, currentValue: 50, goal: 60)]

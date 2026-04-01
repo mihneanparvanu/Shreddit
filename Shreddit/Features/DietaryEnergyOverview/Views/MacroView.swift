@@ -15,21 +15,21 @@ struct MacroView: View {
 	init (_ macroData: MacroData) {
 		self.macroData = macroData
 	}
-	
-	
     var body: some View {
-	
-		ZStack {
-			Graph(progress: progress)
-			
-			VStack{
-				Text(macroData.macro.rawValue.capitalized)
-			}
-			.foregroundStyle(.black)
-			.font(.title3.weight(.semibold))
-		}
-	
 		
+		VStack (spacing: Design.space.m){
+			ZStack {
+				Graph(progress: progress)
+				
+				VStack{
+					Text(macroData.currentValue.description + "g")
+				}
+				.font(.caption)
+			}
+			
+			Text(macroData.macro.rawValue.capitalized)
+				.font(.subheadline.weight(.semibold))
+		}
     }
 }
 
@@ -44,29 +44,43 @@ private extension MacroView {
 	
 	struct Graph: View {
 		let progress: Double
-		let maxHeight: CGFloat = 100
+		let size: CGFloat = Design.size.m
 		var body: some View {
-			ZStack (alignment: .bottom){
-				Rectangle()
-					.frame(height: maxHeight)
-					.foregroundStyle(Color.gray.opacity(0.15))
+
+			ZStack {
+
+				Path { path in
+					let center = CGPoint(x: size/2, y: size/2)
+					path.move(to: center)
+					path
+						.addArc(
+							center: center,
+							radius: size/2,
+							startAngle: .degrees(270),
+							endAngle: .degrees(270 - (-360 * progress)),
+							clockwise: false
+						)
 				
+				}
 				
-				Rectangle()
-					.foregroundStyle(.green)
-					.frame(height: maxHeight * progress)
-					.animation(
-						.spring(response: 0.5, dampingFraction: 0.2),
-						value: progress
-					)
+				.frame(width: size, height: size)
+				.scaleEffect(1.1)
+					.foregroundStyle(.accent)
+				
+				Circle()
+					.frame(width: size, height: size)
+					.foregroundStyle(circleColor)
+
 			}
-			.frame(width: 100)
+				
+		}
+	
+		var circleColor: Color {
+			progress == 1 ? .accent : Color(.systemGray3)
 		}
 	}
-	
 }
 
-
 #Preview {
-	MacroView(.init(macro: .protein, currentValue: 100, goal: 150))
+	MacroView(.init(macro: .protein, currentValue: 140, goal: 150))
 }

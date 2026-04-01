@@ -26,17 +26,15 @@ struct DietaryEnergyView: View {
             HighlightedTextView(
                 highlight: .init(value: caloriesLeft),
                 content: .init(beforeHighlight: "Have fun eating the rest",
-							   afterHighlight: units.energy.title)
+							   afterHighlight: units.energy.title.lowercased())
             )
 			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 						
-			HStack {
+			HStack (spacing: Design.space.l){
 				ForEach(macros, id: \.macro) { macro in
-					Spacer()
 					
 					MacroView(macro)
 					
-					Spacer()
 				}
 			}
         }
