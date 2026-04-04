@@ -10,22 +10,22 @@ import SwiftUI
 struct MacroView: View {
 	// MARK: Dependencies
 	
-	let macroData: MacroData
+	let macro: Macro
 	
-	init (_ macroData: MacroData) {
-		self.macroData = macroData
+	init (_ macro: Macro) {
+		self.macro = macro
 	}
     var body: some View {
 		
 		VStack (spacing: Design.space.m){
-			Text(macroData.macro.rawValue.capitalized)
+			Text(macro.kind.title)
 				.font(.subheadline.weight(.semibold))
 			
 			ZStack {
 				Graph(progress: progress)
 				
 				VStack{
-					Text(macroData.currentValue.description + "g")
+					Text(macro.grams.description + macro.unit)
 				}
 				.font(.caption)
 			}
@@ -35,8 +35,8 @@ struct MacroView: View {
 
 private extension MacroView {
 	var progress: Double {
-		let currentValue = Double(macroData.currentValue)
-		let goal = Double(macroData.goal)
+		let currentValue = Double(macro.grams)
+		let goal = Double(macro.goal)
 		let sanitizedGoal = min(currentValue / goal, 1)
 		return sanitizedGoal
 	}
@@ -83,5 +83,5 @@ private extension MacroView {
 }
 
 #Preview {
-	MacroView(.init(macro: .protein, currentValue: 140, goal: 150))
+	MacroView(.init(kind: .protein, grams: 140, goal: 150))
 }

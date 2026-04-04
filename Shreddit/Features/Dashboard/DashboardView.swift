@@ -75,9 +75,11 @@ struct DashboardView: View {
 		var body: some View {
 			
 		let macros = [
-			MacroData(macro: .protein, currentValue: 100, goal: 150),
-			MacroData(macro: .fats, currentValue: 50, goal: 60),
-			MacroData(macro: .carbs, currentValue: 200, goal: 200)]
+			Macro(kind: .protein, grams: 90, goal: 180),
+			Macro(kind: .carbs(fiber: 20), grams: 120, goal: 240),
+			Macro(kind: .fats, grams: 100, goal: 200)
+		]
+			
 						 
 			
 			DietaryEnergyView(caloriesLeft: diet.dailyDeficit,

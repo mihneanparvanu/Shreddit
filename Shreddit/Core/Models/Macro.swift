@@ -8,17 +8,31 @@
 import Foundation
 
 struct Macro  {
-	let type: MacroType
-	let currentValue: Int
-	let goal: Int
+	let kind: Kind
+	let mass: Measurement<UnitMass>
 	var calories: Int {
-		type.calculateCalories(for: currentValue)
+		kind.calculateCalories(for: mass.hashValue)
+	}
+	
+	
+	init(kind: Kind, massValue: Double, massUnit: UnitMass = .grams) {
+		self.kind = kind
+		self.mass = Measurement(value: massValue, unit: massUnit)
 	}
 }
 
 extension Macro {
-	enum MacroType {
-		case protein, fats, carbs(fiber: Int)
+	enum Kind {
+		case protein, fats, carbs(fiber: Int), alcohol
+		
+		var title: String {
+			switch self {
+				case .protein: return "Protein"
+				case .fats: return "Fats"
+				case .carbs: return "Carbs"
+				case .alcohol: return "Alcohol"
+			}
+		}
 
 		func calculateCalories(for grams: Int) -> Int {
 			switch self {
@@ -27,6 +41,7 @@ extension Macro {
 				case let .carbs(fiber):
 					let netCarbs = max(0, grams - fiber)
 					return netCarbs * 4 + fiber * 2
+				case .alcohol: return grams * 7
 			}
 		}
 	}

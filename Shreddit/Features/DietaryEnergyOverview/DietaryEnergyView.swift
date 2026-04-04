@@ -14,7 +14,7 @@ struct DietaryEnergyView: View {
 	@Environment(\.units) var units
 
 	let caloriesLeft: Int
-	let macros: [MacroData]
+	let macros: [Macro]
 
 	// MARK: State
 
@@ -31,11 +31,13 @@ struct DietaryEnergyView: View {
 			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 						
 			HStack {
-				ForEach(macros, id: \.macro) { macro in
+				
+				ForEach(macros, id: \.kind.title) {macro in
 					
 					MacroView(macro)
-						
-					if macro.macro != macros.last?.macro {
+					
+				
+					if macro.kind.title != macros.last?.kind.title {
 						Spacer()
 					}
 					
@@ -52,9 +54,9 @@ struct DietaryEnergyView: View {
 
 #Preview {
 	let caloriesLeft = 400
-	let macros = [MacroData(macro: .carbs, currentValue: 200, goal: 200),
-				  MacroData(macro: .protein, currentValue: 100, goal: 150),
-				  MacroData(macro: .fats, currentValue: 100, goal: 60)]
+	
+	
+		
 	DietaryEnergyView(caloriesLeft: caloriesLeft,
 					  macros: macros)
 	.previewEnvironment()
