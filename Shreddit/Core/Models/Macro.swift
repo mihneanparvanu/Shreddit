@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Macro  {
+struct Macro: Codable  {
 	let kind: Kind
 	let mass: Measurement<UnitMass>
 	var calories: Int {
@@ -35,7 +35,7 @@ struct Macro  {
 }
 
 extension Macro {
-	enum Kind {
+	enum Kind: Codable {
 		case protein, fats, carbs(fiber: Double), alcohol
 		
 		var title: String {
