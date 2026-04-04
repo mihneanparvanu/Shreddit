@@ -8,11 +8,13 @@
 import Foundation
 
 struct Food {
+	let id: UUID = UUID()
+	let mass: Measurement<UnitMass> = .init(value: 100, unit: .grams)
+	let preparation: Preparation = .raw
 	let name: String
 	let photo: String?
-	let mass: Measurement<UnitMass>
+	let category: Category
 	let macros: [Macro]
-	let preparation: Preparation
 	
 	var totalCalories: Int {
 		var sum = 0
@@ -21,26 +23,55 @@ struct Food {
 		}
 		return sum
 	}
+}
+
+extension Food {
+	enum Preparation: String, CaseIterable, Codable {
+		case raw
+		case cooked
+	}
+
+	enum Category: String, CaseIterable, Codable {
+		case meat
+		case vegetable
+		case fruit
+		case legume
+		case grain
+		var cookedYieldMultiplier: Double {
+			switch self {
+				case .meat: return 0.7
+				case .vegetable: return 0.8
+				case .fruit: return 1.0
+				case .legume: return 2.5
+				case .grain: return 3.0
+			}
+		}
+	}
+
+}
+
+struct LoggedFood {
+	let foodItem: Food
+	let date: Date
+	let mass: Measurement<UnitMass>
+	let preparation: Food.Preparation
 	
-	init(
-		name: String,
-		photo: String?,
-		massValue: Double,
-		massUnit: Mass,
-		macros: [Macro],
-		preparation: Preparation
-	) {
-		self.name = name
-		self.photo = photo
-		self.mass = .init(value: massValue, unit: massUnit.foundationUnit)
-		self.macros = macros
-		self.preparation = preparation
+	var macros: [Macro] {
+		let massInGrams = mass.converted(to: .grams).value
+		let rawMassInGrams: Double = switch preparation {
+			case .raw: massInGrams
+			case .cooked: massInGrams / foodItem.category.cookedYieldMultiplier
+		}
+		
+		
+
+		let foodItemMass = foodItem.mass.value
+		let multiplier = rawMassInGrams / foodItemMass
+		return foodItem.macros.map { $0.scaledBy(multiplier)}
 	}
 }
 
-
-extension Food {
-	
+extension LoggedFood {
 	enum Mass: String, CaseIterable {
 	case grams, kilograms, ounces, pounds
 			
@@ -53,33 +84,5 @@ extension Food {
 			}
 		}
 	}
-	
-	enum Preparation: String, CaseIterable {
-		case raw
-		case cooked
-	}
 }
 
-extension Food {
-	static let chickenBreast = Food(
-		name: "Chicken Breast",
-		photo: nil,
-		massValue: 140,
-		massUnit: .grams,
-		macros: [
-			.init(kind: .protein, massValue: 35),
-			.init(kind: .fats, massValue: 4)
-		],
-		preparation: .raw
-	)
-	
-}
-
-
-struct Meal {
-	let foods: [Food]
-	let time: Date
-	var totalCalories: Int {
-		foods.map(\.totalCalories).reduce(0, +)
-	}
-}

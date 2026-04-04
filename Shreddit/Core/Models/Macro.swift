@@ -11,9 +11,22 @@ struct Macro  {
 	let kind: Kind
 	let mass: Measurement<UnitMass>
 	var calories: Int {
-		kind.calculateCalories(for: mass.hashValue)
+		let massInGrams = mass.converted(to: .grams).value
+		let exactCalories = kind.calculateCalories(for: massInGrams)
+		return Int(exactCalories.rounded())
 	}
 	
+	func scaledBy(_ multiplier: Double) -> Self {
+		switch kind {
+			case .protein, .fats, .alcohol:
+				return .init(kind: kind, massValue: mass.value * multiplier)
+			case let .carbs(fiber):
+				return .init(
+					kind: .carbs(fiber: fiber * multiplier),
+					massValue: mass.value * multiplier
+				)
+		}
+	}
 	
 	init(kind: Kind, massValue: Double, massUnit: UnitMass = .grams) {
 		self.kind = kind
@@ -23,7 +36,7 @@ struct Macro  {
 
 extension Macro {
 	enum Kind {
-		case protein, fats, carbs(fiber: Int), alcohol
+		case protein, fats, carbs(fiber: Double), alcohol
 		
 		var title: String {
 			switch self {
@@ -34,7 +47,7 @@ extension Macro {
 			}
 		}
 
-		func calculateCalories(for grams: Int) -> Int {
+		func calculateCalories(for grams: Double) -> Double {
 			switch self {
 				case .protein: return grams * 4
 				case .fats: return grams * 9
