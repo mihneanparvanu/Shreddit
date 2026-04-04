@@ -12,21 +12,24 @@ struct Macro  {
 	let currentValue: Int
 	let goal: Int
 	var calories: Int {
-		currentValue * type.caloriesPerGram
+		type.calculateCalories(for: currentValue)
 	}
 }
 
 extension Macro {
-	enum MacroType: String {
-		case protein, fats, carbs, fiber
-		
-		var caloriesPerGram: Int {
+	enum MacroType {
+		case protein, fats, carbs(fiber: Int)
+
+		func calculateCalories(for grams: Int) -> Int {
 			switch self {
-				case .fiber: return 2
-				case .protein, .carbs: return 4
-				case .fats: return 9
+				case .protein: return grams * 4
+				case .fats: return grams * 9
+				case let .carbs(fiber):
+					let netCarbs = max(0, grams - fiber)
+					return netCarbs * 4 + fiber * 2
 			}
 		}
 	}
-
 }
+
+
