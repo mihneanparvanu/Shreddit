@@ -16,12 +16,8 @@ struct Food {
 	let category: Category
 	let macros: [Macro]
 	
-	var totalCalories: Int {
-		var sum = 0
-		for macro in macros {
-			sum += macro.calories
-		}
-		return sum
+	var calories: Int {
+		macros.map(\.calories).reduce(0, +)
 	}
 }
 
@@ -68,6 +64,10 @@ struct LoggedFood {
 		let foodItemMass = foodItem.mass.value
 		let multiplier = rawMassInGrams / foodItemMass
 		return foodItem.macros.map { $0.scaledBy(multiplier)}
+	}
+	
+	var calories: Int {
+		return macros.map(\.calories).reduce(0, +)
 	}
 }
 
