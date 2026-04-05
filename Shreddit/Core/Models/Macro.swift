@@ -16,18 +16,6 @@ struct Macro: Codable  {
 		return Int(exactCalories.rounded())
 	}
 	
-	func scaledBy(_ multiplier: Double) -> Self {
-		switch kind {
-			case .protein, .fats, .alcohol:
-				return .init(kind: kind, massValue: mass.value * multiplier)
-			case let .carbs(fiber):
-				return .init(
-					kind: .carbs(fiber: fiber * multiplier),
-					massValue: mass.value * multiplier
-				)
-		}
-	}
-	
 	init(kind: Kind, massValue: Double, massUnit: UnitMass = .grams) {
 		self.kind = kind
 		self.mass = Measurement(value: massValue, unit: massUnit)
@@ -60,4 +48,26 @@ extension Macro {
 	}
 }
 
+extension Macro {
+	func scaledBy(_ multiplier: Double) -> Self {
+		switch kind {
+			case .protein, .fats, .alcohol:
+				return .init(kind: kind, massValue: mass.value * multiplier)
+			case let .carbs(fiber):
+				return .init(
+					kind: .carbs(fiber: fiber * multiplier),
+					massValue: mass.value * multiplier
+				)
+		}
+	}
+}
+
+extension Macro {
+	func combined (with other: Macro) -> Macro {
+	
+		guard other.kind.title == kind.title else { return self }
+		return Macro (kind: self.kind,
+					  massValue: self.mass.value + other.mass.value)
+	}
+}
 
