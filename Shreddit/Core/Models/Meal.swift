@@ -41,7 +41,7 @@ struct Meal {
 			macros: [
 				Macro(kind: .protein, massValue: 12.5),
 				Macro(kind: .fats, massValue: 2),
-				Macro(kind: .carbs(fiber: 0), massValue: 2)
+				Macro(kind: .carbs, massValue: 10, fiberValue: 0, sugarValue: 2)
 			]
 		)
 		let blueberries = Food (
@@ -49,7 +49,7 @@ struct Meal {
 			photo: nil,
 			category: .fruit,
 			macros: [
-				Macro(kind: .carbs(fiber: 4), massValue: 10),
+				Macro(kind: .carbs, massValue: 13, fiberValue: 5, sugarValue: 6),
 				Macro(kind: .protein, massValue: 0.5),
 				Macro(kind: .fats, massValue: 0.2)])
 		

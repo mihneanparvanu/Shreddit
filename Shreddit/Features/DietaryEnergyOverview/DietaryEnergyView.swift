@@ -30,19 +30,7 @@ struct DietaryEnergyView: View {
             )
 			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 						
-			HStack {
-				
-				ForEach(macros, id: \.kind.title) {macro in
-					
-					MacroView(macro)
-					
-				
-					if macro.kind.title != macros.last?.kind.title {
-						Spacer()
-					}
-				}
-			}
-			.padding(.horizontal)
+			MacroCirclesView(macros: macros)
 			
         }
 		.padding(.horizontal)

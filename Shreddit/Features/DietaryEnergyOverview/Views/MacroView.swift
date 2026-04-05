@@ -12,10 +12,12 @@ struct MacroView: View {
 	
 	let macro: Macro
 	
+	
+	
 	init (_ macro: Macro) {
 		self.macro = macro
 	}
-    var body: some View {
+	var body: some View {
 		
 		VStack (spacing: Design.space.m){
 			
@@ -32,7 +34,7 @@ struct MacroView: View {
 				}
 			}
 		}
-    }
+	}
 }
 
 private extension MacroView {
@@ -48,36 +50,46 @@ private extension MacroView {
 		let progress: Double
 		let size: CGFloat = Design.size.m
 		let accentColor: Color = .green
+		
+		@Environment(\.theme) var theme
+		
 		var body: some View {
-
+			
 			ZStack {
-
-				Path { path in
-					let center = CGPoint(x: size/2, y: size/2)
-					path.move(to: center)
-					path
-						.addArc(
-							center: center,
-							radius: size/2,
-							startAngle: .degrees(270),
-							endAngle: .degrees(270 - (-360 * progress)),
-							clockwise: false
-						)
 				
+				
+				ZStack {
+					Circle ()
+						.foregroundStyle(Color(.systemGray5))
+					
+					Path { path in
+						let center = CGPoint(x: size/2, y: size/2)
+						path.move(to: center)
+						path
+							.addArc(
+								center: center,
+								radius: size/2,
+								startAngle: .degrees(270),
+								endAngle: .degrees(270 - (-360 * progress)),
+								clockwise: false
+							)
+						
+					}
+					
+					.foregroundStyle(accentColor)
+					
 				}
-				
 				.frame(width: size, height: size)
-				.scaleEffect(1.15)
-				.foregroundStyle(accentColor)
+				.scaleEffect(1.11)
 				
 				Circle()
 					.frame(width: size, height: size)
 					.foregroundStyle(.background)
-
-			}
 				
+			}
+			
 		}
-	
+		
 		var circleColor: Color {
 			progress == 1 ? accentColor : Color(.systemGray3)
 		}
