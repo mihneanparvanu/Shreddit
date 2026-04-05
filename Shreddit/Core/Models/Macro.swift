@@ -31,7 +31,7 @@ struct Macro: Codable {
 	
 	/// Protein, Fat, Alcohol
 	init(kind: Kind, massValue: Double) {
-		precondition(kind != .carbs)
+		assert(kind != .carbs, "Initializing carbs without fiber and sugar leads to inaccurate data!")
 		
 		self.kind = kind
 		self.mass = Measurement(value: massValue, unit: .grams)
@@ -100,7 +100,7 @@ extension Macro {
 							   massValue: self.mass.value + other.mass.value)
 			case .carbs:
 				return Macro(
-					massValue: self.mass.value,
+					massValue: self.mass.value + other.mass.value,
 					fiberValue: (self.fiber?.value ?? 0) + (other.fiber?.value ?? 0),
 					sugarValue: (self.sugar?.value ?? 0) + (other.sugar?.value ?? 0)
 				)
