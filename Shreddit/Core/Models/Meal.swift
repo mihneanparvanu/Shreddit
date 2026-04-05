@@ -30,6 +30,46 @@ struct Meal {
 		}
 		return Array(dictionary.values)
 	}
+	
+	
+	
+	static var sampleMeal: Meal {
+		let cottageCheese = Food (
+			name: "Cottage Cheese",
+			photo: nil,
+			category: .dairy,
+			macros: [
+				Macro(kind: .protein, massValue: 12.5),
+				Macro(kind: .fats, massValue: 2),
+				Macro(kind: .carbs(fiber: 0), massValue: 2)
+			]
+		)
+		let blueberries = Food (
+			name: "Blueberries",
+			photo: nil,
+			category: .fruit,
+			macros: [
+				Macro(kind: .carbs(fiber: 4), massValue: 10),
+				Macro(kind: .protein, massValue: 0.5),
+				Macro(kind: .fats, massValue: 0.2)])
+		
+			let loggedCottageCheese = LoggedFood(
+				foodItem: cottageCheese,
+				date: .now,
+				massValue: 360)
+		let loggedBlueberries = LoggedFood(
+			foodItem: blueberries,
+			date: .now,
+			massValue: 500)
+
+		let codingDessert = Meal(
+			name: "Coding dessert",
+			description: "My favorite meal of the day",
+			foods: [loggedBlueberries, loggedCottageCheese],
+			time: .now
+		)
+		return codingDessert		
+	}
 }
 
 

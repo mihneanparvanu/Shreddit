@@ -30,6 +30,8 @@ extension Food {
 	enum Category: String, CaseIterable, Codable {
 		case meat
 		case vegetable
+		case egg
+		case dairy
 		case fruit
 		case legume
 		case grain
@@ -37,6 +39,8 @@ extension Food {
 			switch self {
 				case .meat: return 0.7
 				case .vegetable: return 0.8
+				case .egg: return 0.95
+				case .dairy: return 1.0
 				case .fruit: return 1.0
 				case .legume: return 2.5
 				case .grain: return 3.0

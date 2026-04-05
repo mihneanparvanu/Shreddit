@@ -9,9 +9,22 @@ import SwiftUI
 
 struct LoggedFood {
 	let foodItem: Food
-	let date: Date
+	let date: Date?
 	let mass: Measurement<UnitMass>
 	let preparation: Food.Preparation
+	
+	init(
+		foodItem: Food,
+		date: Date?,
+		massValue: Double,
+		massUnit: Mass = .grams,
+		preparation: Food.Preparation = .raw
+	) {
+		self.foodItem = foodItem
+		self.date = date
+		self.mass = Measurement(value: massValue, unit: massUnit.foundationUnit)
+		self.preparation = preparation
+	}
 	
 	var macros: [Macro] {
 		let massInGrams = mass.converted(to: .grams).value

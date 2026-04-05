@@ -74,16 +74,16 @@ struct DashboardView: View {
 		
 		var body: some View {
 			
-		let macros = [
-			Macro(kind: .protein, grams: 90, goal: 180),
-			Macro(kind: .carbs(fiber: 20), grams: 120, goal: 240),
-			Macro(kind: .fats, grams: 100, goal: 200)
-		]
+			let meal = Meal.sampleMeal
 			
-						 
+			let tdee = 1760 + 970
 			
-			DietaryEnergyView(caloriesLeft: diet.dailyDeficit,
-							  macros: macros)
+			let dietaryEnergy = meal.calories
+			
+			let caloriesLeft = tdee - dietaryEnergy - diet.dailyDeficit
+			
+			DietaryEnergyView(caloriesLeft: caloriesLeft,
+							  macros: meal.totalMacros)
 		}
 	}
 }

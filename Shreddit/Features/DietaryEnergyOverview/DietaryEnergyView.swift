@@ -40,8 +40,6 @@ struct DietaryEnergyView: View {
 					if macro.kind.title != macros.last?.kind.title {
 						Spacer()
 					}
-					
-					
 				}
 			}
 			.padding(.horizontal)
@@ -55,7 +53,8 @@ struct DietaryEnergyView: View {
 #Preview {
 	let caloriesLeft = 400
 	
-	
+	let meal = Meal.sampleMeal
+	let macros = meal.totalMacros
 		
 	DietaryEnergyView(caloriesLeft: caloriesLeft,
 					  macros: macros)

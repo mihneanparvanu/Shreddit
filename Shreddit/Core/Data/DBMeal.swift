@@ -14,6 +14,12 @@ final class DBMeal {
 
 	var name: String
 	var ingredients: [MealIngredient]
+	
+	init(id: String, name: String, ingredients: [MealIngredient]) {
+		self.id = id
+		self.name = name
+		self.ingredients = ingredients
+	}
 }
 
 struct MealIngredient: Codable {

@@ -18,16 +18,18 @@ struct MacroView: View {
     var body: some View {
 		
 		VStack (spacing: Design.space.m){
-			Text(macro.kind.title)
-				.font(.subheadline.weight(.semibold))
 			
 			ZStack {
 				Graph(progress: progress)
 				
-				VStack{
-					Text(macro.grams.description + macro.unit)
+				VStack {
+					Text(
+						macro.kind.title.first?.uppercased() ?? ""
+					)
+					Text (macro.mass.description)
+						.font(.caption)
+						.foregroundStyle(.secondary)
 				}
-				.font(.caption)
 			}
 		}
     }
@@ -35,8 +37,8 @@ struct MacroView: View {
 
 private extension MacroView {
 	var progress: Double {
-		let currentValue = Double(macro.grams)
-		let goal = Double(macro.goal)
+		let currentValue = Double(macro.mass.value)
+		let goal = Double(100)
 		let sanitizedGoal = min(currentValue / goal, 1)
 		return sanitizedGoal
 	}
@@ -65,12 +67,12 @@ private extension MacroView {
 				}
 				
 				.frame(width: size, height: size)
-				.scaleEffect(1.1)
+				.scaleEffect(1.15)
 				.foregroundStyle(accentColor)
 				
 				Circle()
 					.frame(width: size, height: size)
-					.foregroundStyle(circleColor)
+					.foregroundStyle(.background)
 
 			}
 				
@@ -83,5 +85,5 @@ private extension MacroView {
 }
 
 #Preview {
-	MacroView(.init(kind: .protein, grams: 140, goal: 150))
+	MacroView(.init(kind: .protein, massValue: 80))
 }
