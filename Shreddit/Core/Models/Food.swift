@@ -16,8 +16,9 @@ struct Food {
 	let category: Category
 	let macros: [Macro]
 	
-	var calories: Int {
-		macros.map(\.calories).reduce(0, +)
+	var calories: Measurement<UnitEnergy> {
+		let value = macros.map(\.calories.value).reduce(0, +)
+		return .init(value: value, unit: .kilocalories)
 	}
 }
 

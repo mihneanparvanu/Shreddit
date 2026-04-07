@@ -43,7 +43,8 @@ struct DietaryEnergyView: View {
 	
 	let meal = Meal.sampleMeal
 	let macros = meal.totalMacros
-		
+	
+
 	DietaryEnergyView(caloriesLeft: caloriesLeft,
 					  macros: macros)
 	.previewEnvironment()

@@ -78,12 +78,17 @@ struct DashboardView: View {
 			
 			let tdee = 1760 + 970
 			
-			let dietaryEnergy = meal.calories
+			let dietaryEnergy = Int(meal.calories.value.rounded())
 			
 			let caloriesLeft = tdee - dietaryEnergy - diet.dailyDeficit
 			
-			DietaryEnergyView(caloriesLeft: caloriesLeft,
-							  macros: meal.totalMacros)
+			
+			VStack (spacing: 20){
+				DietaryEnergyView(caloriesLeft: caloriesLeft,
+								  macros: meal.totalMacros)
+				
+				MealCard(meal)
+			}
 		}
 	}
 }

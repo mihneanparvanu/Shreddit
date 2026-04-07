@@ -14,8 +14,9 @@ struct Meal {
 	let foods: [LoggedFood]
 	let time: Date
 	
-	var calories: Int {
-		foods.map(\.calories).reduce(0, +)
+	var calories: Measurement<UnitEnergy> {
+		let value = foods.map(\.calories.value).reduce(0, +)
+		return .init(value: value, unit: .kilocalories)
 	}
 	
 	var totalMacros: [Macro] {
@@ -41,7 +42,7 @@ struct Meal {
 			macros: [
 				Macro(kind: .protein, massValue: 12.5),
 				Macro(kind: .fats, massValue: 2),
-				Macro(kind: .carbs, massValue: 10, fiberValue: 0, sugarValue: 2)
+				Macro(massValue: 2, fiberValue: 0, sugarValue: 2)
 			]
 		)
 		let blueberries = Food (
@@ -49,9 +50,9 @@ struct Meal {
 			photo: nil,
 			category: .fruit,
 			macros: [
-				Macro(kind: .carbs, massValue: 13, fiberValue: 5, sugarValue: 6),
-				Macro(kind: .protein, massValue: 0.5),
-				Macro(kind: .fats, massValue: 0.2)])
+				Macro(massValue: 14.49, fiberValue: 2.4, sugarValue: 9.96),
+				Macro(kind: .protein, massValue: 0.74),
+				Macro(kind: .fats, massValue: 0.33)])
 		
 			let loggedCottageCheese = LoggedFood(
 				foodItem: cottageCheese,

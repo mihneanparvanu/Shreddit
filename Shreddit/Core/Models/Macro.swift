@@ -13,18 +13,19 @@ struct Macro: Codable {
 	let fiber: Measurement<UnitMass>?
 	let sugar: Measurement<UnitMass>?
 	
-	var calories: Int {
+	var calories: Measurement<UnitEnergy> {
 		let massInGrams = mass.converted(to: .grams).value
+		let unit: UnitEnergy = .kilocalories
 		switch kind {
 			case .protein, .fats, .alcohol:
 				let exactCalories = kind.calculateCalories(for: massInGrams)
-				return Int(exactCalories.rounded())
+				return .init(value: exactCalories, unit: unit)
 				
 			case.carbs:
 				let fiber = fiber?.converted(to: .grams).value ?? 0
 				let netCarbs = massInGrams - fiber
 				let totalCalories = netCarbs * 4 + fiber * 2
-				return Int(totalCalories.rounded())
+				return .init(value: totalCalories, unit: unit)
 		}
 		
 	}

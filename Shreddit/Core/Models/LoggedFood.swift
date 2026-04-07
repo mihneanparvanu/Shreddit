@@ -40,8 +40,9 @@ struct LoggedFood {
 		return foodItem.macros.map { $0.scaledBy(multiplier)}
 	}
 	
-	var calories: Int {
-		return macros.map(\.calories).reduce(0, +)
+	var calories: Measurement<UnitEnergy> {
+		let value = macros.map(\.calories.value).reduce(0, +)
+		return .init(value: value, unit: .kilocalories)
 	}
 }
 

@@ -12,7 +12,7 @@ struct MacroCirclesView: View {
 	
 	
 	var sortedMacros: [Macro] {
-		let prefferedOrder: [Macro.Kind] = [.protein, .carbs(fiber: 0), .fats]
+		let prefferedOrder: [Macro.Kind] = [.protein, .carbs, .fats]
 		let buffer = macros.count + 10
 		return	macros.sorted { firstMacro, secondMacro in
 			let firstIndex = prefferedOrder.firstIndex(of: firstMacro.kind) ?? buffer
