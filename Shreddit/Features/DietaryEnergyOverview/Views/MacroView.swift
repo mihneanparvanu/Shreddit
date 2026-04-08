@@ -11,32 +11,27 @@ struct MacroView: View {
 	// MARK: Dependencies
 	
 	let macro: Macro
-	let size: Size
-	let variant: Variant
 	
+	@Environment(\.macroViewStyle) var style
 	
 	init (
 		_ macro: Macro,
-		size: Size = .medium,
-		variant: Variant = .detailed
 	) {
 		self.macro = macro
-		self.size = size
-		self.variant = variant
 	}
 	var body: some View {
 		
 		VStack (spacing: Design.space.m){
 			
 			ZStack {
-				Graph(progress: progress, size: size.cgValue)
+				Graph(progress: progress, size: style.size.cgValue)
 				
 				VStack {
 					Text(
 						macro.kind.title.first?.uppercased() ?? ""
 					)
-					.font(size.font)
-					if variant == .detailed {
+					.font(style.size.font)
+					if style.variant == .detailed {
 						Text (macro.mass.description)
 							.font(.caption)
 							.foregroundStyle(.secondary)
@@ -58,13 +53,13 @@ extension MacroView {
 	case small, medium
 		var cgValue: CGFloat {
 			switch self {
-				case .small: return Design.size.xS
+				case .small: return 28
 				case .medium: return Design.size.m
 			}
 		}
 		var font: Font {
 			switch self {
-				case .small: return .caption2
+				case .small: return .footnote
 				case .medium: return .headline
 			}
 		}
@@ -132,5 +127,6 @@ private extension MacroView {
 }
 
 #Preview {
-	MacroView(.init(kind: .protein, massValue: 80), size: .small, variant: .compact)
+	MacroView(.init(kind: .protein, massValue: 80))
+		.macroStyle(size: .small, variant: .compact)
 }

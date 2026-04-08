@@ -30,7 +30,7 @@ struct DietaryEnergyView: View {
             )
 			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 						
-			MacroCirclesView(macros: macros, size: .medium, variant: .detailed)
+			MacroCirclesView(macros: macros)
 			
         }
 		.padding(.horizontal)

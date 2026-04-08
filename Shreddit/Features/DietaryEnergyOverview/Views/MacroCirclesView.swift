@@ -9,9 +9,6 @@ import SwiftUI
 
 struct MacroCirclesView: View {
 	let macros: [Macro]
-	let size: MacroView.Size
-	let variant: MacroView.Variant
-	
 	
 	var sortedMacros: [Macro] {
 		let prefferedOrder: [Macro.Kind] = [.protein, .carbs, .fats]
@@ -29,7 +26,7 @@ struct MacroCirclesView: View {
 			
 			ForEach(sortedMacros, id: \.kind.title) {macro in
 				
-				MacroView(macro, size: size, variant: variant)
+				MacroView(macro)
 				
 			}
 		} 

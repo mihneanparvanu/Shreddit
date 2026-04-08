@@ -24,10 +24,8 @@ struct MealCard: View {
 			
 			HStack {
 				MacroCirclesView(
-					macros: meal.totalMacros,
-					size: .small,
-					variant: .compact
-				)
+					macros: meal.totalMacros)
+				.macroStyle(size: .small, variant: .compact)
 				
 				
 				ForEach(meal.foods, id: \.foodItem.id) { food in
