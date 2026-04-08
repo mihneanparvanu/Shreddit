@@ -23,6 +23,13 @@ struct MealCard: View {
 				.font(.title3)
 			
 			HStack {
+				MacroCirclesView(
+					macros: meal.totalMacros,
+					size: .small,
+					variant: .compact
+				)
+				
+				
 				ForEach(meal.foods, id: \.foodItem.id) { food in
 					Text(food.foodItem.name)
 				}
@@ -46,5 +53,5 @@ struct MealCard: View {
 
 
 #Preview {
-	MealCard(Meal.sampleMeal)
+	MealCard(DevPreview.Meals.codingDessert)
 }

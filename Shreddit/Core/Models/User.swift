@@ -18,9 +18,9 @@ struct User: Codable, Identifiable {
 	let createdAt: Date
 	var settings: Settings?
 	var currentDiet: Diet?
-	var metabolsim: Metabolism
+	var metabolism: Metabolism
 }
 
 #Preview {
-	ProfileView(user: User.preview)
+	ProfileView(user: DevPreview.Users.main)
 }

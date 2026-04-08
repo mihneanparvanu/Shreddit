@@ -30,7 +30,7 @@ struct DietaryEnergyView: View {
             )
 			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 						
-			MacroCirclesView(macros: macros)
+			MacroCirclesView(macros: macros, size: .medium, variant: .detailed)
 			
         }
 		.padding(.horizontal)
@@ -41,7 +41,7 @@ struct DietaryEnergyView: View {
 #Preview {
 	let caloriesLeft = 400
 	
-	let meal = Meal.sampleMeal
+	let meal = DevPreview.Meals.codingDessert
 	let macros = meal.totalMacros
 	
 

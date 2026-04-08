@@ -11,30 +11,65 @@ struct MacroView: View {
 	// MARK: Dependencies
 	
 	let macro: Macro
+	let size: Size
+	let variant: Variant
 	
 	
-	
-	init (_ macro: Macro) {
+	init (
+		_ macro: Macro,
+		size: Size = .medium,
+		variant: Variant = .detailed
+	) {
 		self.macro = macro
+		self.size = size
+		self.variant = variant
 	}
 	var body: some View {
 		
 		VStack (spacing: Design.space.m){
 			
 			ZStack {
-				Graph(progress: progress)
+				Graph(progress: progress, size: size.cgValue)
 				
 				VStack {
 					Text(
 						macro.kind.title.first?.uppercased() ?? ""
 					)
-					Text (macro.mass.description)
-						.font(.caption)
-						.foregroundStyle(.secondary)
+					.font(size.font)
+					if variant == .detailed {
+						Text (macro.mass.description)
+							.font(.caption)
+							.foregroundStyle(.secondary)
+					}
+					
 				}
 			}
 		}
 	}
+}
+
+
+extension MacroView {
+	enum Variant {
+		case detailed, compact
+	}
+	
+	enum Size {
+	case small, medium
+		var cgValue: CGFloat {
+			switch self {
+				case .small: return Design.size.xS
+				case .medium: return Design.size.m
+			}
+		}
+		var font: Font {
+			switch self {
+				case .small: return .caption2
+				case .medium: return .headline
+			}
+		}
+	}
+	
 }
 
 private extension MacroView {
@@ -48,7 +83,7 @@ private extension MacroView {
 	
 	struct Graph: View {
 		let progress: Double
-		let size: CGFloat = Design.size.m
+		let size: CGFloat
 		let accentColor: Color = .green
 		
 		@Environment(\.theme) var theme
@@ -97,5 +132,5 @@ private extension MacroView {
 }
 
 #Preview {
-	MacroView(.init(kind: .protein, massValue: 80))
+	MacroView(.init(kind: .protein, massValue: 80), size: .small, variant: .compact)
 }

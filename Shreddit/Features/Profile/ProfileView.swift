@@ -81,7 +81,6 @@ private extension ProfileView {
 }
 
 #Preview {
-	let user = User.preview
-	ProfileView(user: user)
+	ProfileView(user: DevPreview.Users.main)
 		.environment(AppSettingsManager())
 }

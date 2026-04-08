@@ -74,20 +74,23 @@ struct DashboardView: View {
 		
 		var body: some View {
 			
-			let meal = Meal.sampleMeal
-			
+			let meals = [
+				DevPreview.Meals.shreddedBreakfast,
+				DevPreview.Meals.powerLunch,
+				DevPreview.Meals.codingDessert
+			]
+						
 			let tdee = 1760 + 970
 			
-			let dietaryEnergy = Int(meal.calories.value.rounded())
+			let dietaryEnergy = 2200
 			
 			let caloriesLeft = tdee - dietaryEnergy - diet.dailyDeficit
 			
-			
 			VStack (spacing: 20){
-				DietaryEnergyView(caloriesLeft: caloriesLeft,
-								  macros: meal.totalMacros)
-				
-				MealCard(meal)
+			
+				ForEach(meals, id: \.id) { meal in
+					MealCard(meal)
+				}
 			}
 		}
 	}

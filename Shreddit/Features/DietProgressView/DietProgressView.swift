@@ -30,7 +30,7 @@ struct DietProgressView: View {
  
 
 #Preview {
-	let diet = User.preview.currentDiet!
+	let diet = DevPreview.Users.main.currentDiet!
 	DietProgressView(diet)
 }
 

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MacroCirclesView: View {
 	let macros: [Macro]
+	let size: MacroView.Size
+	let variant: MacroView.Variant
 	
 	
 	var sortedMacros: [Macro] {
@@ -27,14 +29,9 @@ struct MacroCirclesView: View {
 			
 			ForEach(sortedMacros, id: \.kind.title) {macro in
 				
-				MacroView(macro)
+				MacroView(macro, size: size, variant: variant)
 				
-			
-				if macro.kind.title != sortedMacros.last?.kind.title {
-					Spacer()
-				}
 			}
-		}
-		.padding(.horizontal)
+		} 
 	}
 }

@@ -13,7 +13,7 @@ import Observation
 	
 	var user: User
 	
-	init(user: User = .preview) {
+	init(user: User = DevPreview.Users.main) {
 		self.user = user
 	}
 	

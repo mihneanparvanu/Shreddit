@@ -88,7 +88,7 @@ private extension CurrentUserView {
 
 #Preview {
 	CurrentUserView(
-		user: User.preview,
+		user: DevPreview.Users.main,
 		variant:
 				.detailed(
 					details: .init(

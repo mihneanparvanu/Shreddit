@@ -12,7 +12,9 @@ struct ShredditApp: App {
     // MARK: Properties
 
     // MARK: State
-	@State private var sessionManager = SessionManager(user: .preview)
+	@State private var sessionManager = SessionManager(
+		user: DevPreview.Users.main
+	)
 	@State private var healthManager = HealthManager()
 	@State private var settingsManager = AppSettingsManager()
     @State private var onboardingManager = AppOnboardingManager()
