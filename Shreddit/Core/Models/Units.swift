@@ -74,7 +74,15 @@ struct Units: Codable, Sendable {
 			}
 		}
 	}
-
+	
+	func conver(_ measurement: Measurement<UnitEnergy>) -> Measurement<UnitEnergy> {
+		return measurement.converted(to: self.foundationEnergy)
+	}
+	
+	func convert(_ measurement: Measurement<UnitMass>) -> Measurement<UnitMass> {
+		return measurement.converted(to: self.foundationMass)
+	}
+	
 	enum MassUnit: String, CaseIterable, RawRepresentable, Identifiable, Codable, Sendable {
 		case kg, lbs, st
 
@@ -101,23 +109,21 @@ struct Units: Codable, Sendable {
 			}
 		}
 	}
-	
-	struct Display {
-		var mass: MassUnit 
-		var energy: EnergyUnit
-	}
+}
+
+
+private struct UnitsKey: EnvironmentKey {
+	static let defaultValue = Units()
 }
 
 
 extension EnvironmentValues {
-	var units: Units.Display {
+	var units: Units {
 		get {
-			let manager = self[AppSettingsManager.self]
-			return Units
-				.Display(
-					mass: manager?.settings.units.massUnit ?? .kg,
-					energy: manager?.settings.units.energyUnit ?? .kcal,
-				)
+			self[UnitsKey.self]
+		}
+		set {
+			self[UnitsKey.self] = newValue
 		}
 	}
 }

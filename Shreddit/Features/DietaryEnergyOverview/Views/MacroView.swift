@@ -32,11 +32,10 @@ struct MacroView: View {
 					)
 					.font(style.size.font)
 					if style.variant == .detailed {
-						Text (macro.displayMass)
+						Text (macro.calories.valueUnitDisplay)
 							.font(.caption)
 							.foregroundStyle(.secondary)
 					}
-					
 				}
 			}
 		}

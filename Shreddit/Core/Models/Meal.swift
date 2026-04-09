@@ -18,7 +18,7 @@ struct Meal {
 		let value = foods.map(\.calories.value).reduce(0, +)
 		return .init(value: value, unit: .kilocalories)
 	}
-	
+
 	var totalMacros: [Macro] {
 		let dictionary = foods.flatMap(\.macros).reduce(into: [String:Macro]()) { accumulator, currentMacro in
 			let key = currentMacro.kind.title

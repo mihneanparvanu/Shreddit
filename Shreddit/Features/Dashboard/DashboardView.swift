@@ -94,7 +94,6 @@ private extension DashboardView {
 		
 		var body: some View {
 			
-			
 			VStack (spacing: 20){
 				DietaryEnergyView(
 					energyLeft: caloriesLeft,
@@ -107,7 +106,6 @@ private extension DashboardView {
 			}
 		}
 	}
-		
 }
 
 private extension DashboardView.DietDashboard {

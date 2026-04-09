@@ -52,7 +52,7 @@ private extension DietaryEnergyView {
 				HighlightedTextView(
 					highlight: .init(value: energyLeft),
 					content: .init(beforeHighlight: "Have fun eating the rest",
-								   afterHighlight: units.energy.title.lowercased())
+								   afterHighlight: units.energyUnit.title)
 				)
 				.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 			}

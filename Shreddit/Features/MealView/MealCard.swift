@@ -11,6 +11,8 @@ struct MealCard: View {
 	
 	let meal: Meal
 	
+	@Environment(\.units) var units
+	
 	init(_ meal: Meal) {
 		self.meal = meal
 	}
@@ -33,7 +35,11 @@ struct MealCard: View {
 				}
 				Spacer()
 				
-				Text(meal.calories.formatted(.measurement(width: .abbreviated)))
+				let displayCalories = units.conver(
+					meal.calories
+				).valueUnitDisplay
+				
+				Text(displayCalories)
 			}
 			.font(.caption)
 			.foregroundStyle(Color(.systemGray2))
@@ -51,5 +57,5 @@ struct MealCard: View {
 
 
 #Preview {
-	MealCard(DevPreview.Meals.codingDessert)
+	MealCard(DevPreview.Meals.powerLunch)
 }

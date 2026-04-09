@@ -26,6 +26,7 @@ struct ShredditApp: App {
 				.environment(healthManager)
                 .environment(settingsManager)
                 .environment(onboardingManager)
+				.environment(\.units, settingsManager.settings.units)
         }
     }
 }
