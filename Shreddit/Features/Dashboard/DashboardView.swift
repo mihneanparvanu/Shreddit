@@ -32,32 +32,51 @@ struct DashboardView: View {
 				Text(Date.now.formatted(.dateTime.month(.wide).day()))
 				
 				Spacer()
-								
-				CurrentUserView(
-					user: user,
-					variant: userViewVariant
-				)
+				
+				UserView(user: user)
+					.userViewVariant(userViewVariant)
 			}
 			
 			if let diet = user.currentDiet {
 				DietDashboard(diet)
 			}
 			
-		 else {
+			else {
 				StartDiet()
 			}
 			
 			Spacer()
 		}
 		
-			.sheet(item: $vm.sheetContent) { content in
-				PresentedView(content)
-			}
-			.fullScreenCover(item: $vm.fullScreenContent) { content in
-				PresentedView(content)
-			}
+		.sheet(item: $vm.sheetContent) { content in
+			PresentedView(content)
+		}
+		.fullScreenCover(item: $vm.fullScreenContent) { content in
+			PresentedView(content)
+		}
+	}
+}
+
+private extension DashboardView {
+	var user: User {
+		sessionManager.user
 	}
 	
+	var userViewVariant: UserView.Variant {
+		guard let diet = user.currentDiet else {
+			return .compact
+		}
+		
+		return .detailed(
+			details: .init(
+				highlight: .init(value: diet.daysElapsed),
+				content: .init(afterHighlight: "days")
+			)
+		)
+	}
+}
+
+private extension DashboardView {
 	struct StartDiet: View {
 		var body: some View {
 			
@@ -79,7 +98,7 @@ struct DashboardView: View {
 				DevPreview.Meals.powerLunch,
 				DevPreview.Meals.codingDessert
 			]
-						
+			
 			let tdee = 1760 + 970
 			
 			let dietaryEnergy = 2200
@@ -87,31 +106,12 @@ struct DashboardView: View {
 			let caloriesLeft = tdee - dietaryEnergy - diet.dailyDeficit
 			
 			VStack (spacing: 20){
-			
+				
 				ForEach(meals, id: \.id) { meal in
 					MealCard(meal)
 				}
 			}
 		}
-	}
-}
-
-private extension DashboardView {
-	var user: User {
-		sessionManager.user
-	}
-	
-	var userViewVariant: CurrentUserView.Variant {
-		guard let diet = user.currentDiet else {
-			return .compact
-		}
-		
-		return .detailed(
-			details: .init(
-				highlight: .init(value: diet.daysElapsed),
-				content: .init(afterHighlight: "days")
-			)
-		)
 	}
 }
 

@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct CurrentUserView: View {
+struct UserView: View {
 	// MARK: Dependencies
 
 	let user: User
-	let variant: Variant
 
+	@Environment(\.userViewVariant) var variant
+	
 	var body: some View {
 		switch variant {
 			case .compact:
@@ -29,10 +30,10 @@ struct CurrentUserView: View {
 }
 
 
-extension CurrentUserView {
+extension UserView {
 	enum Variant {
 		case detailed(
-			details: CurrentUserView.UserDetails
+			details: UserView.UserDetails
 		), compact, imageOnly
 	}
 	
@@ -42,7 +43,7 @@ extension CurrentUserView {
 	}
 }
 
-private extension CurrentUserView {
+private extension UserView {
 	struct DetailedView: View {
 		let userImageURL: String?
 		let userName: String
@@ -72,6 +73,7 @@ private extension CurrentUserView {
 				ProfilePicture(picture: userImageURL,
 				               size: 24)
 				Text(userName)
+					.foregroundStyle(.secondary)
 			}
 		}
 	}
@@ -87,14 +89,6 @@ private extension CurrentUserView {
 }
 
 #Preview {
-	CurrentUserView(
-		user: DevPreview.Users.main,
-		variant:
-				.detailed(
-					details: .init(
-						highlight: .init(value: 20),
-						content: .init(afterHighlight: "days")
-					)
-				)
-	)
+	UserView(
+		user: DevPreview.Users.main)
 }
