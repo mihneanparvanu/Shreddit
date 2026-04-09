@@ -24,21 +24,17 @@ struct MealCard: View {
 			Text(meal.name)
 				.font(.title3)
 			
-			HStack {
-				MacroCirclesView(
-					macros: meal.totalMacros)
+			HStack (spacing: Design.space.xS){
+				MacroCirclesView(meal.totalMacros)
 				.macroStyle(size: .small, variant: .compact)
 				
 				
-				ForEach(meal.foods, id: \.foodItem.id) { food in
-					Text(food.foodItem.name)
-				}
+				Text(meal.foods.map(\.foodItem.name).joined(separator: ", "))
+					.lineLimit(1)
+					.minimumScaleFactor(0.9)
 				Spacer()
 				
-				let displayCalories = units.conver(
-					meal.calories
-				).valueUnitDisplay
-				
+			
 				Text(displayCalories)
 			}
 			.font(.caption)
@@ -53,6 +49,15 @@ struct MealCard: View {
 				.foregroundStyle(Color(.systemGray4))
 		}
 	}
+}
+
+private extension MealCard {
+	var displayCalories: String {
+		return units.convert(
+			meal.calories
+		).valueUnitDisplay
+		}
+
 }
 
 

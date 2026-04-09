@@ -50,26 +50,26 @@ enum DevPreview {
 		])
 		
 		// New: Breakfast
-		static let eggWhites = Food(name: "Egg Whites (Raw)", photo: nil, category: .egg, macros: [
+		static let eggWhites = Food(name: "Egg Whites", photo: nil, category: .egg, macros: [
 			Macro(kind: .protein, massValue: 10.9),
 			Macro(kind: .fats, massValue: 0.2),
 			Macro(massValue: 0.7, fiberValue: 0, sugarValue: 0.7)
 		])
 		
-		static let avocado = Food(name: "Avocado (Raw)", photo: nil, category: .fruit, macros: [
+		static let avocado = Food(name: "Avocado", photo: nil, category: .fruit, macros: [
 			Macro(kind: .protein, massValue: 2.0),
 			Macro(kind: .fats, massValue: 14.7),
 			Macro(massValue: 8.5, fiberValue: 6.7, sugarValue: 0.7)
 		])
 		
-		static let babySpinach = Food(name: "Baby Spinach (Raw)", photo: nil, category: .vegetable, macros: [
+		static let babySpinach = Food(name: "Baby Spinach", photo: nil, category: .vegetable, macros: [
 			Macro(kind: .protein, massValue: 2.9),
 			Macro(kind: .fats, massValue: 0.4),
 			Macro(massValue: 3.6, fiberValue: 2.2, sugarValue: 0.4)
 		])
 		
 		// New: Lunch
-		static let chickenBreast = Food(name: "Chicken Breast (Raw)", photo: nil, category: .meat, macros: [
+		static let chickenBreast = Food(name: "Chicken Breast", photo: nil, category: .meat, macros: [
 			Macro(kind: .protein, massValue: 22.5),
 			Macro(kind: .fats, massValue: 2.6),
 			Macro(massValue: 0.0, fiberValue: 0.0, sugarValue: 0.0)
@@ -87,7 +87,7 @@ enum DevPreview {
 			Macro(massValue: 3.0, fiberValue: 1.2, sugarValue: 2.0)
 		])
 		
-		static let proteinWrap = Food(name: "High Protein Wrap", photo: nil, category: .grain, macros: [
+		static let proteinWrap = Food(name: "Protein Wrap", photo: nil, category: .grain, macros: [
 			Macro(kind: .protein, massValue: 16.0),
 			Macro(kind: .fats, massValue: 8.0),
 			Macro(massValue: 44.0, fiberValue: 35.0, sugarValue: 2.0)

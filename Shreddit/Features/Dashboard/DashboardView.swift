@@ -94,16 +94,19 @@ private extension DashboardView {
 		
 		var body: some View {
 			
-			VStack (spacing: 20){
+			VStack (spacing: Design.space.xxxL){
 				DietaryEnergyView(
 					energyLeft: caloriesLeft,
-					macros: meals[0].totalMacros
+					macros: meals[2].totalMacros
 				)
-				
-				ForEach(meals, id: \.id) { meal in
-					MealCard(meal)
+			
+				VStack {
+					ForEach(meals, id: \.id) { meal in
+						MealCard(meal)
+					}
 				}
 			}
+			.padding(.horizontal)
 		}
 	}
 }

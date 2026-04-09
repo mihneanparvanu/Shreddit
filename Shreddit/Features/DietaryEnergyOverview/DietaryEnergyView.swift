@@ -21,18 +21,17 @@ struct DietaryEnergyView: View {
     // MARK: Initializer
 
     var body: some View {
-		VStack (spacing: Design.space.xxL){
-			
+		VStack (spacing: Design.space.l){
+		
 			if energyLeft > 0 {
 				EnergyLeft(energyLeft)
 			} else {
 				EnergyExceeded()
 			}
           						
-			MacroCirclesView(macros: macros)
+			MacroCirclesView(macros, spacing: .spaceBetween)
 			
         }
-		.padding(.horizontal)
     }
 	
 }

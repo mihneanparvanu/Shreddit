@@ -75,10 +75,12 @@ struct Units: Codable, Sendable {
 		}
 	}
 	
-	func conver(_ measurement: Measurement<UnitEnergy>) -> Measurement<UnitEnergy> {
+	/// Converts energy units into user preferences
+	func convert(_ measurement: Measurement<UnitEnergy>) -> Measurement<UnitEnergy> {
 		return measurement.converted(to: self.foundationEnergy)
 	}
 	
+	/// Converts energy units into user preferences
 	func convert(_ measurement: Measurement<UnitMass>) -> Measurement<UnitMass> {
 		return measurement.converted(to: self.foundationMass)
 	}
