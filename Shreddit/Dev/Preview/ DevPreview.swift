@@ -110,9 +110,9 @@ enum DevPreview {
 			name: "Shredded Breakfast",
 			description: "High volume, healthy fats",
 			foods: [
-				LoggedFood(foodItem: Foods.eggWhites, date: .now, massValue: 250),
-				LoggedFood(foodItem: Foods.babySpinach, date: .now, massValue: 100),
-				LoggedFood(foodItem: Foods.avocado, date: .now, massValue: 50)
+				LoggedFood(foodItem: Foods.eggWhites, date: .now, massValue: 500),
+				LoggedFood(foodItem: Foods.babySpinach, date: .now, massValue: 200),
+				LoggedFood(foodItem: Foods.avocado, date: .now, massValue: 90)
 			],
 			time: .now
 		)
@@ -122,10 +122,10 @@ enum DevPreview {
 			description: "Pre-workout fuel",
 			foods: [
 				LoggedFood(foodItem: Foods.chickenBreast, date: .now, massValue: 200),
-				LoggedFood(foodItem: Foods.proteinWrap, date: .now, massValue: 43), // One wrap usually ~43g
-				LoggedFood(foodItem: Foods.icebergLettuce, date: .now, massValue: 50),
-				LoggedFood(foodItem: Foods.sweetCorn, date: .now, massValue: 75),
-				LoggedFood(foodItem: Foods.cottageCheese, date: .now, massValue: 100) // Used as a sauce/base
+				LoggedFood(foodItem: Foods.proteinWrap, date: .now, massValue: 60),
+				LoggedFood(foodItem: Foods.icebergLettuce, date: .now, massValue: 200),
+				LoggedFood(foodItem: Foods.sweetCorn, date: .now, massValue: 100),
+				LoggedFood(foodItem: Foods.cottageCheese, date: .now, massValue: 180)
 			],
 			time: .now
 		)

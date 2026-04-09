@@ -30,6 +30,11 @@ struct Macro: Codable {
 		
 	}
 	
+	var displayMass: String {
+		return mass.value
+			.formatted(.number.precision(.fractionLength(0))) + mass.unit.symbol
+	}
+	
 	/// Protein, Fat, Alcohol
 	init(kind: Kind, massValue: Double) {
 		assert(kind != .carbs, "Initializing carbs without fiber and sugar leads to inaccurate data!")

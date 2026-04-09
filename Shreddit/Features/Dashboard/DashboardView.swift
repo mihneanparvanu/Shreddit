@@ -74,6 +74,7 @@ private extension DashboardView {
 			)
 		)
 	}
+	
 }
 
 private extension DashboardView {
@@ -93,19 +94,12 @@ private extension DashboardView {
 		
 		var body: some View {
 			
-			let meals = [
-				DevPreview.Meals.shreddedBreakfast,
-				DevPreview.Meals.powerLunch,
-				DevPreview.Meals.codingDessert
-			]
-			
-			let tdee = 1760 + 970
-			
-			let dietaryEnergy = 2200
-			
-			let caloriesLeft = tdee - dietaryEnergy - diet.dailyDeficit
 			
 			VStack (spacing: 20){
+				DietaryEnergyView(
+					energyLeft: caloriesLeft,
+					macros: meals[0].totalMacros
+				)
 				
 				ForEach(meals, id: \.id) { meal in
 					MealCard(meal)
@@ -113,8 +107,30 @@ private extension DashboardView {
 			}
 		}
 	}
+		
 }
 
+private extension DashboardView.DietDashboard {
+	var meals: [Meal] {
+		return [
+		DevPreview.Meals.shreddedBreakfast,
+		DevPreview.Meals.powerLunch,
+		DevPreview.Meals.codingDessert
+		]
+	}
+	
+	var macros: [Macro] {
+		return meals.flatMap(\.totalMacros)
+	}
+	
+	
+	var caloriesLeft: Int {
+		let tdee = 1760.0 + 970.0
+		let dietaryEnergy = meals.compactMap(\.calories.value).reduce(0, +)
+		let caloriesLeft = Int((tdee - dietaryEnergy).rounded()) - diet.dailyDeficit
+		return caloriesLeft
+	}
+}
 
 #Preview {
 	DashboardView(healthManager: HealthManager())

@@ -32,7 +32,7 @@ struct MacroView: View {
 					)
 					.font(style.size.font)
 					if style.variant == .detailed {
-						Text (macro.mass.description)
+						Text (macro.displayMass)
 							.font(.caption)
 							.foregroundStyle(.secondary)
 					}
@@ -128,5 +128,5 @@ private extension MacroView {
 
 #Preview {
 	MacroView(.init(kind: .protein, massValue: 80))
-		.macroStyle(size: .small, variant: .compact)
+		.macroStyle(size: .medium, variant: .detailed)
 }
