@@ -72,7 +72,7 @@ private extension DietaryEnergyView {
 	let caloriesLeft = 400
 	
 	let meal = DevPreview.Meals.codingDessert
-	let macros = meal.totalMacros
+	let macros = meal.macros
 	
 
 	DietaryEnergyView(energyLeft: caloriesLeft,

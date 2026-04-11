@@ -121,23 +121,12 @@ private extension DashboardView.DietDashboard {
 	}
 	
 	var macros: [Macro] {
-		let dictionary = meals.flatMap(\.totalMacros).reduce(into: [String: Macro]()) {accumulator, macro in
-			let key = macro.kind.title
-			
-			if let value = accumulator[key] {
-				accumulator[key] = macro.combined(with: value)
-			} else {
-				accumulator[key] = macro
-		}
-			
-			
-		}
-		return Array(dictionary.values)
+		meals.flatMap(\.macros).reduced()
 	}
 	
 	
 	var caloriesLeft: Int {
-		let tdee = 1760.0 + 970.0
+		let tdee = 1760.0 + 700
 		let dietaryEnergy = meals.compactMap(\.calories.value).reduce(0, +)
 		let caloriesLeft = Int((tdee - dietaryEnergy).rounded()) - diet.dailyDeficit
 		return caloriesLeft

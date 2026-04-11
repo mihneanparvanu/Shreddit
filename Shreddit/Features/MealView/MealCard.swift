@@ -25,7 +25,7 @@ struct MealCard: View {
 				.font(.title3)
 			
 			HStack (spacing: Design.space.xS){
-				MacroCirclesView(meal.totalMacros)
+				MacroCirclesView(meal.macros)
 				.macroStyle(size: .small, variant: .compact)
 				
 				

@@ -19,17 +19,8 @@ struct Meal {
 		return .init(value: value, unit: .kilocalories)
 	}
 
-	var totalMacros: [Macro] {
-		let dictionary = foods.flatMap(\.macros).reduce(into: [String:Macro]()) { accumulator, currentMacro in
-			let key = currentMacro.kind.title
-			
-			if let pastValue: Macro = accumulator[key] {
-				accumulator[key] = currentMacro.combined(with: pastValue)
-			} else {
-				accumulator[key] = currentMacro
-			}
-		}
-		return Array(dictionary.values)
+	var macros: [Macro] {
+		foods.flatMap(\.macros).reduced()
 	}
 }
 
