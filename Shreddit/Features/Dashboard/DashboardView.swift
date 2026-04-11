@@ -97,7 +97,7 @@ private extension DashboardView {
 			VStack (spacing: Design.space.xxxL){
 				DietaryEnergyView(
 					energyLeft: caloriesLeft,
-					macros: meals[2].totalMacros
+					macros: macros
 				)
 			
 				VStack {
@@ -121,7 +121,18 @@ private extension DashboardView.DietDashboard {
 	}
 	
 	var macros: [Macro] {
-		return meals.flatMap(\.totalMacros)
+		let dictionary = meals.flatMap(\.totalMacros).reduce(into: [String: Macro]()) {accumulator, macro in
+			let key = macro.kind.title
+			
+			if let value = accumulator[key] {
+				accumulator[key] = macro.combined(with: value)
+			} else {
+				accumulator[key] = macro
+		}
+			
+			
+		}
+		return Array(dictionary.values)
 	}
 	
 	
