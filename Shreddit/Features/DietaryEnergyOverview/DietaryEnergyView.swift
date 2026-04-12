@@ -25,15 +25,16 @@ struct DietaryEnergyView: View {
 		
 			if energyLeft > 0 {
 				EnergyLeft(energyLeft)
+			} else if energyLeft == 0 {
+				
 			} else {
 				EnergyExceeded()
+
 			}
           						
-			MacroCirclesView(macros, spacing: .spaceBetween)
-			
+			MacroCirclesView(macros, spacing: .spaceAround)
         }
     }
-	
 }
 
 private extension DietaryEnergyView {
@@ -47,7 +48,7 @@ private extension DietaryEnergyView {
 		}
 		var body: some View {
 			
-			if energyLeft > 0 {
+		
 				HighlightedTextView(
 					highlight: .init(value: energyLeft),
 					content: .init(beforeHighlight: "Have fun eating the rest",
@@ -55,7 +56,13 @@ private extension DietaryEnergyView {
 				)
 				.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 			}
-		
+		}
+	
+	struct EnergyGoalReached: View {
+		var body: some View {
+			HighlightedTextView(
+				highlight: .init(text: "You have eaten all your calories for today"), content: .init())
+			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
 		}
 	}
 	
@@ -70,10 +77,7 @@ private extension DietaryEnergyView {
 
 #Preview {
 	let caloriesLeft = 400
-	
-	let meal = DevPreview.Meals.codingDessert
-	let macros = meal.macros
-	
+	let macros = DevPreview.Meals.codingDessert.macros
 
 	DietaryEnergyView(energyLeft: caloriesLeft,
 					  macros: macros)

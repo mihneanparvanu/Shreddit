@@ -100,7 +100,7 @@ private extension DashboardView {
 					macros: macros
 				)
 			
-				VStack {
+				VStack (spacing: Design.space.m){
 					ForEach(meals, id: \.id) { meal in
 						MealCard(meal)
 					}
@@ -123,7 +123,6 @@ private extension DashboardView.DietDashboard {
 	var macros: [Macro] {
 		meals.flatMap(\.macros).reduced()
 	}
-	
 	
 	var caloriesLeft: Int {
 		let tdee = 1760.0 + 700
