@@ -23,30 +23,30 @@ enum DietFatigueState: CaseIterable, Identifiable {
     var description: String {
         switch self {
         case .noFatigue:
-            return "I'm all good"
+            "I'm all good"
         case .minFatigue:
-            return "I'm a bit hungry"
+            "I'm a bit hungry"
         case .mildFatigue:
-            return "I'm hungry and tired"
+            "I'm hungry and tired"
         case .highFatigue:
-            return "I feel like every day is a chore."
+            "I feel like every day is a chore."
         case .extremeFatigue:
-            return "I'd rather die than do this anymore!"
+            "I'd rather die than do this anymore!"
         }
     }
 
     var emoji: String {
         switch self {
         case .noFatigue:
-            return "😄"
+            "😄"
         case .minFatigue:
-            return "😅"
+            "😅"
         case .mildFatigue:
-            return "😬"
+            "😬"
         case .highFatigue:
-            return "😣"
+            "😣"
         case .extremeFatigue:
-            return "😫"
+            "😫"
         }
     }
 }

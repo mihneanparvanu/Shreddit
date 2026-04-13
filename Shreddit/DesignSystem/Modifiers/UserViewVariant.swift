@@ -7,40 +7,37 @@
 
 import SwiftUI
 
-
 private struct UserViewVariant: EnvironmentKey {
-	static let defaultValue: UserView.Variant = .compact
+    static let defaultValue: UserView.Variant = .compact
 }
 
 extension EnvironmentValues {
-	var userViewVariant: UserView.Variant {
-		get {
-			return self[UserViewVariant.self]
-		}
-		set {
-			self[UserViewVariant.self] = newValue
-		}
-	}
+    var userViewVariant: UserView.Variant {
+        get {
+            self[UserViewVariant.self]
+        }
+        set {
+            self[UserViewVariant.self] = newValue
+        }
+    }
 }
 
 struct UserViewVariantModifier: ViewModifier {
+    let variant: UserView.Variant?
 
-	let variant: UserView.Variant?
-	
-	@Environment(\.userViewVariant) var envVariant
-	
-	func body(content: Content) -> some View {
-		var newVariant = envVariant
-		
-		if let variant = variant {newVariant = variant}
-		
-		return content.environment(\.userViewVariant, newVariant)
-	}
+    @Environment(\.userViewVariant) var envVariant
+
+    func body(content: Content) -> some View {
+        var newVariant = envVariant
+
+        if let variant { newVariant = variant }
+
+        return content.environment(\.userViewVariant, newVariant)
+    }
 }
 
 extension View {
-	func userViewVariant (_ variant: UserView.Variant) -> some View {
-		self
-			.modifier(UserViewVariantModifier(variant: variant))
-	}
+    func userViewVariant(_ variant: UserView.Variant) -> some View {
+        modifier(UserViewVariantModifier(variant: variant))
+    }
 }

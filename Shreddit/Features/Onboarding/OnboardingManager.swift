@@ -16,8 +16,8 @@ protocol OnboardingManager {
 @Observable
 
 final class AppOnboardingManager: @MainActor OnboardingManager {
-	var preferencesKey: String = "onboardingState"
-  
+    var preferencesKey: String = "onboardingState"
+
     var state: OnboardingState = .init() {
         didSet {
             persist()
@@ -25,15 +25,16 @@ final class AppOnboardingManager: @MainActor OnboardingManager {
     }
 
     init() {
-		if let data = UserDefaults.standard.data(forKey: preferencesKey),
-		   let decoded = try? JSONDecoder().decode(OnboardingState.self, from: data) {
-			state = decoded
-		} else {
-			state = .init()
-		}
+        if let data = UserDefaults.standard.data(forKey: preferencesKey),
+           let decoded = try? JSONDecoder().decode(OnboardingState.self, from: data)
+        {
+            state = decoded
+        } else {
+            state = .init()
+        }
     }
 
-   private func persist() {
+    private func persist() {
         if let data = try? JSONEncoder().encode(preferencesKey) {
             UserDefaults.standard.set(data, forKey: preferencesKey)
         }

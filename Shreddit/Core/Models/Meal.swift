@@ -8,21 +8,18 @@
 import Foundation
 
 struct Meal {
-	let id: UUID = UUID()
-	let name: String
-	let description: String?
-	let foods: [LoggedFood]
-	let time: Date
-	
-	var calories: Measurement<UnitEnergy> {
-		let value = foods.map(\.calories.value).reduce(0, +)
-		return .init(value: value, unit: .kilocalories)
-	}
+    let id: UUID = .init()
+    let name: String
+    let description: String?
+    let foods: [LoggedFood]
+    let time: Date
 
-	var macros: [Macro] {
-		foods.flatMap(\.macros).reduced()
-	}
+    var calories: Measurement<UnitEnergy> {
+        let value = foods.map(\.calories.value).reduce(0, +)
+        return .init(value: value, unit: .kilocalories)
+    }
+
+    var macros: [Macro] {
+        foods.flatMap(\.macros).reduced()
+    }
 }
-
-
-

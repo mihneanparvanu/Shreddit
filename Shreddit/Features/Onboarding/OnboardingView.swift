@@ -16,8 +16,7 @@ struct OnboardingView: View {
 
     // MARK: Initializer
 
-    init(onboardingManager: any OnboardingManager)
-    {
+    init(onboardingManager: any OnboardingManager) {
         vm = OnboardingViewModel(
             onboardingManager: onboardingManager
         )
@@ -25,10 +24,10 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack {
-			OnboardingContent(step: vm.currentStep)
-			
-			Spacer()
-			
+            OnboardingContent(step: vm.currentStep)
+
+            Spacer()
+
             BottomView(currentStep: vm.currentStep,
                        backButtonAction: { vm.goToPreviousStep() },
                        nextButtonAction: { vm.goToNextStep() })
@@ -42,8 +41,8 @@ struct OnboardingView: View {
 }
 
 #Preview {
-	OnboardingView(
-		onboardingManager: AppOnboardingManager(),
-)
-	.previewEnvironment()
+    OnboardingView(
+        onboardingManager: AppOnboardingManager()
+    )
+    .previewEnvironment()
 }

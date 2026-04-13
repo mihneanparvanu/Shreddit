@@ -13,10 +13,10 @@ import SwiftUI
 final class OnboardingViewModel {
     // MARK: Properties
 
-    // Dependencies
+    /// Dependencies
     var onboardingManager: any OnboardingManager
 
-    // Onboarding State
+    /// Onboarding State
     var currentStep: OnboardingStep {
         get {
             onboardingManager.state.currentStep
@@ -26,11 +26,10 @@ final class OnboardingViewModel {
             onboardingManager.state.lastSetTime = Date()
         }
     }
-	
+
     // MARK: Initializer
 
-    init(onboardingManager: any OnboardingManager)
-    {
+    init(onboardingManager: any OnboardingManager) {
         self.onboardingManager = onboardingManager
     }
 

@@ -10,9 +10,9 @@ enum HealthKitError: Error {
     var localizedDescription: String {
         switch self {
         case .notAvailableOnDevice:
-            return "HealthKit is not available on this device."
+            "HealthKit is not available on this device."
         case .dataUnavailable:
-            return "HealthKit data is unavailable."
+            "HealthKit data is unavailable."
         }
     }
 }

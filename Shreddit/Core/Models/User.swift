@@ -8,19 +8,22 @@
 import SwiftUI
 
 struct User: Codable, Identifiable {
-	var id: String { username }
-	let firstName: String?
-	let lastName: String?
-	let username: String
-	let email: String?
-	let password: String?
-	let image: String?
-	let createdAt: Date
-	var settings: Settings?
-	var currentDiet: Diet?
-	var metabolism: Metabolism
+    var id: String {
+        username
+    }
+
+    let firstName: String?
+    let lastName: String?
+    let username: String
+    let email: String?
+    let password: String?
+    let image: String?
+    let createdAt: Date
+    var settings: Settings?
+    var currentDiet: Diet?
+    var metabolism: Metabolism
 }
 
 #Preview {
-	ProfileView(user: DevPreview.Users.main)
+    ProfileView(user: DevPreview.Users.main)
 }

@@ -9,36 +9,38 @@ import SwiftUI
 
 typealias Appearance = Settings.Appearance
 
-struct Settings: Codable, Sendable {
+struct Settings: Codable {
     var appearance: Appearance = .system
     var units: Units
 
-	enum Appearance: CaseIterable, Identifiable, Codable, Sendable {
+    enum Appearance: CaseIterable, Identifiable, Codable {
         case light
         case dark
         case system
 
-        var id: Self { self }
+        var id: Self {
+            self
+        }
 
         var title: String {
             switch self {
             case .light:
-                return "Light"
+                "Light"
             case .dark:
-                return "Dark"
+                "Dark"
             case .system:
-                return "System"
+                "System"
             }
         }
 
         var colorScheme: ColorScheme? {
             switch self {
             case .light:
-                return .light
+                .light
             case .dark:
-                return .dark
+                .dark
             case .system:
-                return nil
+                nil
             }
         }
     }

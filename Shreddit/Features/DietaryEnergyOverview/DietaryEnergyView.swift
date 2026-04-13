@@ -1,5 +1,5 @@
 //
-//  CaloriesInView.swift
+//  DietaryEnergyView.swift
 //  Shreddit
 //
 //  Created by Mihnea Nicolae Pârvanu on 7/20/25.
@@ -10,76 +10,72 @@ import SwiftUI
 struct DietaryEnergyView: View {
     // MARK: Dependencies
 
-	@Environment(HealthManager.self) var healthManager
+    @Environment(HealthManager.self) var healthManager
 
-	let energyLeft: Int
-	let macros: [Macro]
+    let energyLeft: Int
+    let macros: [Macro]
 
-	// MARK: State
-
+    // MARK: State
 
     // MARK: Initializer
 
     var body: some View {
-		VStack (spacing: Design.space.l){
-		
-			if energyLeft > 0 {
-				EnergyLeft(energyLeft)
-			} else if energyLeft == 0 {
-				
-			} else {
-				EnergyExceeded()
+        VStack(spacing: Design.space.l) {
+            if energyLeft > 0 {
+                EnergyLeft(energyLeft)
+            } else if energyLeft == 0 {
+            } else {
+                EnergyExceeded()
+            }
 
-			}
-          						
-			MacroCirclesView(macros, spacing: .spaceAround)
+            MacroCirclesView(macros, spacing: .spaceAround)
         }
     }
 }
 
 private extension DietaryEnergyView {
-	struct EnergyLeft: View {
-		
-		@Environment(\.units) var units
-		
-		let energyLeft: Int
-		init(_ energyLeft: Int) {
-			self.energyLeft = energyLeft
-		}
-		var body: some View {
-			
-		
-				HighlightedTextView(
-					highlight: .init(value: energyLeft),
-					content: .init(beforeHighlight: "Have fun eating the rest",
-								   afterHighlight: units.energyUnit.title)
-				)
-				.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
-			}
-		}
-	
-	struct EnergyGoalReached: View {
-		var body: some View {
-			HighlightedTextView(
-				highlight: .init(text: "You have eaten all your calories for today"), content: .init())
-			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
-		}
-	}
-	
-	struct EnergyExceeded: View {
-		var body: some View {
-			HighlightedTextView(
-				highlight: .init(text: "You are a failure"), content: .init())
-			.font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
-		}
-	}
+    struct EnergyLeft: View {
+        @Environment(\.units) var units
+
+        let energyLeft: Int
+        init(_ energyLeft: Int) {
+            self.energyLeft = energyLeft
+        }
+
+        var body: some View {
+            HighlightedTextView(
+                highlight: .init(value: energyLeft),
+                content: .init(beforeHighlight: "Have fun eating the rest",
+                               afterHighlight: units.energyUnit.title)
+            )
+            .font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
+        }
+    }
+
+    struct EnergyGoalReached: View {
+        var body: some View {
+            HighlightedTextView(
+                highlight: .init(text: "You have eaten all your calories for today"), content: .init()
+            )
+            .font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
+        }
+    }
+
+    struct EnergyExceeded: View {
+        var body: some View {
+            HighlightedTextView(
+                highlight: .init(text: "You are a failure"), content: .init()
+            )
+            .font(.largeTitle).fontDesign(.rounded).fontWeight(.medium)
+        }
+    }
 }
 
 #Preview {
-	let caloriesLeft = 400
-	let macros = DevPreview.Meals.codingDessert.macros
+    let caloriesLeft = 400
+    let macros = DevPreview.Meals.codingDessert.macros
 
-	DietaryEnergyView(energyLeft: caloriesLeft,
-					  macros: macros)
-	.previewEnvironment()
+    DietaryEnergyView(energyLeft: caloriesLeft,
+                      macros: macros)
+        .previewEnvironment()
 }

@@ -31,7 +31,7 @@ struct ItemPopupViewModifier<Item: Identifiable, PopupContent: View>: ViewModifi
     @ViewBuilder let popupContent: (Item) -> PopupContent
 
     func body(content: Content) -> some View {
-        if let item = item {
+        if let item {
             PopupView(mainContent: { content }) {
                 popupContent(item)
             }
@@ -61,7 +61,7 @@ extension View {
 
     Text("Hello World")
         .font(.title.bold())
-		.foregroundStyle(theme.colors.accent.primary)
+        .foregroundStyle(theme.colors.accent.primary)
         .infinityFrame()
-		.background(theme.colors.accent.primary)
+        .background(theme.colors.accent.primary)
 }

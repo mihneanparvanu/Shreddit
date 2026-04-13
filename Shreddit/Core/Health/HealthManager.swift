@@ -40,7 +40,6 @@ final class HealthManager {
             dietaryCarbs,
         ]
     }
-	
 
     // MARK: Methods
 
@@ -55,7 +54,7 @@ final class HealthManager {
     }
 
     func userHasAuthorizedDataAccess() -> Bool {
-        return allTypes.allSatisfy { type in
+        allTypes.allSatisfy { type in
             healthStore.authorizationStatus(for: type) == .sharingAuthorized
         }
     }
@@ -71,12 +70,12 @@ final class HealthManager {
                 quantitySamplePredicate: predicate,
                 options: .cumulativeSum
             ) { _, results, error in
-                if let error = error {
+                if let error {
                     continuation.resume(throwing: error)
                     return
                 }
 
-                guard let results = results else {
+                guard let results else {
                     continuation.resume(throwing: HealthKitError.dataUnavailable)
                     return
                 }
@@ -112,7 +111,7 @@ final class HealthManager {
     }
 
     func fetchDietaryEnergyConsumed(startDate: Date) async throws -> Int {
-        return try await fetchCumulativeSum(
+        try await fetchCumulativeSum(
             for: dietaryEnergyConsumed,
             unit: .kilocalorie(),
             startDate: startDate
@@ -149,47 +148,45 @@ final class HealthManager {
 }
 
 extension HealthManager {
-	func fetchAverageWeight (days: Int = 14) async throws -> Double {
-		guard let weightType = HKQuantityType.quantityType(
-			forIdentifier: .bodyMass
-		) else {
-			throw HealthKitError.dataUnavailable
-		}
-		
-		let endDate = Date()
-		guard let startDate = Calendar.current.date(
-			byAdding: .day,
-			value: -days,
-			to: endDate
-		) else {
-			throw HealthKitError.dataUnavailable
-		}
-		
-		let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
-		
-		return try await withCheckedThrowingContinuation { continuation in
-					
-					let query = HKStatisticsQuery(
-						quantityType: weightType,
-						quantitySamplePredicate: predicate,
-						options: .discreteAverage
-					) { _, result, error in
-						
-						if let error = error {
-							continuation.resume(throwing: error)
-							return
-						}
-						
-						guard let averageQuantity = result?.averageQuantity() else {
-							continuation.resume(returning: 0.0)
-							return
-						}
-						
-						let averageKg = averageQuantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
-						continuation.resume(returning: averageKg)
-					}
-					
-					self.healthStore.execute(query)
-				}
-	}
+    func fetchAverageWeight(days: Int = 14) async throws -> Double {
+        guard let weightType = HKQuantityType.quantityType(
+            forIdentifier: .bodyMass
+        ) else {
+            throw HealthKitError.dataUnavailable
+        }
+
+        let endDate = Date()
+        guard let startDate = Calendar.current.date(
+            byAdding: .day,
+            value: -days,
+            to: endDate
+        ) else {
+            throw HealthKitError.dataUnavailable
+        }
+
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+
+        return try await withCheckedThrowingContinuation { continuation in
+            let query = HKStatisticsQuery(
+                quantityType: weightType,
+                quantitySamplePredicate: predicate,
+                options: .discreteAverage
+            ) { _, result, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                guard let averageQuantity = result?.averageQuantity() else {
+                    continuation.resume(returning: 0.0)
+                    return
+                }
+
+                let averageKg = averageQuantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
+                continuation.resume(returning: averageKg)
+            }
+
+            self.healthStore.execute(query)
+        }
+    }
 }

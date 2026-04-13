@@ -10,15 +10,11 @@ import SwiftUI
 struct MenuView<Content: View>: View {
     // MARK: Dependencies
 
-	@ViewBuilder let content: Content
-	
-	init(@ViewBuilder content: () -> Content) {
-		self.content = content()
-	}
+    @ViewBuilder @ViewBuilder let content: Content
 
     var body: some View {
         Menu {
-				content
+            content
         }
         label: {
             Image(systemName: "ellipsis")
@@ -43,7 +39,7 @@ extension MenuView {
 }
 
 #Preview {
-	MenuView{
-		EmptyView()
-	}
+    MenuView {
+        EmptyView()
+    }
 }

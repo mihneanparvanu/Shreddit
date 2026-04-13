@@ -8,12 +8,10 @@
 import Foundation
 
 extension Measurement where UnitType: Dimension {
-	
-	var valueUnitDisplay: String 	 {
-		return self.formatted(.measurement(width: .abbreviated,
-										   usage: .asProvided,
-										   numberFormatStyle: .number
-			.precision(.fractionLength(0))))
-	}
-
+    var valueUnitDisplay: String {
+        formatted(.measurement(width: .abbreviated,
+                               usage: .asProvided,
+                               numberFormatStyle: .number
+                                   .precision(.fractionLength(0))))
+    }
 }

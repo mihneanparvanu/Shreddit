@@ -12,21 +12,22 @@ struct ShredditApp: App {
     // MARK: Properties
 
     // MARK: State
-	@State private var sessionManager = SessionManager(
-		user: DevPreview.Users.main
-	)
-	@State private var healthManager = HealthManager()
-	@State private var settingsManager = AppSettingsManager()
+
+    @State private var sessionManager = SessionManager(
+        user: DevPreview.Users.main
+    )
+    @State private var healthManager = HealthManager()
+    @State private var settingsManager = AppSettingsManager()
     @State private var onboardingManager = AppOnboardingManager()
 
     var body: some Scene {
         WindowGroup {
             AppEntryView()
-				.environment(sessionManager)
-				.environment(healthManager)
+                .environment(sessionManager)
+                .environment(healthManager)
                 .environment(settingsManager)
                 .environment(onboardingManager)
-				.environment(\.units, settingsManager.settings.units)
+                .environment(\.units, settingsManager.settings.units)
         }
     }
 }

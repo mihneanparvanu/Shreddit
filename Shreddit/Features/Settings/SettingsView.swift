@@ -32,11 +32,11 @@ struct SettingsView: View {
                 Picker(
                     "Weight",
                     selection: Binding(
-						get: { settingsManager.settings.units.foundationMass
- },
-						set: {
-							settingsManager.settings.units.foundationMass = $0
-						}
+                        get: { settingsManager.settings.units.foundationMass
+                        },
+                        set: {
+                            settingsManager.settings.units.foundationMass = $0
+                        }
                     )
                 ) {
                     ForEach(Units.MassUnit.allCases) { unit in
@@ -47,12 +47,12 @@ struct SettingsView: View {
                 Picker(
                     "Energy",
                     selection: Binding(
-						get: {
-							settingsManager.settings.units.foundationEnergy
-						},
-						set: {
-							settingsManager.settings.units.foundationEnergy = $0
-						}
+                        get: {
+                            settingsManager.settings.units.foundationEnergy
+                        },
+                        set: {
+                            settingsManager.settings.units.foundationEnergy = $0
+                        }
                     )
                 ) {
                     ForEach(Units.EnergyUnit.allCases) { unit in

@@ -12,22 +12,23 @@ import SwiftUI
 @Observable
 final class DashboardViewModel {
     // MARK: Properties
-	
-	// MARK: Dependencies & Properties
 
-	let healthManager: HealthManager
+    // MARK: Dependencies & Properties
 
-	// MARK: Initializer
+    let healthManager: HealthManager
 
-	init(healthManager: HealthManager) {
-		self.healthManager = healthManager
-	}
+    // MARK: Initializer
 
-	// MARK: Methods
-	func present(_ content: DashboardView.ContentType) {
-		presentedContent = content
-	}
-	
+    init(healthManager: HealthManager) {
+        self.healthManager = healthManager
+    }
+
+    // MARK: Methods
+
+    func present(_ content: DashboardView.ContentType) {
+        presentedContent = content
+    }
+
     private var presentedContent: DashboardView.ContentType?
 
     var sheetContent: DashboardView.ContentType? {

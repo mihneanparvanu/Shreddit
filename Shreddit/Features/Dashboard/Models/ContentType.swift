@@ -7,7 +7,10 @@
 
 extension DashboardView {
     enum ContentType: Identifiable {
-        var id: Self { self }
+        var id: Self {
+            self
+        }
+
         // Sheet
         case settings
         case profile
@@ -42,8 +45,8 @@ extension DashboardView.ContentType {
 extension DashboardView.ContentType.Presentation {
     var isFullscreen: Bool {
         switch self {
-        case .fullScreen: return true
-        case .sheet, .popup: return false
+        case .fullScreen: true
+        case .sheet, .popup: false
         }
     }
 }

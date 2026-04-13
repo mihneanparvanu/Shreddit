@@ -35,4 +35,3 @@ struct PopupView<MainContent: View, PopupContent: View>: View {
         }
     }
 }
-

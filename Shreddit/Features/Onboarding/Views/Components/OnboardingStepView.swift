@@ -1,5 +1,5 @@
 //
-//  OnboardingLayout.swift
+//  OnboardingStepView.swift
 //  Shreddit
 //
 //  Created by Mihnea Nicolae Pârvanu on 3/8/26.
@@ -8,70 +8,66 @@
 import SwiftUI
 
 struct OnboardingStepView<Content: View>: View {
-
     let title: String
-	let subheadline: String?
+    let subheadline: String?
     let bodyText: String?
     let content: Content
 
-	/// Layout with additional content
-	init(
-		title: String,
-		subheadline: String? = nil,
-		bodyText: String? = nil,
-		@ViewBuilder content : () -> Content
-	) {
-		self.title = title
-		self.subheadline = subheadline
-		self.bodyText = bodyText
-		self.content = content()
-	}
-	
-	/// Layout without additional content
-	init(
-		title: String,
-		subheadline: String? = nil,
-		bodyText: String? = nil
-	) where Content == EmptyView {
-		self.title = title
-		self.subheadline = subheadline
-		self.bodyText = bodyText
-		self.content = EmptyView()
-	}
+    /// Layout with additional content
+    init(
+        title: String,
+        subheadline: String? = nil,
+        bodyText: String? = nil,
+        @ViewBuilder content: () -> Content
+    ) {
+        self.title = title
+        self.subheadline = subheadline
+        self.bodyText = bodyText
+        self.content = content()
+    }
+
+    /// Layout without additional content
+    init(
+        title: String,
+        subheadline: String? = nil,
+        bodyText: String? = nil
+    ) where Content == EmptyView {
+        self.title = title
+        self.subheadline = subheadline
+        self.bodyText = bodyText
+        content = EmptyView()
+    }
 
     var body: some View {
-		HStack  {
+        HStack {
             Text(title)
                 .font(.largeTitle).fontWeight(.semibold)
-			
-			Spacer()
+
+            Spacer()
         }
-		.padding(.leading, Design.space.s)
-		.padding(.top, Design.space.m)
+        .padding(.leading, Design.space.s)
+        .padding(.top, Design.space.m)
 
         Spacer()
 
         VStack {
-			content
+            content
 
             VStack(alignment: .leading) {
-				if let subheadline {
-					Text(subheadline)
-						.font(.title).fontWeight(.semibold)
-				}
-              
+                if let subheadline {
+                    Text(subheadline)
+                        .font(.title).fontWeight(.semibold)
+                }
 
-				if let bodyText {
-					Text(bodyText)
-				}
+                if let bodyText {
+                    Text(bodyText)
+                }
             }
-			.padding(.horizontal, 24)
+            .padding(.horizontal, 24)
         }
 
         Spacer()
     }
 }
 
-#Preview {
-	
-}
+#Preview {}

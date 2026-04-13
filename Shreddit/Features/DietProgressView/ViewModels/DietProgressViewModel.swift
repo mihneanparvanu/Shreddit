@@ -9,11 +9,9 @@ import Observation
 
 @Observable
 @MainActor final class DietProgressViewModel {
-	let diet: Diet
-	
-	init(diet: Diet) {
-		self.diet = diet
-		
-	}
-	
+    let diet: Diet
+
+    init(diet: Diet) {
+        self.diet = diet
+    }
 }

@@ -12,7 +12,7 @@ struct AppEntryView: View {
 
     // MARK: Environment
 
-	@Environment(HealthManager.self) var healthManager
+    @Environment(HealthManager.self) var healthManager
     @Environment(AppSettingsManager.self) var settingsManager
     @Environment(AppOnboardingManager.self) var onboardingManager
     @Environment(\.colorScheme) var systemScheme
@@ -20,7 +20,7 @@ struct AppEntryView: View {
     var body: some View {
         Group {
             if onboardingManager.state.hasOnboarded {
-				DashboardView(healthManager: healthManager)
+                DashboardView(healthManager: healthManager)
             } else {
                 OnboardingView(onboardingManager: onboardingManager)
             }
@@ -31,5 +31,5 @@ struct AppEntryView: View {
 
 #Preview {
     AppEntryView()
-	.previewEnvironment()
+        .previewEnvironment()
 }

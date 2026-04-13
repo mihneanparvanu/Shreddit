@@ -9,11 +9,13 @@ enum OnboardingStep: String, CaseIterable, Identifiable, Codable {
     case welcome
     case intro
     case goalLook
-	case dietPace
+    case dietPace
     case userData
-	case finish
+    case finish
 
-    var id: String { rawValue }
+    var id: String {
+        rawValue
+    }
 }
 
 // MARK: Iteration logic

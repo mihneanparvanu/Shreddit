@@ -8,15 +8,15 @@
 import SwiftUI
 
 extension OnboardingContent {
-	struct FinishView: View  {
-		var body: some View {
-			OnboardingStepView(title: "Let's get shredded!",
-							   subheadline: "Lorem",
-							   bodyText: "ipsum")
-			{
-				HighlightedTextView(highlight: .init(value: 44_000),
-									content: .init(afterHighlight: "calories to burn until 10% body fat"))
-			}
-		}
-	}
+    struct FinishView: View {
+        var body: some View {
+            OnboardingStepView(title: "Let's get shredded!",
+                               subheadline: "Lorem",
+                               bodyText: "ipsum")
+            {
+                HighlightedTextView(highlight: .init(value: 44000),
+                                    content: .init(afterHighlight: "calories to burn until 10% body fat"))
+            }
+        }
+    }
 }
