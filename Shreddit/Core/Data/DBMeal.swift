@@ -11,33 +11,31 @@ import SwiftData
 @Model
 final class DBMeal {
     @Attribute(.unique) var id: String = UUID().uuidString
-
     var name: String
+	
 	@Relationship(
 		deleteRule: .cascade,
 		inverse:  \DBMealIngredient.meal,
 	)
-	
-    var ingredients: [DBMealIngredient]
+    var ingredients: [DBMealIngredient] = []
 
-    init(id: String, name: String, ingredients: [DBMealIngredient]) {
-        self.id = id
+    init(name: String) {
         self.name = name
-        self.ingredients = ingredients
     }
 }
 
 
 @Model
 final class DBMealIngredient {
-	var massInGrams: Double
 	var meal: DBMeal?
 	
 	@Relationship(deleteRule: .nullify)
 	var foodReference: DBFood
-	
-	init(massInGrams: Double, foodReference: DBFood) {
-		self.massInGrams = massInGrams
+
+	var massInGrams: Double
+
+	init(foodReference: DBFood, massInGrams: Double) {
 		self.foodReference = foodReference
+		self.massInGrams = massInGrams
 	}
 }

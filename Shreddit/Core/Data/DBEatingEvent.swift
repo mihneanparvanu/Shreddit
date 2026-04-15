@@ -12,9 +12,7 @@ import SwiftData
 @Model
 final class DBEatingEvent {
 	@Attribute(.unique) var id: String = UUID().uuidString
-	
 	var name: String
-
 	var time: Date
 
 	@Relationship(deleteRule: .cascade, inverse: \DBLoggedFood.event)
